@@ -1,6 +1,6 @@
 //
-//  Log.swift
-//  Vunder
+//  SKLog.swift
+//  SquidKit
 //
 //  Created by Mike Leavy on 8/15/14.
 //  Copyright (c) 2014 SquidStore. All rights reserved.
