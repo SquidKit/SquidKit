@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>ADB8079D-CB81-42B1-85E3-B611F3F2783D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>SquidKit</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4967185241955299B3106D61DF74DBF61FD5146C</key>
+		<string>https://github.com/SquidKit/SquidKit.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>SquidKit/SquidKit.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4967185241955299B3106D61DF74DBF61FD5146C</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/SquidKit/SquidKit.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4967185241955299B3106D61DF74DBF61FD5146C</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4967185241955299B3106D61DF74DBF61FD5146C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SquidKit</string>
+		</dict>
+	</array>
+</dict>
+</plist>
