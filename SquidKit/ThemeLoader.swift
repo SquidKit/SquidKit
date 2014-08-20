@@ -3,7 +3,7 @@
 //  SquidKit
 //
 //  Created by Mike Leavy on 8/16/14.
-//  Copyright (c) 2014 SquidStore. All rights reserved.
+//  Copyright (c) 2014 SquidKit. All rights reserved.
 //
 
 import Foundation
