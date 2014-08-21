@@ -3,4 +3,4 @@
 SquidKit
 ========
 
-Swift stuff. Nutritious, somewhat tested
+Moderately useful Swift code modules. Somewhat tested.
