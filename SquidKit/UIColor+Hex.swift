@@ -9,16 +9,16 @@
 import Foundation
 import UIKit
 
-internal extension UIColor {
+public extension UIColor {
     
-    internal class func colorWithHex(hex:UInt32, alpha:Float = -1) -> UIColor {
+    public class func colorWithHex(hex:UInt32, alpha:Float = -1) -> UIColor {
         return UIColor(red:((CGFloat)((hex & 0xFF0000) >> 16))/255.0,
             green: ((CGFloat)((hex & 0xFF00) >> 8))/255.0,
             blue: ((CGFloat)(hex & 0xFF))/255.0,
             alpha: (CGFloat)(alpha >= 0 ? alpha : 1))
     }
     
-    internal class func colorWithHexString(hexString:String, alpha:Float = -1) -> UIColor {
+    public class func colorWithHexString(hexString:String, alpha:Float = -1) -> UIColor {
         var s:NSMutableString = NSMutableString.stringWithString(hexString)
         s.replaceOccurrencesOfString("#", withString: "", options:NSStringCompareOptions.LiteralSearch, range: NSRange(location: 0, length: s.length))
         s.replaceOccurrencesOfString("0x", withString: "", options:NSStringCompareOptions.LiteralSearch, range: NSRange(location: 0, length: s.length))

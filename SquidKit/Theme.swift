@@ -5,6 +5,9 @@
 //  Created by Mike Leavy on 8/15/14.
 //  Copyright (c) 2014 SquidKit. All rights reserved.
 //
+//  Acknowledgments to Brent Simmons and the DB5 theme model (https://github.com/quartermaster/DB5),
+//  after which this SquidKit themes are modeled. SquidKit eschews Plists in favor of a more portable
+//  JSON text file to define a theme; and there are fewer “themeable” elements in SquidKit.
 
 import Foundation
 import UIKit
