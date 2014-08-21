@@ -1,4 +1,5 @@
-SquidKit
+![SquidKit: Swift stuff](https://raw.githubusercontent.com/SquidKit/SquidKit/assets/squidkit_logo.png)
+
 ========
 
-Swift stuff. Nutritious, somewhat tested
+Moderately useful Swift code modules. Somewhat tested.
