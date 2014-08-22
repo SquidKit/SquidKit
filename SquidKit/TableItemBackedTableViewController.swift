@@ -21,8 +21,16 @@ public class TableItemBackedTableViewController: UITableViewController {
         sections[section].append(item)
     }
     
-    public func itemAt(indexPath:NSIndexPath) -> TableItem {
-        return sections[indexPath.section][indexPath.row]
+    public subscript(indexPath:NSIndexPath) -> TableItem? {
+        return self[indexPath.section, indexPath.row]
+    }
+    
+    public subscript(section:Int, row:Int) -> TableItem? {
+        if sections.count > section && sections[section].count > row {
+            return sections[section][row]
+        }
+        SKLog.logMessage("Unexpected: section or row is out of bounds")
+        return nil
     }
     
     // MARK: - Table View
@@ -36,8 +44,9 @@ public class TableItemBackedTableViewController: UITableViewController {
     }
     
     public override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        let item = self.itemAt(indexPath)
-        item.closure(item:item)
+        if let item = self[indexPath] {
+            item.selectBlock(item:item)
+        }
     }
     
 }

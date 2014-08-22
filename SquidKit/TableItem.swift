@@ -10,11 +10,11 @@ import Foundation
 
 public class TableItem: NSObject {
     public var name:String?
-    public var closure:(item:TableItem) -> ()?
+    public var selectBlock:(item:TableItem) -> () = {(item:TableItem) -> () in}
     
-    public init(name:String, closure:(item:TableItem) -> ()) {
+    public init(name:String, selectBlock:(item:TableItem) -> ()) {
         self.name = name
-        self.closure = closure
+        self.selectBlock = selectBlock
     }
     
     public func description() -> NSString? {
