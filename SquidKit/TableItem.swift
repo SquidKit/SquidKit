@@ -56,7 +56,7 @@ public class TableSection {
     }
     
     public var height:Float? {
-        return nil
+        return title == nil ? 0 : nil
     }
     
     public init() {
