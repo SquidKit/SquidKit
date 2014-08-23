@@ -10,16 +10,26 @@ import Foundation
 
 public class TableItem: Describable {
     public var title:String?
-    public var selectBlock:(item:TableItem) -> () = {(item:TableItem) -> () in}
+    public var rowHeight:Float? {
+        return nil
+    }
     
-    public convenience init(_ title:String, selectBlock:(item:TableItem) -> ()) {
-        self.init(title:title)
+    public var selectBlock:(item:TableItem, indexPath:NSIndexPath) -> () = {(item:TableItem, indexPath:NSIndexPath) -> () in}
+    
+    public convenience init(_ title:String, selectBlock:(item:TableItem, indexPath:NSIndexPath) -> ()) {
+        self.init(title)
         self.selectBlock = selectBlock
     }
     
-    public init(title:String) {
+    public init(_ title:String) {
         self.title = title
     }
+    
+    public func titleForIndexPath(indexPath:NSIndexPath) -> String? {
+        return nil
+    }
+    
+    // MARK: - Describable protocol
     
     public func description() -> NSString? {
         return title
@@ -45,11 +55,15 @@ public class TableSection {
         return items.count
     }
     
+    public var height:Float? {
+        return nil
+    }
+    
     public init() {
         
     }
     
-    public init(title:String) {
+    public init(_ title:String) {
         self.title = title
     }
     

@@ -9,43 +9,61 @@
 import UIKit
 import SquidKit
 
-class MasterViewController: TableItemBackedTableViewController {
-
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
+class TallTableItem : TableItem, Describable {
+    override var rowHeight:Float? {
+        return 88
     }
+}
+
+class RepeatingTableItem : TableItem, Describable {
+    override func titleForIndexPath(indexPath:NSIndexPath) -> String? {
+        return "Section \(indexPath.section+1), Row \(indexPath.row+1)"
+    }
+}
+
+class MasterViewController: TableItemBackedTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navigator:(item:TableItem) -> () = { (item:TableItem) -> () in
+        // TableSections and TableItems are the model for our table view. Below, we create 3 sections, each with a single item.
+        
+        // navigator is the callback that we will use for the first 3 TableItems.
+        let navigator:(item:TableItem, indexPath:NSIndexPath) -> () = { (item:TableItem, indexPath:NSIndexPath) -> () in
             SKLog.logMessage(item.title)
             let detailVC:DetailViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("detailVC") as DetailViewController
             detailVC.detailItem = item
             self.navigationController.pushViewController(detailVC, animated: true)
         }
         
-        var section1 = TableSection(title:"One")
-        var item1 = TableItem("One", navigator)
+        var section1 = TableSection("One")
+        var item1 = TableItem("One", selectBlock:navigator)
         section1.append(item1)
         self.appendSection(section1)
         
-        var section2 = TableSection(title: "Two")
-        var item2 = TableItem("Two", navigator)
+        var section2 = TableSection("Two")
+        // here we create an instance of our subclassed TableItem - TallTableItem
+        var item2 = TallTableItem("Tall Two", selectBlock:navigator)
         section2.append(item2)
         self.appendSection(section2)
         
         var section3 = TableSection()
-        var item3 = TableItem("Three", navigator)
+        var item3 = TableItem("Three", selectBlock:navigator)
         section3.append(item3)
         self.appendSection(section3)
         
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        // We can even add the same TableItem multiple times to a section; in this case, we do this with a subclass
+        // of TableItem named RepeatingTableItem (defined above). RepeatingTableItem returns a title denoting
+        // its position in the table.
+        var repeatingItemSection = TableSection("Repeating items")
+        var item4 = RepeatingTableItem("Repeating", selectBlock:navigator)
+        repeatingItemSection.append(item4)
+        repeatingItemSection.append(item4)
+        repeatingItemSection.append(item4)
+        repeatingItemSection.append(item4)
+        self.appendSection(repeatingItemSection)
+        
     }
 
     // MARK: - Segues
@@ -65,16 +83,15 @@ class MasterViewController: TableItemBackedTableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 
         if let item = self[indexPath] {
-            cell.textLabel.text = item.title
+            if let title = item.titleForIndexPath(indexPath) {
+                cell.textLabel.text = title
+            }
+            else {
+                cell.textLabel.text = item.title
+            }
         }
         return cell
     }
-
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return false
-    }
-
 
 }
 

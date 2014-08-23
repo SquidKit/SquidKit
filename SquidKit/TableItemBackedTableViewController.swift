@@ -28,7 +28,29 @@ public class TableItemBackedTableViewController: UITableViewController {
         return nil
     }
     
+    public subscript(section:Int) -> TableSection? {
+        if sections.count > section {
+            return sections[section]
+        }
+        SKLog.logMessage("Unexpected: section is out of bounds")
+        return nil
+    }
+    
     // MARK: - Table View
+    
+    public override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        if let height = self[indexPath]?.rowHeight? {
+            return CGFloat(height)
+        }
+        return tableView.rowHeight
+    }
+    
+    public override func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
+        if let height = self[section]?.height? {
+            return CGFloat(height)
+        }
+        return tableView.sectionHeaderHeight
+    }
     
     public override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         return sections.count
@@ -40,7 +62,7 @@ public class TableItemBackedTableViewController: UITableViewController {
     
     public override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
         if let item = self[indexPath] {
-            item.selectBlock(item:item)
+            item.selectBlock(item:item, indexPath:indexPath)
         }
     }
     
