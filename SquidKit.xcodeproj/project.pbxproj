@@ -37,6 +37,8 @@
 		1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */; };
 		1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
 		1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
+		1C8C1B3419A82697000169F6 /* Describable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3319A82697000169F6 /* Describable.swift */; };
+		1C8C1B3519A82697000169F6 /* Describable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3319A82697000169F6 /* Describable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,7 @@
 		1C82212819A5033C00A17B56 /* SKLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKLog.swift; sourceTree = "<group>"; };
 		1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTableView.swift; sourceTree = "<group>"; };
 		1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItemBackedTableViewController.swift; sourceTree = "<group>"; };
+		1C8C1B3319A82697000169F6 /* Describable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Describable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,7 @@
 				1C8220EF19A4F8EE00A17B56 /* Additions */,
 				1C8220F019A4F8F500A17B56 /* Controller */,
 				1C8220EE19A4F8E800A17B56 /* Model */,
+				1C8C1B3219A82661000169F6 /* Protocol */,
 				1C82211B19A4F9B500A17B56 /* Public Headers */,
 				1C8220ED19A4F8E200A17B56 /* Social */,
 				1C8220D619A4F7E700A17B56 /* Supporting Files */,
@@ -208,6 +212,14 @@
 				1C8220D819A4F7E700A17B56 /* SquidKit.h */,
 			);
 			name = "Public Headers";
+			sourceTree = "<group>";
+		};
+		1C8C1B3219A82661000169F6 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				1C8C1B3319A82697000169F6 /* Describable.swift */,
+			);
+			name = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,6 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C8C1B3419A82697000169F6 /* Describable.swift in Sources */,
 				1C8220F419A4F92F00A17B56 /* ACAccount+SquidStore.swift in Sources */,
 				1C82211419A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
@@ -349,6 +362,7 @@
 				1C82211719A4F94300A17B56 /* UIColor+Hex.swift in Sources */,
 				1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
 				1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
+				1C8C1B3519A82697000169F6 /* Describable.swift in Sources */,
 				1C82212A19A5033C00A17B56 /* SKLog.swift in Sources */,
 				1C82211319A4F94300A17B56 /* ThemeLoader.swift in Sources */,
 				1C8220E319A4F7E700A17B56 /* SquidKitTests.swift in Sources */,

@@ -12,13 +12,8 @@ public class TableItemBackedTableViewController: UITableViewController {
 
     public var sections = [TableSection]()
     
-    public func appendSection() {
-        let section = TableSection()
+    public func appendSection(section:TableSection) {
         self.sections.append(section)
-    }
-    
-    public func appendItem(item:TableItem, section:Int) {
-        sections[section].append(item)
     }
     
     public subscript(indexPath:NSIndexPath) -> TableItem? {
@@ -47,6 +42,10 @@ public class TableItemBackedTableViewController: UITableViewController {
         if let item = self[indexPath] {
             item.selectBlock(item:item)
         }
+    }
+    
+    public override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
+        return sections[section].title
     }
     
 }

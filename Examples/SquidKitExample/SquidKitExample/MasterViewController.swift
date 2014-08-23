@@ -19,16 +19,27 @@ class MasterViewController: TableItemBackedTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.appendSection()
-        
-        var item = TableItem(name: "One", { (item:TableItem) -> () in
-            SKLog.logMessage(item.name)
+        let navigator:(item:TableItem) -> () = { (item:TableItem) -> () in
+            SKLog.logMessage(item.title)
             let detailVC:DetailViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("detailVC") as DetailViewController
             detailVC.detailItem = item
             self.navigationController.pushViewController(detailVC, animated: true)
-        })
+        }
         
-        self.appendItem(item, section:0)
+        var section1 = TableSection(title:"One")
+        var item1 = TableItem("One", navigator)
+        section1.append(item1)
+        self.appendSection(section1)
+        
+        var section2 = TableSection(title: "Two")
+        var item2 = TableItem("Two", navigator)
+        section2.append(item2)
+        self.appendSection(section2)
+        
+        var section3 = TableSection()
+        var item3 = TableItem("Three", navigator)
+        section3.append(item3)
+        self.appendSection(section3)
         
     }
 
@@ -54,7 +65,7 @@ class MasterViewController: TableItemBackedTableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
 
         if let item = self[indexPath] {
-            cell.textLabel.text = item.name
+            cell.textLabel.text = item.title
         }
         return cell
     }

@@ -8,18 +8,61 @@
 
 import Foundation
 
-public class TableItem: NSObject {
-    public var name:String?
+public class TableItem: Describable {
+    public var title:String?
     public var selectBlock:(item:TableItem) -> () = {(item:TableItem) -> () in}
     
-    public init(name:String, selectBlock:(item:TableItem) -> ()) {
-        self.name = name
+    public convenience init(_ title:String, selectBlock:(item:TableItem) -> ()) {
+        self.init(title:title)
         self.selectBlock = selectBlock
     }
     
+    public init(title:String) {
+        self.title = title
+    }
+    
     public func description() -> NSString? {
-        return name
+        return title
+    }
+    
+    public func displayDescription() -> String {
+        if let description = self.title {
+            return description
+        }
+        return "TableItem <no name>"
+    }
+    
+    public func debugDescription() -> String {
+        return self.displayDescription()
     }
 }
 
-public typealias TableSection = [TableItem]
+public class TableSection {
+    public var items = [TableItem]()
+    public var title:String?
+    
+    public var count:Int {
+        return items.count
+    }
+    
+    public init() {
+        
+    }
+    
+    public init(title:String) {
+        self.title = title
+    }
+    
+    public func append(item:TableItem) {
+        self.items.append(item)
+    }
+    
+    public subscript(index:Int) -> TableItem? {
+        if (index < items.count) {
+            return items[index]
+        }
+        
+        return nil
+    }
+
+}

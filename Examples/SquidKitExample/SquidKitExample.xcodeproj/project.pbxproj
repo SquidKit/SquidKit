@@ -462,6 +462,7 @@
 				1C8C1B1619A6F7AF000169F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1C8C1B1719A6F7AF000169F6 /* Build configuration list for PBXNativeTarget "SquidKitExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -470,6 +471,7 @@
 				1C8C1B1919A6F7AF000169F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
