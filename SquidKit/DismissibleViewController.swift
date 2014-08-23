@@ -22,7 +22,7 @@ public class DismissibleViewController: UIViewController {
         }
     }
     
-    internal func pop() {
+    private func pop() {
         if self.navigationController != nil &&
             self.navigationController.viewControllers[0] as NSObject == self &&
             self.navigationController.presentingViewController != nil {
@@ -33,7 +33,7 @@ public class DismissibleViewController: UIViewController {
         }
     }
     
-    internal func dismissModal() {
+    private func dismissModal() {
         if self.navigationController != nil {
             self.navigationController.dismissViewControllerAnimated(true, completion: nil)
         }
