@@ -10,7 +10,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "SOURCE=&quot;${BUILD_DIR}/${CONFIGURATION}${EFFECTIVE_PLATFORM_NAME}/SquidKit.framework&quot;&#10;DEST=&quot;${PROJECT_DIR}/Built Framework/${CONFIGURATION}&quot;&#10;&#10;mkdir &quot;${PROJECT_DIR}/Built Framework&quot;&#10;mkdir &quot;${PROJECT_DIR}/Built Framework/${CONFIGURATION}&quot;&#10;cp -rf &quot;$SOURCE&quot; &quot;$DEST&quot;">
+               scriptText = "CONFIG=&quot;Release&quot;&#10;# CONFIG = ${CONFIGURATION} (we choose not to distribute debug)&#10;&#10;SOURCE=&quot;${BUILD_DIR}/$CONFIG${EFFECTIVE_PLATFORM_NAME}/SquidKit.framework&quot;&#10;DEST=&quot;${PROJECT_DIR}/Built Framework/$CONFIG&quot;&#10;&#10;mkdir &quot;${PROJECT_DIR}/Built Framework&quot;&#10;mkdir &quot;${PROJECT_DIR}/Built Framework/$CONFIG&quot;&#10;cp -rf &quot;$SOURCE&quot; &quot;$DEST&quot;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
