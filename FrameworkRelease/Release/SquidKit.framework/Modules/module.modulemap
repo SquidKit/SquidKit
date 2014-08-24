@@ -1,0 +1,10 @@
+framework module SquidKit {
+  umbrella header "SquidKit.h"
+
+  export *
+  module * { export * }
+}
+
+module SquidKit.Swift {
+    header "SquidKit-Swift.h"
+}
