@@ -47,6 +47,12 @@ public class SKLog {
         _SKLogSharedInstance.logStatus = status
     }
     
+    public class func print<T>(object:T) {
+        if _SKLogSharedInstance.loggingEnabled {
+            println(object)
+        }
+    }
+    
     public class func logMessage(output: @autoclosure() -> String?) {
         if _SKLogSharedInstance.loggingEnabled {
             if let message = output() {
