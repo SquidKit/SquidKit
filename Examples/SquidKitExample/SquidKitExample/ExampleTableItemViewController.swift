@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  ExampleTableItemViewController.swift
 //  SquidKitExample
 //
 //  Created by Mike Leavy on 8/21/14.
@@ -21,11 +21,13 @@ class RepeatingTableItem : TableItem, Describable {
     }
 }
 
-class MasterViewController: TableItemBackedTableViewController {
+class ExampleTableItemViewController: TableItemBackedTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        SKLog.setLogStatus(.Simulator)
+                
         // TableSections and TableItems are the model for our table view. Below, we create 3 sections, each with a single item.
         
         // navigator is the callback that we will use for the first 3 TableItems.
@@ -48,7 +50,11 @@ class MasterViewController: TableItemBackedTableViewController {
         self.appendSection(section2)
         
         var section3 = TableSection()
-        var item3 = TableItem("Three", selectBlock:navigator)
+        var item3 = TableItem("Theme Example", selectBlock: { (item:TableItem, indexPath:NSIndexPath) -> () in
+            let detailVC:ThemedViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("themedVC") as ThemedViewController
+            self.navigationController.pushViewController(detailVC, animated: true)
+            })
+            
         section3.append(item3)
         self.appendSection(section3)
         

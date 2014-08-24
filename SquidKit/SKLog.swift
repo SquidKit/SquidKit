@@ -9,14 +9,50 @@
 import Foundation
 import UIKit
 
+public enum SKLogStatus {
+    case Always
+    case Simulator
+    case Never
+}
+
+private let _SKLogSharedInstance = SKLog()
+
 public class SKLog {
     
-    public class func logMessage(output: @autoclosure() -> String?) {
+    private var logStatus:SKLogStatus = .Always
+    private var isSimulator:Bool {
         #if arch(i386) || arch(x86_64)
+            return true
+        #else
+            return false
+        #endif
+    }
+    
+    var loggingEnabled:Bool {
+        switch self.logStatus {
+        case .Always:
+            return true
+        case .Simulator:
+            return self.isSimulator
+        default:
+            return false
+        }
+    }
+    
+    private init() {
+        
+    }
+    
+    public class func setLogStatus(status:SKLogStatus) {
+        _SKLogSharedInstance.logStatus = status
+    }
+    
+    public class func logMessage(output: @autoclosure() -> String?) {
+        if _SKLogSharedInstance.loggingEnabled {
             if let message = output() {
                 NSLog(message)
             }
-        #endif
+        }
     }
     
     public class func logSimulatorAppBundleURL() {
@@ -29,9 +65,7 @@ public class SKLog {
         SKLog.logMessage(message + "rect -> x: \(rect.origin.x); y: \(rect.origin.y); width: \(rect.size.width); height: \(rect.size.height)");
     }
     
-    public class func autoLog(output: @autoclosure() -> String) {
-        #if arch(i386)
-            output()
-        #endif
+    public class func logPoint(point:CGPoint, message:String = "") {
+        SKLog.logMessage(message + "point -> x: \(point.x); y: \(point.y)");
     }
 }

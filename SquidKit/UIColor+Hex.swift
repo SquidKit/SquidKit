@@ -18,17 +18,19 @@ public extension UIColor {
             alpha: (CGFloat)(alpha >= 0 ? alpha : 1))
     }
     
-    public class func colorWithHexString(hexString:String, alpha:Float = -1) -> UIColor {
+    public class func colorWithHexString(hexString:String, alpha:Float = -1) -> UIColor? {
         var s:NSMutableString = NSMutableString.stringWithString(hexString)
-        s.replaceOccurrencesOfString("#", withString: "", options:NSStringCompareOptions.LiteralSearch, range: NSRange(location: 0, length: s.length))
-        s.replaceOccurrencesOfString("0x", withString: "", options:NSStringCompareOptions.LiteralSearch, range: NSRange(location: 0, length: s.length))
-        s.replaceOccurrencesOfString("0X", withString: "", options:NSStringCompareOptions.LiteralSearch, range: NSRange(location: 0, length: s.length))
+        s.replaceOccurrencesOfString("#", withString: "", options:.LiteralSearch, range: NSRange(location: 0, length: s.length))
+        s.replaceOccurrencesOfString("0x", withString: "", options:.CaseInsensitiveSearch, range: NSRange(location: 0, length: s.length))
         CFStringTrimWhitespace(s as CFMutableStringRef);
         
-        if s.length != 6 {
-            return UIColor.grayColor()
+
+        // allow strings > 6 character, additional characters assumed to be comment or descriptor
+
+        if s.length < 6 {
+            return nil
         }
-        
+                
         let redString = s.substringToIndex(2)
         let greenString = s.substringWithRange(NSRange(location: 2, length: 2))
         let blueString = s.substringWithRange(NSRange(location: 4, length: 2))

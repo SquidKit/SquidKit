@@ -8,12 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		1C8C1AFC19A6F7AF000169F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1AFB19A6F7AF000169F6 /* AppDelegate.swift */; };
-		1C8C1AFE19A6F7AF000169F6 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1AFD19A6F7AF000169F6 /* MasterViewController.swift */; };
+		1C8C1AFE19A6F7AF000169F6 /* ExampleTableItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1AFD19A6F7AF000169F6 /* ExampleTableItemViewController.swift */; };
 		1C8C1B0019A6F7AF000169F6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1AFF19A6F7AF000169F6 /* DetailViewController.swift */; };
 		1C8C1B0319A6F7AF000169F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C8C1B0119A6F7AF000169F6 /* Main.storyboard */; };
 		1C8C1B0519A6F7AF000169F6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C8C1B0419A6F7AF000169F6 /* Images.xcassets */; };
 		1C8C1B1119A6F7AF000169F6 /* SquidKitExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B1019A6F7AF000169F6 /* SquidKitExampleTests.swift */; };
 		1C8C1B2519A6F7D6000169F6 /* SquidKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8C1B2019A6F7BE000169F6 /* SquidKit.framework */; };
+		1C8C1B3819AA4454000169F6 /* ExampleTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3719AA4454000169F6 /* ExampleTheme.json */; };
+		1C8C1B3919AA4454000169F6 /* ExampleTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3719AA4454000169F6 /* ExampleTheme.json */; };
+		1C8C1B3B19AA44DD000169F6 /* ThemedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */; };
+		1C8C1B3C19AA44DD000169F6 /* ThemedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +55,7 @@
 		1C8C1AF619A6F7AF000169F6 /* SquidKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SquidKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8C1AFA19A6F7AF000169F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C8C1AFB19A6F7AF000169F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1C8C1AFD19A6F7AF000169F6 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		1C8C1AFD19A6F7AF000169F6 /* ExampleTableItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTableItemViewController.swift; sourceTree = "<group>"; };
 		1C8C1AFF19A6F7AF000169F6 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		1C8C1B0219A6F7AF000169F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C8C1B0419A6F7AF000169F6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 		1C8C1B0F19A6F7AF000169F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C8C1B1019A6F7AF000169F6 /* SquidKitExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquidKitExampleTests.swift; sourceTree = "<group>"; };
 		1C8C1B1A19A6F7BE000169F6 /* SquidKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SquidKit.xcodeproj; path = ../../SquidKit.xcodeproj; sourceTree = "<group>"; };
+		1C8C1B3719AA4454000169F6 /* ExampleTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ExampleTheme.json; path = ../../../../vunder/SquidKit/Examples/SquidKitExample/SquidKitExample/ExampleTheme.json; sourceTree = "<group>"; };
+		1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,11 +109,13 @@
 			isa = PBXGroup;
 			children = (
 				1C8C1AFB19A6F7AF000169F6 /* AppDelegate.swift */,
-				1C8C1AFD19A6F7AF000169F6 /* MasterViewController.swift */,
 				1C8C1AFF19A6F7AF000169F6 /* DetailViewController.swift */,
-				1C8C1B0119A6F7AF000169F6 /* Main.storyboard */,
+				1C8C1AFD19A6F7AF000169F6 /* ExampleTableItemViewController.swift */,
+				1C8C1B3719AA4454000169F6 /* ExampleTheme.json */,
 				1C8C1B0419A6F7AF000169F6 /* Images.xcassets */,
+				1C8C1B0119A6F7AF000169F6 /* Main.storyboard */,
 				1C8C1AF919A6F7AF000169F6 /* Supporting Files */,
+				1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */,
 			);
 			path = SquidKitExample;
 			sourceTree = "<group>";
@@ -252,6 +260,7 @@
 			files = (
 				1C8C1B0319A6F7AF000169F6 /* Main.storyboard in Resources */,
 				1C8C1B0519A6F7AF000169F6 /* Images.xcassets in Resources */,
+				1C8C1B3819AA4454000169F6 /* ExampleTheme.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C8C1B3919AA4454000169F6 /* ExampleTheme.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,8 +280,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C8C1B0019A6F7AF000169F6 /* DetailViewController.swift in Sources */,
-				1C8C1AFE19A6F7AF000169F6 /* MasterViewController.swift in Sources */,
+				1C8C1AFE19A6F7AF000169F6 /* ExampleTableItemViewController.swift in Sources */,
 				1C8C1AFC19A6F7AF000169F6 /* AppDelegate.swift in Sources */,
+				1C8C1B3B19AA44DD000169F6 /* ThemedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C8C1B1119A6F7AF000169F6 /* SquidKitExampleTests.swift in Sources */,
+				1C8C1B3C19AA44DD000169F6 /* ThemedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
