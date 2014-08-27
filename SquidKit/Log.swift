@@ -9,17 +9,17 @@
 import Foundation
 import UIKit
 
-public enum SKLogStatus {
+public enum LogStatus {
     case Always
     case Simulator
     case Never
 }
 
-private let _SKLogSharedInstance = SKLog()
+private let _SquidKitLogSharedInstance = Log()
 
-public class SKLog {
+public class Log {
     
-    private var logStatus:SKLogStatus = .Always
+    private var logStatus:LogStatus = .Always
     private var isSimulator:Bool {
         #if arch(i386) || arch(x86_64)
             return true
@@ -43,35 +43,35 @@ public class SKLog {
         
     }
     
-    public class func setLogStatus(status:SKLogStatus) {
-        _SKLogSharedInstance.logStatus = status
+    public class func setLogStatus(status:LogStatus) {
+        _SquidKitLogSharedInstance.logStatus = status
     }
     
     public class func print<T>(object:T) {
-        if _SKLogSharedInstance.loggingEnabled {
+        if _SquidKitLogSharedInstance.loggingEnabled {
             println(object)
         }
     }
     
-    public class func logMessage(output: @autoclosure() -> String?) {
-        if _SKLogSharedInstance.loggingEnabled {
+    public class func message(output: @autoclosure() -> String?) {
+        if _SquidKitLogSharedInstance.loggingEnabled {
             if let message = output() {
                 NSLog(message)
             }
         }
     }
     
-    public class func logSimulatorAppBundleURL() {
+    public class func simulatorAppBundleURL() {
         #if arch(i386) || arch(x86_64)
-            SKLog.logMessage("Simulator app bundle URL: \(NSBundle.mainBundle().bundleURL)")
+            Log.message("Simulator app bundle URL: \(NSBundle.mainBundle().bundleURL)")
         #endif
     }
     
-    public class func logRect(rect:CGRect, message:String = "") {
-        SKLog.logMessage(message + "rect -> x: \(rect.origin.x); y: \(rect.origin.y); width: \(rect.size.width); height: \(rect.size.height)");
+    public class func rect(rect:CGRect, message:String = "") {
+        Log.message(message + "rect -> x: \(rect.origin.x); y: \(rect.origin.y); width: \(rect.size.width); height: \(rect.size.height)");
     }
     
-    public class func logPoint(point:CGPoint, message:String = "") {
-        SKLog.logMessage(message + "point -> x: \(point.x); y: \(point.y)");
+    public class func point(point:CGPoint, message:String = "") {
+        Log.message(message + "point -> x: \(point.x); y: \(point.y)");
     }
 }

@@ -24,7 +24,7 @@ public class TableItemBackedTableViewController: UITableViewController {
         if sections.count > section && sections[section].count > row {
             return sections[section][row]
         }
-        SKLog.logMessage("Unexpected: section or row is out of bounds")
+        Log.message("Unexpected: section or row is out of bounds")
         return nil
     }
     
@@ -32,7 +32,7 @@ public class TableItemBackedTableViewController: UITableViewController {
         if sections.count > section {
             return sections[section]
         }
-        SKLog.logMessage("Unexpected: section is out of bounds")
+        Log.message("Unexpected: section is out of bounds")
         return nil
     }
     

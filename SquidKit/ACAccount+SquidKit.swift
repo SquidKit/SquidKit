@@ -42,9 +42,9 @@ public class AccountHelper {
         accountStore.requestAccessToAccountsWithType(acAccountTypeTwitter, options: nil, completion: {[weak self] (success:Bool, error:NSError!) -> Void in
             if success {
                 if let twitterAccount = self?.firstAccount(accountStore, accountType: acAccountTypeTwitter) {
-                    SKLog.logMessage("Twitter: " + String.nonNilString(twitterAccount.userFullName, stringForNil:"<nil>"))
-                    SKLog.logMessage("Twitter: " + twitterAccount.username)
-                    SKLog.logMessage("Twitter: " + twitterAccount.identifier)
+                    Log.message("Twitter: " + String.nonNilString(twitterAccount.userFullName, stringForNil:"<nil>"))
+                    Log.message("Twitter: " + twitterAccount.username)
+                    Log.message("Twitter: " + twitterAccount.identifier)
                 }
             }
             
@@ -58,9 +58,9 @@ public class AccountHelper {
         accountStore.requestAccessToAccountsWithType(acAccountTypeFacebook, options: self.makeFacebookOptions(), completion: {[weak self] (success:Bool, error:NSError!) -> Void in
             if success {
                 if let facebookAccount = self?.firstAccount(accountStore, accountType: acAccountTypeFacebook) {
-                    SKLog.logMessage("Facebook: " + String.nonNilString(facebookAccount.userFullName, stringForNil:"<nil>"))
-                    SKLog.logMessage("Facebook: " + facebookAccount.username)
-                    SKLog.logMessage("Facebook: " + facebookAccount.identifier)
+                    Log.message("Facebook: " + String.nonNilString(facebookAccount.userFullName, stringForNil:"<nil>"))
+                    Log.message("Facebook: " + facebookAccount.username)
+                    Log.message("Facebook: " + facebookAccount.identifier)
                 }
             }
             

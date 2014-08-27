@@ -20,7 +20,7 @@ public class ThemeManager {
     
     var activeTheme:Theme? {
         didSet {
-            SKLog.logMessage("Active theme is now: \(activeTheme?.name)")
+            Log.message("Active theme is now: \(activeTheme?.name)")
         }
     }
     

@@ -31,8 +31,8 @@
 		1C82211519A4F94300A17B56 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220FF19A4F94300A17B56 /* ThemeView.swift */; };
 		1C82211619A4F94300A17B56 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82210019A4F94300A17B56 /* UIColor+Hex.swift */; };
 		1C82211719A4F94300A17B56 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82210019A4F94300A17B56 /* UIColor+Hex.swift */; };
-		1C82212919A5033C00A17B56 /* SKLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212819A5033C00A17B56 /* SKLog.swift */; };
-		1C82212A19A5033C00A17B56 /* SKLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212819A5033C00A17B56 /* SKLog.swift */; };
+		1C82212919A5033C00A17B56 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212819A5033C00A17B56 /* Log.swift */; };
+		1C82212A19A5033C00A17B56 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212819A5033C00A17B56 /* Log.swift */; };
 		1C82212E19A50BFA00A17B56 /* ThemeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */; };
 		1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */; };
 		1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
@@ -59,7 +59,7 @@
 		1C8220FE19A4F94300A17B56 /* ThemeLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeLoader.swift; sourceTree = "<group>"; };
 		1C8220FF19A4F94300A17B56 /* ThemeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		1C82210019A4F94300A17B56 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
-		1C82212819A5033C00A17B56 /* SKLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKLog.swift; sourceTree = "<group>"; };
+		1C82212819A5033C00A17B56 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTableView.swift; sourceTree = "<group>"; };
 		1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItemBackedTableViewController.swift; sourceTree = "<group>"; };
 		1C8C1B3319A82697000169F6 /* Describable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Describable.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 		1C8220F219A4F90B00A17B56 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				1C82212819A5033C00A17B56 /* SKLog.swift */,
+				1C82212819A5033C00A17B56 /* Log.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -339,7 +339,7 @@
 				1C82210A19A4F94300A17B56 /* String+Utility.swift in Sources */,
 				1C82210619A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
 				1C82211019A4F94300A17B56 /* ThemeLabel.swift in Sources */,
-				1C82212919A5033C00A17B56 /* SKLog.swift in Sources */,
+				1C82212919A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211619A4F94300A17B56 /* UIColor+Hex.swift in Sources */,
 				1C82211219A4F94300A17B56 /* ThemeLoader.swift in Sources */,
 				1C82210819A4F94300A17B56 /* String+File.swift in Sources */,
@@ -363,7 +363,7 @@
 				1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
 				1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C8C1B3519A82697000169F6 /* Describable.swift in Sources */,
-				1C82212A19A5033C00A17B56 /* SKLog.swift in Sources */,
+				1C82212A19A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211319A4F94300A17B56 /* ThemeLoader.swift in Sources */,
 				1C8220E319A4F7E700A17B56 /* SquidKitTests.swift in Sources */,
 			);
