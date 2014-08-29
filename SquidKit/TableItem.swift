@@ -8,17 +8,22 @@
 
 import Foundation
 
-public class TableItem: Describable {
+public class TableItem {
     public var title:String?
     public var rowHeight:Float? {
         return nil
     }
+    public var reuseIdentifier:String?
+    public var selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () = {(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in}
     
-    public var selectBlock:(item:TableItem, indexPath:NSIndexPath) -> () = {(item:TableItem, indexPath:NSIndexPath) -> () in}
-    
-    public convenience init(_ title:String, selectBlock:(item:TableItem, indexPath:NSIndexPath) -> ()) {
+    public convenience init(_ title:String, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
         self.init(title)
         self.selectBlock = selectBlock
+    }
+    
+    public convenience init(_ title:String, reuseIdentifier:String, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
+        self.init(title, selectBlock)
+        self.reuseIdentifier = reuseIdentifier
     }
     
     public init(_ title:String) {
@@ -28,22 +33,18 @@ public class TableItem: Describable {
     public func titleForIndexPath(indexPath:NSIndexPath) -> String? {
         return nil
     }
-    
-    // MARK: - Describable protocol
-    
-    public func description() -> NSString? {
-        return title
-    }
-    
-    public func displayDescription() -> String {
+}
+
+extension TableItem: Printable, DebugPrintable {
+    public var description: String {
         if let description = self.title {
             return description
         }
         return "TableItem <no name>"
     }
-    
-    public func debugDescription() -> String {
-        return self.displayDescription()
+
+    public var debugDescription: String {
+        return self.description
     }
 }
 
@@ -78,5 +79,6 @@ public class TableSection {
         
         return nil
     }
-
 }
+
+

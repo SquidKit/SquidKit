@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C3C66AB19B0EFB300F221A1 /* TableActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AA19B0EFB300F221A1 /* TableActions.swift */; };
+		1C3C66AC19B0EFB300F221A1 /* TableActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AA19B0EFB300F221A1 /* TableActions.swift */; };
+		1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
+		1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
 		1C8220D919A4F7E700A17B56 /* SquidKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C8220D819A4F7E700A17B56 /* SquidKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C8220E319A4F7E700A17B56 /* SquidKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220E219A4F7E700A17B56 /* SquidKitTests.swift */; };
 		1C8220F419A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F319A4F92F00A17B56 /* ACAccount+SquidKit.swift */; };
@@ -37,11 +41,11 @@
 		1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */; };
 		1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
 		1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
-		1C8C1B3419A82697000169F6 /* Describable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3319A82697000169F6 /* Describable.swift */; };
-		1C8C1B3519A82697000169F6 /* Describable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3319A82697000169F6 /* Describable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1C3C66AA19B0EFB300F221A1 /* TableActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableActions.swift; sourceTree = "<group>"; };
+		1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		1C8220D319A4F7E700A17B56 /* SquidKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SquidKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8220D719A4F7E700A17B56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C8220D819A4F7E700A17B56 /* SquidKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SquidKit.h; sourceTree = "<group>"; };
@@ -62,7 +66,6 @@
 		1C82212819A5033C00A17B56 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTableView.swift; sourceTree = "<group>"; };
 		1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItemBackedTableViewController.swift; sourceTree = "<group>"; };
-		1C8C1B3319A82697000169F6 /* Describable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Describable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +157,7 @@
 		1C8220EE19A4F8E800A17B56 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */,
 				1C8220FB19A4F94300A17B56 /* TableItem.swift */,
 			);
 			name = Model;
@@ -217,7 +221,7 @@
 		1C8C1B3219A82661000169F6 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				1C8C1B3319A82697000169F6 /* Describable.swift */,
+				1C3C66AA19B0EFB300F221A1 /* TableActions.swift */,
 			);
 			name = Protocol;
 			sourceTree = "<group>";
@@ -328,12 +332,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C8C1B3419A82697000169F6 /* Describable.swift in Sources */,
 				1C8220F419A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */,
 				1C82211419A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
 				1C82212E19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
 				1C82210219A4F94300A17B56 /* DismissibleViewController.swift in Sources */,
+				1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */,
+				1C3C66AB19B0EFB300F221A1 /* TableActions.swift in Sources */,
 				1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C82210C19A4F94300A17B56 /* TableItem.swift in Sources */,
 				1C82210A19A4F94300A17B56 /* String+Utility.swift in Sources */,
@@ -354,15 +359,16 @@
 				1C82210F19A4F94300A17B56 /* Theme.swift in Sources */,
 				1C82210919A4F94300A17B56 /* String+File.swift in Sources */,
 				1C82210D19A4F94300A17B56 /* TableItem.swift in Sources */,
+				1C3C66AC19B0EFB300F221A1 /* TableActions.swift in Sources */,
 				1C82211519A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210719A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
 				1C8220F519A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */,
+				1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */,
 				1C82210319A4F94300A17B56 /* DismissibleViewController.swift in Sources */,
 				1C82210B19A4F94300A17B56 /* String+Utility.swift in Sources */,
 				1C82211719A4F94300A17B56 /* UIColor+Hex.swift in Sources */,
 				1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
 				1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
-				1C8C1B3519A82697000169F6 /* Describable.swift in Sources */,
 				1C82212A19A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211319A4F94300A17B56 /* ThemeLoader.swift in Sources */,
 				1C8220E319A4F7E700A17B56 /* SquidKitTests.swift in Sources */,
