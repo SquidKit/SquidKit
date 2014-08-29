@@ -1,0 +1,21 @@
+{
+    "themes":
+    [
+        {
+            "name": "Swipe",
+            "attributes":
+            [
+				{
+					"type":		"color",
+					"value":	"0000FF(blue)",
+					"key":		"defaultBackgroundColor"
+				},
+				{
+					"type":		"color",
+					"value":	"FF0000(red)",
+					"key":		"defaultLabelTextColor"
+				},
+            ]
+        }
+    ]
+}

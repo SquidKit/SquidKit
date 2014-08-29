@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C3C66B319B129B200F221A1 /* ExampleTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 1C3C66B219B129B200F221A1 /* ExampleTheme.json */; };
+		1C3C66B419B129B200F221A1 /* ExampleTheme.json in Resources */ = {isa = PBXBuildFile; fileRef = 1C3C66B219B129B200F221A1 /* ExampleTheme.json */; };
 		1C8C1AFC19A6F7AF000169F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1AFB19A6F7AF000169F6 /* AppDelegate.swift */; };
 		1C8C1AFE19A6F7AF000169F6 /* ExampleTableItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1AFD19A6F7AF000169F6 /* ExampleTableItemViewController.swift */; };
 		1C8C1B0019A6F7AF000169F6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1AFF19A6F7AF000169F6 /* DetailViewController.swift */; };
@@ -50,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C3C66B219B129B200F221A1 /* ExampleTheme.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ExampleTheme.json; sourceTree = "<group>"; };
 		1C8C1AF619A6F7AF000169F6 /* SquidKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SquidKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8C1AFA19A6F7AF000169F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C8C1AFB19A6F7AF000169F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +115,7 @@
 				1C8C1B0119A6F7AF000169F6 /* Main.storyboard */,
 				1C8C1AF919A6F7AF000169F6 /* Supporting Files */,
 				1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */,
+				1C3C66B219B129B200F221A1 /* ExampleTheme.json */,
 			);
 			path = SquidKitExample;
 			sourceTree = "<group>";
@@ -256,6 +260,7 @@
 			files = (
 				1C8C1B0319A6F7AF000169F6 /* Main.storyboard in Resources */,
 				1C8C1B0519A6F7AF000169F6 /* Images.xcassets in Resources */,
+				1C3C66B319B129B200F221A1 /* ExampleTheme.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C3C66B419B129B200F221A1 /* ExampleTheme.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
