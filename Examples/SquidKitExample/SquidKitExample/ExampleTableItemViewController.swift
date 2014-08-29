@@ -26,13 +26,13 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        SKLog.setLogStatus(.Simulator)
+        Log.setLogStatus(.Simulator)
                 
         // TableSections and TableItems are the model for our table view. Below, we create 3 sections, each with a single item.
         
         // navigator is the callback that we will use for the first 3 TableItems.
         let navigator:(item:TableItem, indexPath:NSIndexPath) -> () = { (item:TableItem, indexPath:NSIndexPath) -> () in
-            SKLog.logMessage(item.title)
+            Log.message(item.title)
             let detailVC:DetailViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("detailVC") as DetailViewController
             detailVC.detailItem = item
             self.navigationController.pushViewController(detailVC, animated: true)
