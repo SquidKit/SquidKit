@@ -1,5 +1,5 @@
 //
-//  SKLog.swift
+//  Log
 //  SquidKit
 //
 //  Created by Mike Leavy on 8/15/14.
