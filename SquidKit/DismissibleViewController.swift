@@ -24,18 +24,18 @@ public class DismissibleViewController: UIViewController {
     
     private func pop() {
         if self.navigationController != nil &&
-            self.navigationController.viewControllers[0] as NSObject == self &&
-            self.navigationController.presentingViewController != nil {
-                self.navigationController.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+            self.navigationController!.viewControllers[0] as NSObject == self &&
+            self.navigationController!.presentingViewController != nil {
+                self.navigationController!.presentingViewController!.dismissViewControllerAnimated(true, completion: nil)
         }
         else if self.navigationController != nil {
-            self.navigationController.popViewControllerAnimated(true)
+            self.navigationController!.popViewControllerAnimated(true)
         }
     }
     
     private func dismissModal() {
         if self.navigationController != nil {
-            self.navigationController.dismissViewControllerAnimated(true, completion: nil)
+            self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
         }
         else {
             self.dismissViewControllerAnimated(true, completion: nil)

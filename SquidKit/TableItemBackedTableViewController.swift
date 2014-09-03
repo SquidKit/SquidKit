@@ -15,35 +15,35 @@ public class TableItemBackedTableViewController: UITableViewController {
     
     // MARK: - Table View
     
-    public override func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+    public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if let height = self.model[indexPath]?.rowHeight? {
             return CGFloat(height)
         }
         return tableView.rowHeight
     }
     
-    public override func tableView(tableView: UITableView!, heightForHeaderInSection section: Int) -> CGFloat {
+    public override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if let height = self.model[section]?.height? {
             return CGFloat(height)
         }
         return tableView.sectionHeaderHeight
     }
     
-    public override func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
+    public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return self.model.sections.count
     }
     
-    public override func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
+    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.model[section]!.count
     }
     
-    public override func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
+    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let item = self.model[indexPath] {
             item.selectBlock(item:item, indexPath:indexPath, actionsTarget:self)
         }
     }
     
-    public override func tableView(tableView: UITableView!, titleForHeaderInSection section: Int) -> String! {
+    public override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.model[section]!.title
     }
     
