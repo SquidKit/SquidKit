@@ -35,7 +35,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
             Log.message(item.title)
             let detailVC:DetailViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("detailVC") as DetailViewController
             detailVC.detailItem = item
-            self.navigationController.pushViewController(detailVC, animated: true)
+            self.navigationController!.pushViewController(detailVC, animated: true)
         }
         
         var section1 = TableSection("One")
@@ -52,7 +52,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
         var section3 = TableSection()
         var item3 = TableItem("Theme Example", selectBlock: { (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
             let detailVC:ThemedViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("themedVC") as ThemedViewController
-            self.navigationController.pushViewController(detailVC, animated: true)
+            self.navigationController!.pushViewController(detailVC, animated: true)
             })
             
         section3.append(item3)
@@ -77,7 +77,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             let indexPath = self.tableView.indexPathForSelectedRow()
-            if let item = self.model[indexPath] {
+            if let item = self.model[indexPath!] {
                 (segue.destinationViewController as DetailViewController).detailItem = item
             }
         }
@@ -90,10 +90,10 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
 
         if let item = self.model[indexPath] {
             if let title = item.titleForIndexPath(indexPath) {
-                cell.textLabel.text = title
+                cell.textLabel!.text = title
             }
             else {
-                cell.textLabel.text = item.title
+                cell.textLabel!.text = item.title
             }
         }
         return cell
