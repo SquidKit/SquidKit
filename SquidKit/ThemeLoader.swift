@@ -19,6 +19,21 @@ public class ThemeLoader {
         if let themesDictionary = NSDictionary.dictionaryFromResourceFile(fileName) {
             result = true
             
+            /* JSONExtractor test */
+            
+            let json = JSONExtractor(resourceFilename: fileName)
+            if let baseElement = json.jsonEntity {
+                let ethemes = baseElement["themes"]
+                for item in ethemes.array()! {
+                    Log.message("an item")
+                }
+                let fooof = baseElement["frog"]
+                for gedd in fooof.array(NSArray())! {
+                    Log.message("gljd")
+                }
+            }
+            /* End JSONExtractor test */
+            
             if let themes:NSArray = themesDictionary.objectForKey("themes") as? NSArray {
                 
                 var loadedThemes = [String: Theme]()
