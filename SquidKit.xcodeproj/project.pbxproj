@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C0C5FFF19B7D33A003E300C /* JSONExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C5FFE19B7D33A003E300C /* JSONExtractor.swift */; };
-		1C0C600019B7D33A003E300C /* JSONExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C5FFE19B7D33A003E300C /* JSONExtractor.swift */; };
+		1C0C5FFF19B7D33A003E300C /* JSONEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C5FFE19B7D33A003E300C /* JSONEntity.swift */; };
+		1C0C600019B7D33A003E300C /* JSONEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C5FFE19B7D33A003E300C /* JSONEntity.swift */; };
 		1C3C66AB19B0EFB300F221A1 /* TableActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AA19B0EFB300F221A1 /* TableActions.swift */; };
 		1C3C66AC19B0EFB300F221A1 /* TableActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AA19B0EFB300F221A1 /* TableActions.swift */; };
 		1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
@@ -46,7 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1C0C5FFE19B7D33A003E300C /* JSONExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONExtractor.swift; sourceTree = "<group>"; };
+		1C0C5FFE19B7D33A003E300C /* JSONEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONEntity.swift; sourceTree = "<group>"; };
 		1C3C66AA19B0EFB300F221A1 /* TableActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableActions.swift; sourceTree = "<group>"; };
 		1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		1C8220D319A4F7E700A17B56 /* SquidKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SquidKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,7 +160,7 @@
 		1C8220EE19A4F8E800A17B56 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1C0C5FFE19B7D33A003E300C /* JSONExtractor.swift */,
+				1C0C5FFE19B7D33A003E300C /* JSONEntity.swift */,
 				1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */,
 				1C8220FB19A4F94300A17B56 /* TableItem.swift */,
 			);
@@ -345,7 +345,7 @@
 				1C3C66AB19B0EFB300F221A1 /* TableActions.swift in Sources */,
 				1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C82210C19A4F94300A17B56 /* TableItem.swift in Sources */,
-				1C0C5FFF19B7D33A003E300C /* JSONExtractor.swift in Sources */,
+				1C0C5FFF19B7D33A003E300C /* JSONEntity.swift in Sources */,
 				1C82210A19A4F94300A17B56 /* String+Utility.swift in Sources */,
 				1C82210619A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
 				1C82211019A4F94300A17B56 /* ThemeLabel.swift in Sources */,
@@ -376,7 +376,7 @@
 				1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C82212A19A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211319A4F94300A17B56 /* ThemeLoader.swift in Sources */,
-				1C0C600019B7D33A003E300C /* JSONExtractor.swift in Sources */,
+				1C0C600019B7D33A003E300C /* JSONEntity.swift in Sources */,
 				1C8220E319A4F7E700A17B56 /* SquidKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

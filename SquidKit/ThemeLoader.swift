@@ -16,58 +16,54 @@ public class ThemeLoader {
     public class func loadThemesFromResourceFile(fileName:String) -> Bool {
         var result = false
         
-        if let themesDictionary = NSDictionary.dictionaryFromResourceFile(fileName) {
+        let json = JSONEntity(resourceFilename: fileName)
+        let themes = json["themes"]
+        if themes.isValid && themes.count > 0 {
+            
             result = true
-                        
-            let emptyArray = NSArray()
-            let json = JSONExtractor(resourceFilename: fileName)
-            let themesEntity = json.jsonEntity
-            let themes = themesEntity["themes"]
-            if themes.count > 0 {
+            
+            var loadedThemes = [String: Theme]()
+            
+            for aTheme in themes {
+                var theme:Theme = Theme()
+                theme.name = aTheme["name"].string()
                 
-                var loadedThemes = [String: Theme]()
-                
-                for aTheme in themes {
-                    var theme:Theme = Theme()
-                    theme.name = aTheme["name"].string()
-                    
-                    let attributes = aTheme["attributes"]
-                    let themeDictionary = NSMutableDictionary(capacity: attributes.count)
-                    for attribute in attributes {
-                        let anyAttribute:AnyObject? = ThemeLoader.attributeFromAttributeDictionary(attribute.dictionary(NSDictionary())!)
-                        if anyAttribute != nil {
-                            if let attributeKey = attribute["key"].string() {
-                                themeDictionary.setObject(anyAttribute, forKeyedSubscript: attributeKey)
-                            }
-                            else if let attributeKeys:NSArray = attribute["keys"].array() {
-                                for keyValue:AnyObject in attributeKeys {
-                                    themeDictionary.setObject(anyAttribute, forKeyedSubscript: keyValue as String)
-                                }
-                            }
-                            else {
-                                themeDictionary.addEntriesFromDictionary(attribute.dictionary(NSDictionary())!)
+                let attributes = aTheme["attributes"]
+                let themeDictionary = NSMutableDictionary(capacity: attributes.count)
+                for attribute in attributes {
+                    let anyAttribute:AnyObject? = ThemeLoader.attributeFromAttributeDictionary(attribute.dictionary(NSDictionary())!)
+                    if anyAttribute != nil {
+                        if let attributeKey = attribute["key"].string() {
+                            themeDictionary.setObject(anyAttribute, forKeyedSubscript: attributeKey)
+                        }
+                        else if let attributeKeys:NSArray = attribute["keys"].array() {
+                            for keyValue:AnyObject in attributeKeys {
+                                themeDictionary.setObject(anyAttribute, forKeyedSubscript: keyValue as String)
                             }
                         }
-                    }
-                    
-                    if theme.name != nil && themeDictionary.count > 0 {
-                        var swDictionary = [String: AnyObject]()
-                        
-                        themeDictionary.enumerateKeysAndObjectsUsingBlock({ (key:AnyObject!, value:AnyObject!, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
-                            swDictionary[key as String] = value!
-                        })
-                        
-                        theme.dictionary = swDictionary
-                        loadedThemes[theme.name!] = theme
+                        else {
+                            themeDictionary.addEntriesFromDictionary(attribute.dictionary(NSDictionary())!)
+                        }
                     }
                 }
                 
-                if loadedThemes.count > 0 {
-                    ThemeManager.sharedInstance.themes = loadedThemes
+                if theme.name != nil && themeDictionary.count > 0 {
+                    var swDictionary = [String: AnyObject]()
+                    
+                    themeDictionary.enumerateKeysAndObjectsUsingBlock({ (key:AnyObject!, value:AnyObject!, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
+                        swDictionary[key as String] = value!
+                    })
+                    
+                    theme.dictionary = swDictionary
+                    loadedThemes[theme.name!] = theme
                 }
             }
             
+            if loadedThemes.count > 0 {
+                ThemeManager.sharedInstance.themes = loadedThemes
+            }
         }
+            
         
         return result
     }
