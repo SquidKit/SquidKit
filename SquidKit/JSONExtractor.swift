@@ -9,7 +9,7 @@
 import Foundation
 
 public class JSONExtractor {
-    public let jsonEntity:JSONEntity?
+    public let jsonEntity:JSONEntity
     
     public init(resourceFilename:String) {
         if let dictionary = NSDictionary.dictionaryFromResourceFile(resourceFilename) {
@@ -20,58 +20,46 @@ public class JSONExtractor {
         }
     }
     
-    public class JSONEntity {
+    public class JSONEntity: SequenceType {
         
         private var entity:AnyObject
         
         private class NoEntity {
-            
         }
         
-        private init(_ entity:AnyObject) {
+        public var count:Int {
+            if let array = self.array() {
+                return array.count
+            }
+            return 0
+        }
+        
+        public init(_ entity:AnyObject) {
             self.entity = entity
         }
         
         public func string(_ defaultValue:String? = nil) -> String? {
-            if let s:String = entity as? String {
-                return s
-            }
-            return defaultValue
+            return EntityConverter<String>().get(entity, defaultValue)
         }
         
         public func array(_ defaultValue:NSArray? = nil) -> NSArray? {
-            if let a:NSArray = entity as? NSArray {
-                return a
-            }
-            return defaultValue
+            return EntityConverter<NSArray>().get(entity, defaultValue)
         }
         
         public func dictionary(_ defaultValue:NSDictionary? = nil) -> NSDictionary? {
-            if let d:NSDictionary = entity as? NSDictionary {
-                return d
-            }
-            return defaultValue
+            return EntityConverter<NSDictionary>().get(entity, defaultValue)
         }
         
         public func int(_ defaultValue:Int? = nil) -> Int? {
-            if let i:Int = entity as? Int {
-                return i
-            }
-            return defaultValue
+            return EntityConverter<Int>().get(entity, defaultValue)
         }
         
         public func float(_ defaultValue:Float? = nil) -> Float? {
-            if let f:Float = entity as? Float {
-                return f
-            }
-            return defaultValue
+            return EntityConverter<Float>().get(entity, defaultValue)
         }
         
         public func bool(_ defaultValue:Bool? = nil) -> Bool? {
-            if let b:Bool = entity as? Bool {
-                return b
-            }
-            return defaultValue
+            return EntityConverter<Bool>().get(entity, defaultValue)
         }
         
         public subscript(key:String) -> JSONEntity {
@@ -89,12 +77,45 @@ public class JSONExtractor {
             }
             return nil
         }
+        
+        public typealias GeneratorType = JSONEntityGenerator
+        public func generate() -> GeneratorType {
+            var gen = JSONEntityGenerator(self)
+            return gen
+        }
+        
     }
 }
 
-private class EntityConverter<T:AnyObject> {
+public struct JSONEntityGenerator:GeneratorType {
+    public typealias Element = JSONExtractor.JSONEntity
+    
+    let entity:JSONExtractor.JSONEntity
+    var sequenceIndex = 0
+    
+    public init(_ entity:JSONExtractor.JSONEntity) {
+        self.entity = entity
+    }
+    
+    public mutating func next() -> Element? {
+        if let array = self.entity.array() {
+            if sequenceIndex < array.count {
+                let result = JSONExtractor.JSONEntity(array[sequenceIndex])
+                sequenceIndex++
+                return result
+            }
+            else {
+                sequenceIndex = 0
+            }
+        }
+        return .None
+    }
+}
+
+
+
+private class EntityConverter<T> {
     init() {
-        
     }
     
     func get(entity:AnyObject, _ defaultValue:T? = nil) -> T? {
