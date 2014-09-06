@@ -24,9 +24,15 @@ class HomeViewController: TableItemBackedTableViewController {
             self.navigationController!.pushViewController(themeVC, animated: true)
         })
         
+        let endpointExampleItem = TableItem("Network Endpoint Example", selectBlock: { (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
+            let themeVC:UIViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("endpointTestVC") as UIViewController
+            self.navigationController!.pushViewController(themeVC, animated: true)
+        })
+        
         let section = TableSection()
         section.append(tableItemExampleItem)
         section.append(themeExampleItem)
+        section.append(endpointExampleItem)
         self.model.append(section)
     }
 

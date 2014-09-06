@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		1C0C5FFF19B7D33A003E300C /* JSONEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C5FFE19B7D33A003E300C /* JSONEntity.swift */; };
 		1C0C600019B7D33A003E300C /* JSONEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C5FFE19B7D33A003E300C /* JSONEntity.swift */; };
+		1C0C601119BBB077003E300C /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601019BBB077003E300C /* Alamofire.swift */; };
+		1C0C601219BBB077003E300C /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601019BBB077003E300C /* Alamofire.swift */; };
+		1C0C601819BBB123003E300C /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601419BBB123003E300C /* Endpoint.swift */; };
+		1C0C601919BBB123003E300C /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601419BBB123003E300C /* Endpoint.swift */; };
+		1C0C601A19BBB123003E300C /* EndpointMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601519BBB123003E300C /* EndpointMap.swift */; };
+		1C0C601B19BBB123003E300C /* EndpointMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601519BBB123003E300C /* EndpointMap.swift */; };
+		1C0C601C19BBB123003E300C /* HostConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601619BBB123003E300C /* HostConfigurationTableViewController.swift */; };
+		1C0C601D19BBB123003E300C /* HostConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601619BBB123003E300C /* HostConfigurationTableViewController.swift */; };
+		1C0C601E19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */; };
+		1C0C601F19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */; };
 		1C3C66AB19B0EFB300F221A1 /* TableActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AA19B0EFB300F221A1 /* TableActions.swift */; };
 		1C3C66AC19B0EFB300F221A1 /* TableActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AA19B0EFB300F221A1 /* TableActions.swift */; };
 		1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
@@ -47,6 +57,11 @@
 
 /* Begin PBXFileReference section */
 		1C0C5FFE19B7D33A003E300C /* JSONEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONEntity.swift; sourceTree = "<group>"; };
+		1C0C601019BBB077003E300C /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = 3rdparty/Alamofire/Source/Alamofire.swift; sourceTree = SOURCE_ROOT; };
+		1C0C601419BBB123003E300C /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		1C0C601519BBB123003E300C /* EndpointMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointMap.swift; sourceTree = "<group>"; };
+		1C0C601619BBB123003E300C /* HostConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostConfigurationTableViewController.swift; sourceTree = "<group>"; };
+		1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONResponseEndpoint.swift; sourceTree = "<group>"; };
 		1C3C66AA19B0EFB300F221A1 /* TableActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableActions.swift; sourceTree = "<group>"; };
 		1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		1C8220D319A4F7E700A17B56 /* SquidKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SquidKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,6 +104,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C0C600E19BBB04D003E300C /* 3rdparty */ = {
+			isa = PBXGroup;
+			children = (
+				1C0C600F19BBB05E003E300C /* Alamofire */,
+			);
+			name = 3rdparty;
+			sourceTree = "<group>";
+		};
+		1C0C600F19BBB05E003E300C /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				1C0C601019BBB077003E300C /* Alamofire.swift */,
+			);
+			name = Alamofire;
+			sourceTree = "<group>";
+		};
+		1C0C601319BBB0E6003E300C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				1C0C601419BBB123003E300C /* Endpoint.swift */,
+				1C0C601519BBB123003E300C /* EndpointMap.swift */,
+				1C0C601619BBB123003E300C /* HostConfigurationTableViewController.swift */,
+				1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		1C8220C919A4F7E700A17B56 = {
 			isa = PBXGroup;
 			children = (
@@ -110,9 +152,11 @@
 		1C8220D519A4F7E700A17B56 /* SquidKit */ = {
 			isa = PBXGroup;
 			children = (
+				1C0C600E19BBB04D003E300C /* 3rdparty */,
 				1C8220EF19A4F8EE00A17B56 /* Additions */,
 				1C8220F019A4F8F500A17B56 /* Controller */,
 				1C8220EE19A4F8E800A17B56 /* Model */,
+				1C0C601319BBB0E6003E300C /* Networking */,
 				1C8C1B3219A82661000169F6 /* Protocol */,
 				1C82211B19A4F9B500A17B56 /* Public Headers */,
 				1C8220ED19A4F8E200A17B56 /* Social */,
@@ -337,22 +381,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C8220F419A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */,
+				1C0C601E19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */,
 				1C82211419A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
 				1C82212E19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
+				1C0C601C19BBB123003E300C /* HostConfigurationTableViewController.swift in Sources */,
 				1C82210219A4F94300A17B56 /* DismissibleViewController.swift in Sources */,
 				1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */,
+				1C0C601119BBB077003E300C /* Alamofire.swift in Sources */,
 				1C3C66AB19B0EFB300F221A1 /* TableActions.swift in Sources */,
 				1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C82210C19A4F94300A17B56 /* TableItem.swift in Sources */,
 				1C0C5FFF19B7D33A003E300C /* JSONEntity.swift in Sources */,
 				1C82210A19A4F94300A17B56 /* String+Utility.swift in Sources */,
+				1C0C601819BBB123003E300C /* Endpoint.swift in Sources */,
 				1C82210619A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
 				1C82211019A4F94300A17B56 /* ThemeLabel.swift in Sources */,
 				1C82212919A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211619A4F94300A17B56 /* UIColor+Hex.swift in Sources */,
 				1C82211219A4F94300A17B56 /* ThemeLoader.swift in Sources */,
 				1C82210819A4F94300A17B56 /* String+File.swift in Sources */,
+				1C0C601A19BBB123003E300C /* EndpointMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,11 +417,16 @@
 				1C82211519A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210719A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
 				1C8220F519A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */,
+				1C0C601B19BBB123003E300C /* EndpointMap.swift in Sources */,
+				1C0C601219BBB077003E300C /* Alamofire.swift in Sources */,
 				1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */,
 				1C82210319A4F94300A17B56 /* DismissibleViewController.swift in Sources */,
+				1C0C601D19BBB123003E300C /* HostConfigurationTableViewController.swift in Sources */,
 				1C82210B19A4F94300A17B56 /* String+Utility.swift in Sources */,
 				1C82211719A4F94300A17B56 /* UIColor+Hex.swift in Sources */,
+				1C0C601F19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */,
 				1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
+				1C0C601919BBB123003E300C /* Endpoint.swift in Sources */,
 				1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C82212A19A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211319A4F94300A17B56 /* ThemeLoader.swift in Sources */,
