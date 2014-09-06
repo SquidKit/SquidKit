@@ -49,14 +49,6 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
         section2.append(item2)
         self.model.append(section2)
         
-        var section3 = TableSection()
-        var item3 = TableItem("Theme Example", selectBlock: { (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
-            let detailVC:ThemedViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("themedVC") as ThemedViewController
-            self.navigationController!.pushViewController(detailVC, animated: true)
-            })
-            
-        section3.append(item3)
-        self.model.append(section3)
         
         
         // We can even add the same TableItem multiple times to a section; in this case, we do this with a subclass
