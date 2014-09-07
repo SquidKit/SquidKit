@@ -1,6 +1,6 @@
 //
 //  TestEndpoint.swift
-//  SquidKitNetworkingExample
+//  SquidKitExample
 //
 //  Created by Mike Leavy on 8/24/14.
 //  Copyright (c) 2014 SquidKit. All rights reserved.

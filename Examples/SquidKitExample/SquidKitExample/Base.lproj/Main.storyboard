@@ -94,6 +94,46 @@
             </objects>
             <point key="canvasLocation" x="451" y="765"/>
         </scene>
+        <!--Entity Example View Controller-->
+        <scene sceneID="tal-Lw-TpU">
+            <objects>
+                <tableViewController storyboardIdentifier="jsonEntityExampleVC" id="LXU-jA-acc" customClass="JSONEntityExampleViewController" customModule="SquidKitExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8mC-vY-jSi">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" restorationIdentifier="jsonEntityExampleCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="jsonEntityExampleCell" textLabel="PyB-SM-aaA" detailTextLabel="viU-Pz-pLt" style="IBUITableViewCellStyleValue1" id="thF-vV-2g9">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="thF-vV-2g9" id="0M9-Zs-IKP">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PyB-SM-aaA">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="viU-Pz-pLt">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="LXU-jA-acc" id="E61-dF-Vbh"/>
+                            <outlet property="delegate" destination="LXU-jA-acc" id="hKi-VU-cRL"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RtW-G9-jEk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="439" y="1480"/>
+        </scene>
         <!--Detail-->
         <scene sceneID="Cn3-H9-jdl">
             <objects>
@@ -176,10 +216,10 @@
             </objects>
             <point key="canvasLocation" x="1677" y="410"/>
         </scene>
-        <!--Endpoint Test Table View Controller-->
+        <!--Endpoint Example View Controller-->
         <scene sceneID="HTW-Fj-gKV">
             <objects>
-                <tableViewController storyboardIdentifier="endpointTestVC" id="6LW-n7-Kda" customClass="EndpointTestTableViewController" customModule="SquidKitNetworkingExample" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="endpointTestVC" id="6LW-n7-Kda" customClass="EndpointExampleViewController" customModule="SquidKitExample" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="AMG-Rf-A9O">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -1,6 +1,6 @@
 //
 //  EndpointTestTableViewController.swift
-//  SquidKitNetworkingExample
+//  SquidKitExample
 //
 //  Created by Mike Leavy on 8/29/14.
 //  Copyright (c) 2014 SquidKit. All rights reserved.
@@ -46,7 +46,7 @@ class EnpointTableItem: TableItem {
     }
 }
 
-class EndpointTestTableViewController: TableItemBackedTableViewController {
+class EndpointExampleViewController: TableItemBackedTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

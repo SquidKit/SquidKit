@@ -60,15 +60,33 @@ public class JSONEntity: SequenceType {
     }
     
     public func int(_ defaultValue:Int? = nil) -> Int? {
-        return EntityConverter<Int>().get(entity, defaultValue)
+        if let int = EntityConverter<Int>().get(entity, nil) {
+            return int
+        }
+        else if let intString = EntityConverter<String>().get(entity, nil) {
+            return (intString as NSString).integerValue
+        }
+        return defaultValue
     }
     
     public func float(_ defaultValue:Float? = nil) -> Float? {
-        return EntityConverter<Float>().get(entity, defaultValue)
+        if let float = EntityConverter<Float>().get(entity, nil) {
+            return float
+        }
+        else if let floatString = EntityConverter<String>().get(entity, nil) {
+            return (floatString as NSString).floatValue
+        }
+        return defaultValue
     }
     
     public func bool(_ defaultValue:Bool? = nil) -> Bool? {
-        return EntityConverter<Bool>().get(entity, defaultValue)
+        if let bool = EntityConverter<Bool>().get(entity, nil) {
+            return bool
+        }
+        else if let boolString = EntityConverter<String>().get(entity, nil) {
+            return (boolString as NSString).boolValue
+        }
+        return defaultValue
     }
     
     public subscript(key:String) -> JSONEntity {
