@@ -56,7 +56,11 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
-      debugDocumentVersioning = "YES">
+      debugDocumentVersioning = "YES"
+      askForAppToLaunch = "Yes">
+      <PathRunnable
+         FilePath = "/Users/mleavy/Library/Developer/Xcode/DerivedData/SquidKit-fzljdujhcluisbdjrjygfvitmaik/Build/Products/SquidKit">
+      </PathRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"

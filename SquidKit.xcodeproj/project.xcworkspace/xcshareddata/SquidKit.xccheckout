@@ -12,6 +12,8 @@
 	<dict>
 		<key>4967185241955299B3106D61DF74DBF61FD5146C</key>
 		<string>https://github.com/SquidKit/SquidKit.git</string>
+		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
+		<string>https://github.com/Alamofire/Alamofire.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>SquidKit/SquidKit.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>4967185241955299B3106D61DF74DBF61FD5146C</key>
 		<string>../../..</string>
+		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
+		<string>../../../3rdparty/Alamofire/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/SquidKit/SquidKit.git</string>
@@ -28,6 +32,14 @@
 	<string>4967185241955299B3106D61DF74DBF61FD5146C</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>67620B5EFA902936DF04070AF595B76AB0333747</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Alamofire</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
