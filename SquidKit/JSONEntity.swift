@@ -11,9 +11,19 @@ import Foundation
 
 public class JSONEntity: SequenceType {
     
-    private var entity:AnyObject
+    private struct Entity {
+        var key:String
+        var value:AnyObject
+        
+        init(_ key:String, _ value:AnyObject) {
+            self.key = key
+            self.value = value
+        }
+    }
     
-    private class NoEntity {
+    private var entity:Entity
+    
+    private class NilValue {
     }
     
     public var count:Int {
@@ -24,83 +34,87 @@ public class JSONEntity: SequenceType {
     }
     
     public var isValid:Bool {
-        if let e = self.entity as? NoEntity {
+        if let e = self.entity.value as? NilValue {
             return false
         }
         return true
     }
     
-    public init(_ entity:AnyObject) {
-        self.entity = entity
+    public var key:String {
+        return self.entity.key
+    }
+    
+    public init(_ key:String, _ value:AnyObject) {
+        self.entity = Entity(key, value)
     }
     
     public init(resourceFilename:String) {
         if let dictionary = NSDictionary.dictionaryFromResourceFile(resourceFilename) {
-            self.entity = dictionary
+            self.entity = Entity(resourceFilename, dictionary)
         }
         else {
-            self.entity = NoEntity()
+            self.entity = Entity("", NilValue())
         }
     }
     
     public init(jsonDictionary:NSDictionary) {
-        self.entity = jsonDictionary
+        self.entity = Entity("", jsonDictionary)
     }
     
     public func string(_ defaultValue:String? = nil) -> String? {
-        return EntityConverter<String>().get(entity, defaultValue)
+        return EntityConverter<String>().get(entity.value, defaultValue)
     }
     
     public func array(_ defaultValue:NSArray? = nil) -> NSArray? {
-        return EntityConverter<NSArray>().get(entity, defaultValue)
+        return EntityConverter<NSArray>().get(entity.value, defaultValue)
     }
     
     public func dictionary(_ defaultValue:NSDictionary? = nil) -> NSDictionary? {
-        return EntityConverter<NSDictionary>().get(entity, defaultValue)
+        return EntityConverter<NSDictionary>().get(entity.value, defaultValue)
     }
     
     public func int(_ defaultValue:Int? = nil) -> Int? {
-        if let int = EntityConverter<Int>().get(entity, nil) {
+        if let int = EntityConverter<Int>().get(entity.value, nil) {
             return int
         }
-        else if let intString = EntityConverter<String>().get(entity, nil) {
+        else if let intString = EntityConverter<String>().get(entity.value, nil) {
             return (intString as NSString).integerValue
         }
         return defaultValue
     }
     
     public func float(_ defaultValue:Float? = nil) -> Float? {
-        if let float = EntityConverter<Float>().get(entity, nil) {
+        if let float = EntityConverter<Float>().get(entity.value, nil) {
             return float
         }
-        else if let floatString = EntityConverter<String>().get(entity, nil) {
+        else if let floatString = EntityConverter<String>().get(entity.value, nil) {
             return (floatString as NSString).floatValue
         }
         return defaultValue
     }
     
     public func bool(_ defaultValue:Bool? = nil) -> Bool? {
-        if let bool = EntityConverter<Bool>().get(entity, nil) {
+        if let bool = EntityConverter<Bool>().get(entity.value, nil) {
             return bool
         }
-        else if let boolString = EntityConverter<String>().get(entity, nil) {
+        else if let boolString = EntityConverter<String>().get(entity.value, nil) {
             return (boolString as NSString).boolValue
         }
         return defaultValue
     }
     
     public subscript(key:String) -> JSONEntity {
-        if let e:NSDictionary = entity as? NSDictionary {
+        if let e:NSDictionary = entity.value as? NSDictionary {
             if let object:AnyObject = e.objectForKey(key) {
-                return JSONEntity(object)
+                return JSONEntity(key, object)
             }
         }
-        return JSONEntity(NoEntity())
+        return JSONEntity(key, NilValue())
     }
     
     public subscript(index:Int) -> JSONEntity? {
-        if let array:NSArray = entity as? NSArray {
-            return JSONEntity(array[index])
+        if let array:NSArray = entity.value as? NSArray {
+            return JSONEntity(self.entity.key, array[index])
         }
         return nil
     }
@@ -126,7 +140,7 @@ public struct JSONEntityGenerator:GeneratorType {
     public mutating func next() -> Element? {
         if let array = self.entity.array() {
             if sequenceIndex < array.count {
-                let result = JSONEntity(array[sequenceIndex])
+                let result = JSONEntity(self.entity.entity.key, array[sequenceIndex])
                 sequenceIndex++
                 return result
             }
