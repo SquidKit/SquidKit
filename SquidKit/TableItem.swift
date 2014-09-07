@@ -8,6 +8,13 @@
 
 import Foundation
 
+@objc public protocol TableActions {
+    func deselect(indexPath:NSIndexPath)
+    func reload()
+    func pushViewController(storyboardName:String, storyboardID:String)
+    func presentViewController(storyboardName:String, storyboardID:String)
+}
+
 public class TableItem {
     public var title:String?
     public var rowHeight:Float? {
@@ -84,5 +91,6 @@ public class TableSection {
         return nil
     }
 }
+
 
 

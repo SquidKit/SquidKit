@@ -19,8 +19,6 @@
 		1C0C601D19BBB123003E300C /* HostConfigurationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601619BBB123003E300C /* HostConfigurationTableViewController.swift */; };
 		1C0C601E19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */; };
 		1C0C601F19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */; };
-		1C3C66AB19B0EFB300F221A1 /* TableActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AA19B0EFB300F221A1 /* TableActions.swift */; };
-		1C3C66AC19B0EFB300F221A1 /* TableActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AA19B0EFB300F221A1 /* TableActions.swift */; };
 		1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
 		1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
 		1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
@@ -65,7 +63,6 @@
 		1C0C601619BBB123003E300C /* HostConfigurationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostConfigurationTableViewController.swift; sourceTree = "<group>"; };
 		1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONResponseEndpoint.swift; sourceTree = "<group>"; };
 		1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingTableItem.swift; sourceTree = "<group>"; };
-		1C3C66AA19B0EFB300F221A1 /* TableActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableActions.swift; sourceTree = "<group>"; };
 		1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		1C8220D319A4F7E700A17B56 /* SquidKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SquidKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8220D719A4F7E700A17B56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,6 +131,16 @@
 			name = Networking;
 			sourceTree = "<group>";
 		};
+		1C57DAF219BD1982009226AD /* TableItem */ = {
+			isa = PBXGroup;
+			children = (
+				1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */,
+				1C8220FB19A4F94300A17B56 /* TableItem.swift */,
+				1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */,
+			);
+			name = TableItem;
+			sourceTree = "<group>";
+		};
 		1C8220C919A4F7E700A17B56 = {
 			isa = PBXGroup;
 			children = (
@@ -156,17 +163,16 @@
 			isa = PBXGroup;
 			children = (
 				1C0C600E19BBB04D003E300C /* 3rdparty */,
-				1C8220EF19A4F8EE00A17B56 /* Additions */,
+				1C8220EF19A4F8EE00A17B56 /* Class Extensions */,
 				1C8220F019A4F8F500A17B56 /* Controller */,
-				1C8220EE19A4F8E800A17B56 /* Model */,
+				1C8220EE19A4F8E800A17B56 /* JSON */,
 				1C0C601319BBB0E6003E300C /* Networking */,
-				1C8C1B3219A82661000169F6 /* Protocol */,
 				1C82211B19A4F9B500A17B56 /* Public Headers */,
 				1C8220ED19A4F8E200A17B56 /* Social */,
 				1C8220D619A4F7E700A17B56 /* Supporting Files */,
+				1C57DAF219BD1982009226AD /* TableItem */,
 				1C8220F119A4F8FC00A17B56 /* Theme */,
 				1C8220F219A4F90B00A17B56 /* Utility */,
-				1C82211A19A4F98100A17B56 /* View */,
 			);
 			path = SquidKit;
 			sourceTree = "<group>";
@@ -204,18 +210,15 @@
 			name = Social;
 			sourceTree = "<group>";
 		};
-		1C8220EE19A4F8E800A17B56 /* Model */ = {
+		1C8220EE19A4F8E800A17B56 /* JSON */ = {
 			isa = PBXGroup;
 			children = (
 				1C0C5FFE19B7D33A003E300C /* JSONEntity.swift */,
-				1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */,
-				1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */,
-				1C8220FB19A4F94300A17B56 /* TableItem.swift */,
 			);
-			name = Model;
+			name = JSON;
 			sourceTree = "<group>";
 		};
-		1C8220EF19A4F8EE00A17B56 /* Additions */ = {
+		1C8220EF19A4F8EE00A17B56 /* Class Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				1C8220F819A4F94300A17B56 /* NSDictionary+Utility.swift */,
@@ -223,14 +226,13 @@
 				1C8220FA19A4F94300A17B56 /* String+Utility.swift */,
 				1C82210019A4F94300A17B56 /* UIColor+Hex.swift */,
 			);
-			name = Additions;
+			name = "Class Extensions";
 			sourceTree = "<group>";
 		};
 		1C8220F019A4F8F500A17B56 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				1C8220F619A4F94300A17B56 /* DismissibleViewController.swift */,
-				1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -240,6 +242,9 @@
 			children = (
 				1C8220FC19A4F94300A17B56 /* Theme.swift */,
 				1C8220FE19A4F94300A17B56 /* ThemeLoader.swift */,
+				1C8220FD19A4F94300A17B56 /* ThemeLabel.swift */,
+				1C8220FF19A4F94300A17B56 /* ThemeView.swift */,
+				1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -248,18 +253,9 @@
 			isa = PBXGroup;
 			children = (
 				1C82212819A5033C00A17B56 /* Log.swift */,
+				1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */,
 			);
 			name = Utility;
-			sourceTree = "<group>";
-		};
-		1C82211A19A4F98100A17B56 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				1C8220FD19A4F94300A17B56 /* ThemeLabel.swift */,
-				1C8220FF19A4F94300A17B56 /* ThemeView.swift */,
-				1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */,
-			);
-			name = View;
 			sourceTree = "<group>";
 		};
 		1C82211B19A4F9B500A17B56 /* Public Headers */ = {
@@ -268,14 +264,6 @@
 				1C8220D819A4F7E700A17B56 /* SquidKit.h */,
 			);
 			name = "Public Headers";
-			sourceTree = "<group>";
-		};
-		1C8C1B3219A82661000169F6 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				1C3C66AA19B0EFB300F221A1 /* TableActions.swift */,
-			);
-			name = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -394,7 +382,6 @@
 				1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */,
 				1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */,
 				1C0C601119BBB077003E300C /* Alamofire.swift in Sources */,
-				1C3C66AB19B0EFB300F221A1 /* TableActions.swift in Sources */,
 				1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C82210C19A4F94300A17B56 /* TableItem.swift in Sources */,
 				1C0C5FFF19B7D33A003E300C /* JSONEntity.swift in Sources */,
@@ -418,7 +405,6 @@
 				1C82210F19A4F94300A17B56 /* Theme.swift in Sources */,
 				1C82210919A4F94300A17B56 /* String+File.swift in Sources */,
 				1C82210D19A4F94300A17B56 /* TableItem.swift in Sources */,
-				1C3C66AC19B0EFB300F221A1 /* TableActions.swift in Sources */,
 				1C82211519A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210719A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
 				1C8220F519A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */,
