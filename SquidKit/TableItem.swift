@@ -17,17 +17,21 @@ public class TableItem {
     public var selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () = {(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in}
     
     public convenience init(_ title:String, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
-        self.init(title)
-        self.selectBlock = selectBlock
+        self.init(title, reuseIdentifier:nil, selectBlock:selectBlock)
     }
     
-    public convenience init(_ title:String, reuseIdentifier:String, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
-        self.init(title, selectBlock)
-        self.reuseIdentifier = reuseIdentifier
+    public convenience init(_ title:String, reuseIdentifier:String?, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
+        self.init(title, reuseIdentifier:reuseIdentifier)
+        self.selectBlock = selectBlock
     }
     
     public init(_ title:String) {
         self.title = title
+    }
+    
+    public convenience init(_ title:String, reuseIdentifier:String?) {
+        self.init(title)
+        self.reuseIdentifier = reuseIdentifier
     }
     
     public func titleForIndexPath(indexPath:NSIndexPath) -> String? {

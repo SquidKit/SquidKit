@@ -11,4 +11,6 @@ import Foundation
 @objc public protocol TableActions {
     func deselect(indexPath:NSIndexPath)
     func reload()
+    func pushViewController(storyboardName:String, storyboardID:String)
+    func presentViewController(storyboardName:String, storyboardID:String)
 }
