@@ -1,6 +1,34 @@
 {
     "configurations": [
-       {
+                       {
+                       "canonical_host": "httpbin.org",
+                       "canonical_protocol": "http",
+                       "prerelease_key": "DEV",
+                       "release_key": "PROD",
+                       "hosts":  [
+                                  {
+                                  "key": "PROD",
+                                  "host": "httpbin.org"
+                                  },
+                                  {
+                                  "key": "QA",
+                                  "host": "qa.httpbin.org",
+                                  "protocol": "https"
+                                  },
+                                  {
+                                  "key": "DEV",
+                                  "host": "dev.httpbin.org"
+                                  },
+                                  {
+                                  "key": "localhost",
+                                  "host": "localhost"
+                                  },
+                                  {
+                                  "key": "USER"
+                                  }
+                                  ]
+                       },
+                       {
        "canonical_host": "mapi.move.com",
        "canonical_protocol": "http",
        "prerelease_key": "DEV",
@@ -23,34 +51,7 @@
                      "host": "localhost"
                      }
                  ]
-       },
-       {
-       "canonical_host": "httpbin.org",
-       "canonical_protocol": "http",
-       "prerelease_key": "DEV",
-       "release_key": "PROD",
-       "hosts":  [
-                     {
-                     "key": "PROD",
-                     "host": "httpbin.org"
-                     },
-                     {
-                     "key": "QA",
-                     "host": "qa.httpbin.org",
-                     "protocol": "https"
-                     },
-                     {
-                     "key": "DEV",
-                     "host": "dev.httpbin.org"
-                     },
-                     {
-                     "key": "localhost",
-                     "host": "localhost"
-                     },
-                     {
-                     "key": "USER"
-                     }
-                 ]
        }
+       
     ]
 }
