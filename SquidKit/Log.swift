@@ -47,9 +47,11 @@ public class Log {
         _SquidKitLogSharedInstance.logStatus = status
     }
     
-    public class func print<T>(object:T) {
+    public class func print<T>(output:@autoclosure() -> T?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
-            println(object)
+            if let object = output() {
+                println(object)
+            }
         }
     }
     

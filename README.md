@@ -1,12 +1,12 @@
 ![SquidKit: Swift stuff](https://raw.githubusercontent.com/SquidKit/SquidKit/assets/squidkit_logo.png)
 
-========
+*Somewhat useful Swift code. Tested in moderation.*
 
-Moderately useful Swift code modules. Somewhat tested.
+-----
 
-## And just what exactly is SquidKit?
+## OK, but what is it more specifically?
 
-SquidKit is a collection of classes, etc that would often be useful in new iOS development projects. It is intended to relieve the developer of the task of building out some of the boring infrastructure that often needs to be built out for modern apps, especially ones that communicate with a server and receive responses in JSON format.
+SquidKit is a collection of classes, etc that would often be useful in new iOS development projects. It is intended to relieve the developer of the task of building out some of the boring infrastructure that often needs to be built out for modern apps, especially ones that communicate with a server and receive responses in JSON format. SquidKit is a growing project, but already includes lots of rather useful stuff.
 
 ## Major functional components
 
@@ -245,5 +245,17 @@ See ThemedViewController.swift and ExampleTheme.json in the SquidKitExample proj
 
 ### Log
 
+## Contact
+Mike Leavy • mike@tinboxrobot.com • [@mleavysd](https://twitter.com/mleavysd)
+
+## License
+SquidKit is available under the MIT license. See the LICENSE file at the root level of this repository for further information.
+
+## Contribution
+Want to contribute? Please submit a pull request.
+
+
+
 [1]: https://github.com/Alamofire/Alamofire       "Alamofire"
 [2]: https://github.com/quartermaster/DB5       "DB5"
+[3]: https://twitter.com/mleavysd				"mleavysd"

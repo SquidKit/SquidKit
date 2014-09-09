@@ -24,6 +24,8 @@
 		1C8C1B2519A6F7D6000169F6 /* SquidKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8C1B2019A6F7BE000169F6 /* SquidKit.framework */; };
 		1C8C1B3B19AA44DD000169F6 /* ThemedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */; };
 		1C8C1B3C19AA44DD000169F6 /* ThemedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */; };
+		1CAA653119BECBBD002C25A7 /* SquidKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8C1B2019A6F7BE000169F6 /* SquidKit.framework */; };
+		1CAA653219BECBBD002C25A7 /* SquidKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8C1B2019A6F7BE000169F6 /* SquidKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +57,28 @@
 			remoteGlobalIDString = 1C8220D219A4F7E700A17B56;
 			remoteInfo = SquidKit;
 		};
+		1CAA653319BECBBD002C25A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C8C1B1A19A6F7BE000169F6 /* SquidKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C8220D219A4F7E700A17B56;
+			remoteInfo = SquidKit;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1CAA653519BECBBD002C25A7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1CAA653219BECBBD002C25A7 /* SquidKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1C0C600B19BBA957003E300C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CAA653119BECBBD002C25A7 /* SquidKit.framework in Frameworks */,
 				1C8C1B2519A6F7D6000169F6 /* SquidKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,11 +206,13 @@
 				1C8C1AF219A6F7AF000169F6 /* Sources */,
 				1C8C1AF319A6F7AF000169F6 /* Frameworks */,
 				1C8C1AF419A6F7AF000169F6 /* Resources */,
+				1CAA653519BECBBD002C25A7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				1C8C1B2A19A6FCD0000169F6 /* PBXTargetDependency */,
+				1CAA653419BECBBD002C25A7 /* PBXTargetDependency */,
 			);
 			name = SquidKitExample;
 			productName = SquidKitExample;
@@ -331,6 +357,11 @@
 			isa = PBXTargetDependency;
 			name = SquidKit;
 			targetProxy = 1C8C1B2919A6FCD0000169F6 /* PBXContainerItemProxy */;
+		};
+		1CAA653419BECBBD002C25A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SquidKit;
+			targetProxy = 1CAA653319BECBBD002C25A7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
