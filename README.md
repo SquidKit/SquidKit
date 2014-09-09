@@ -112,11 +112,138 @@ To use host environment configuration, add a line in your app's startup code tha
 ```swift
 HostMapManager.sharedInstance.loadConfigurationMapFromResourceFile("MyHostMap.json")
 ```
-and then add code to load SquidKit's HostConfigurationTableViewController:
+Once you've loaded the host map, you can set all environments to prerelease by doing this:
+```swift
+HostMapManager.sharedInstance.setPrereleaseConfigurations()
+```
+and to release by doing this:
+```swift
+HostMapManager.sharedInstance.setReleaseConfigurations()
+```
+Note that these methods set the environment to whatever is defined in your host map JSON file's "prerelease_key" and "release_key", respectively.
+  
+  
+To show the configuration selection UI, add code to load SquidKit's HostConfigurationTableViewController:
 ```swift
 let configurationViewController:HostConfigurationTableViewController = HostConfigurationTableViewController(style: .Grouped)
 
 myNavigationController.pushViewController(configurationViewController, animated: true)
 ```
+which will give you a table view that looks something like this:
+
+![SquidKit: Host Environment Table](https://raw.githubusercontent.com/SquidKit/SquidKit/assets/host_env_table.png)
+
+Host environment settings remain in effect after application restarts, since by default the results are cached to NSUserData. To clear the cache, you can do this:
+```swift
+HostMapManager.sharedInstance.hostMapCache?.removeAll()
+```
+You can provide your own caching mechanism - for example, if you want to store to SharedUserDefaults if you're working on an app and an extension - by setting the HostMapManager's hostMapCache to a class that implements the HostMapCache protocol (defined in EndpointMap.swift). If you want no caching at all, just set the hostMapCache to nil:
+```swift
+HostMapManager.sharedInstance.hostMapCache = MyHostMapCache()
+// OR
+HostMapManager.sharedInstance.hostMapCache = nil
+```
+  
+  
+In the SquidKitExample project, see EndpointExampleViewController.swift, TestEndpoint.swift and HostMap.json for examples of all of the above.
+
+### JSON parsing
+While not quite a full on parser, SquidKit offers a utility for working with JSON response data that abstracts away some of the ugliness of directly dealing with Dictionary objects and extracting values therein. SquidKit handles JSON data with one public class: JSONEntity. JSONEntity is effectively a wrapper for a JSON element's key and value. Unlike walking through a Dictionary checking to see if particular keys exist, a JSONEntity is guaranteed to be non-nil, thus always directly inspectable without checking for non-nil optional values.
+  
+A JSONEntity can be constructed with a key/value pair, a JSON resource file, or a JSON dictionary:
+```swift
+public init(_ key:String, _ value:AnyObject)
+public init(resourceFilename:String)
+public init(jsonDictionary:NSDictionary)
+```
+JSON elements are extracted using common subscript syntax:
+```swift
+let json = JSONEntity(resourceFilename: "MyJSONFile.json")
+let someItem = json["some_item"]
+```
+at this point you can extract the value of the JSON "some_item" entity using one of the JSONEntity value extraction methods. All of the value extraction methods take a default value parameter with a default value of nil (so you can omit it); however, it is often quite useful and more succinct to just specify the default at extraction/assignment time, thus:
+```swift
+let address = entity["address"].string("Address N/A")
+```
+here are all of the value extraction methods of JSONEntity:
+```swift
+public func string(_ defaultValue:String? = nil) -> String?
+
+public func array(_ defaultValue:NSArray? = nil) -> NSArray?
+
+public func dictionary(_ defaultValue:NSDictionary? = nil) -> NSDictionary?
+
+public func int(_ defaultValue:Int? = nil) -> Int?
+
+public func float(_ defaultValue:Float? = nil) -> Float?
+
+public func bool(_ defaultValue:Bool? = nil) -> Bool?
+```
+JSONEntity also supports two subscript operators: one that takes a String (for extracting key values) and one that takes an Int (for extracting array element values). The subscript operators return a non-nil JSONEntity that wraps the value. Of course, values don't always exist; this is way the value extraction methods all return optionals. One can also look at the "isValid" bool value of a JSONEntity to determine if it contains a valid value.
+  
+JSONEntity conforms to SequenceType, which means it supports iteration using for-in syntax:
+```swift
+let json = JSONEntity(myJSONDictionary)
+let entities = json["entities_array"]
+for entity in entities {
+    let float = entity["float_item"].float()
+    // etc...
+}
+```
+  
+JSONEntity is conceptually similar to the SwiftyJSON library - however, unlike SwiftyJSON, JSONEntity supports the quite useful default values and iteration mentioned above.
+  
+In the SquidKitExample project, see JSONEntityExampleViewController.swift for an example of using JSONEntity. Additionally, SquidKit itself uses JSONEntity to parse JSON theme files (ThemeLoader.swift in the SquidKit project).
+
+### Themes
+SquidKit themes are simply a mechanism for expressing pretty much any attribute in an external file, rather than internally in source code. This theme model borrows heavily from Brent Simmons' [DB5][2] theme work, however SquidKit themes use the more portable JSON format rather than plists for defining theme elements. Theme-able elements include colors (including alpha), strings, ints, floats, bools, or any Dictionary value.
+  
+Theme JSON looks like this:
+```json
+{
+    "themes":
+    [
+        {
+            "name": "ExampleTheme",
+            "attributes":
+            [
+				{
+					"type":		"color",
+					"value":	"0000FF(blue)",
+					"key":		"defaultBackgroundColor"
+				},
+				{
+					"type":		"color",
+					"value":	"FF0000(red)",
+					"alpha":	0.5,
+					"key":		"defaultLabelTextColor"
+				},
+				{
+					"value":	"Theme view with theme label",
+					"key":		"myThemeText"
+				}
+            ]
+        }
+    ]
+}
+```
+You may include as many "attributes" as you like. The only explicitly "typed" attribute is color. A theme color's value is a hexadecimal string, of the format [0x]NNNNNN[any text]; values in [] are optional; N is a hexadecimal character. Anything after the first 6 hex characters is ignored. There are currently two special "key" values for a color: *defaultBackgroundColor* and *defaultLabelTextColor*. These are used by ThemeViews, ThemeTableViews and ThemeLabels, as discussed below.
+  
+To load a theme, do this:
+```swift
+ThemeLoader.loadThemesFromResourceFile("MyTheme.json")
+
+// and to make the first loaded theme the default theme
+ThemeManager.sharedInstance.setDefaultTheme()
+```
+##### ThemeLabel, ThemeView and ThemeTableView
+These are views that, given a key name for a theme color, will automatically load and use that theme color for their background colors, or for it's text color (for ThemeLabel). You set the key name for these views via a string property that, by default, is set to *defaultBackgroundColor* or, for the label, *defaultLabelTextColor*. Thus to get default theme behavior for labels and views, you need do nothing other than provide the appropriate color attributes in your theme file.
+  
+See ThemedViewController.swift and ExampleTheme.json in the SquidKitExample project for an example of using themes.
+
+### TableItem and TableSection
+
+### Log
 
 [1]: https://github.com/Alamofire/Alamofire       "Alamofire"
+[2]: https://github.com/quartermaster/DB5       "DB5"

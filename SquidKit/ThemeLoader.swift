@@ -76,9 +76,9 @@ public class ThemeLoader {
             if attributeType == "color" {
                 attribute = ThemeLoader.colorFromAttributeDictionary(attributeDictionary)
             }
-            else {
-                attribute = attributeDictionary.objectForKey("value")
-            }
+        }
+        else {
+            attribute = attributeDictionary.objectForKey("value")
         }
         
         return attribute

@@ -100,9 +100,7 @@ private let _HostMapManagerSharedInstance = HostMapManager()
 public class HostMapManager {
     public var hostMaps = [HostMap]()
 
-    public var hostMapCache:HostMapCache? {
-        return SquidKitHostMapCache()
-    }
+    public var hostMapCache:HostMapCache? = SquidKitHostMapCache()
     
     private init() {
         

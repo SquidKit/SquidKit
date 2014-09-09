@@ -8,15 +8,15 @@
 
 import UIKit
 
-class ThemeView: UIView {
+public class ThemeView: UIView {
     
-    var backgroundColorName:String? = "defaultBackgroundColor" {
+    public var backgroundColorName:String? = "defaultBackgroundColor" {
         didSet {
             self.updateBackgroundColor()
         }
     }
     
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         super.awakeFromNib()
         self.updateBackgroundColor()
     }

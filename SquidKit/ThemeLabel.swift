@@ -8,15 +8,15 @@
 
 import UIKit
 
-class ThemeLabel: UILabel {
+public class ThemeLabel: UILabel {
 
-    var textColorName:String? = "defaultLabelTextColor" {
+    public var textColorName:String? = "defaultLabelTextColor" {
         didSet {
             self.updateTextColor()
         }
     }
     
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         super.awakeFromNib()
         self.updateTextColor()
     }

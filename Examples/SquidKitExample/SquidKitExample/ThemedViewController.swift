@@ -10,6 +10,8 @@ import UIKit
 import SquidKit
 
 class ThemedViewController: UIViewController {
+    
+    @IBOutlet weak var label:ThemeLabel?
 
     override func awakeFromNib() {
         ThemeLoader.loadThemesFromResourceFile("ExampleTheme.json")
@@ -19,7 +21,7 @@ class ThemedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        label!.text = Theme.activeTheme()?.stringForKey("myThemeText")
     }
 
     override func didReceiveMemoryWarning() {

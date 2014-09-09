@@ -211,6 +211,9 @@
                             <constraint firstItem="fIO-1l-wIL" firstAttribute="centerX" secondItem="UxB-dd-xKX" secondAttribute="centerX" id="mbn-PX-qEE"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="label" destination="ocG-CD-PpM" id="k6M-9X-7fG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVq-Pw-UBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

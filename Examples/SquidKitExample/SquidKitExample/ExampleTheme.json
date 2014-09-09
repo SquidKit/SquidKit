@@ -2,7 +2,7 @@
     "themes":
     [
         {
-            "name": "Swipe",
+            "name": "ExampleTheme",
             "attributes":
             [
 				{
@@ -15,6 +15,10 @@
 					"value":	"FF0000(red)",
 					"key":		"defaultLabelTextColor"
 				},
+				{
+					"value":	"Theme view with theme label",
+					"key":		"myThemeText"
+				}
             ]
         }
     ]
