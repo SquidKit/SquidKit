@@ -13,12 +13,16 @@ public class JSONResponseEndpoint: Endpoint {
     public func connect(completionHandler: ([String: AnyObject]?, ResponseStatus) -> Void) {
         let (params, method) = self.params()
         var encoding:ParameterEncoding = .URL
-        
-        switch method {
-        case .POST:
-            encoding = .JSON
-        default:
-            break
+        if let specifiedEncoding = self.encoding() {
+            encoding = specifiedEncoding
+        }
+        else {
+            switch method {
+            case .POST:
+               encoding = .JSON
+            default:
+                break
+            }
         }
         
         Log.message(self.url())

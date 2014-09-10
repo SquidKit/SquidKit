@@ -29,22 +29,46 @@ class TestEndpoint: JSONResponseEndpoint {
    
 }
 
-class RDCTestEndpoint: JSONResponseEndpoint {
+class TaxeeTestEndpoint: JSONResponseEndpoint {
     
     override func hostProtocol() -> String {
         return "http"
     }
     
     override func host() -> String {
-        return "mapi.move.com"
+        return "taxee.io"
     }
     
     override func path() -> String {
-        return "appcontrol/v1/version/"
+        return "api/v1/federal/2014"
     }
     
     override func params() -> ([String: AnyObject]?, SquidKit.Method) {
         return (nil, .GET)
+    }
+    
+}
+
+class TaxeeTestEndpoint2: JSONResponseEndpoint {
+    
+    override func hostProtocol() -> String {
+        return "http"
+    }
+    
+    override func host() -> String {
+        return "taxee.io"
+    }
+    
+    override func path() -> String {
+        return "api/v1/calculate/2014"
+    }
+    
+    override func params() -> ([String: AnyObject]?, SquidKit.Method) {
+        return (["pay_rate": 100000, "filing_status": "single"], .POST)
+    }
+    
+    override func encoding() -> ParameterEncoding? {
+        return .URL
     }
     
 }

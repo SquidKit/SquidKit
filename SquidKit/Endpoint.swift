@@ -44,6 +44,11 @@ public class Endpoint {
         return (nil, .GET)
     }
     
+    // OVERRIDE: return desired parameter encoding; default will be URL for GETs and JSON for POSTs
+    public func encoding() -> ParameterEncoding? {
+        return nil
+    }
+    
     public func url() -> String {
         var aProtocol = self.hostProtocol()
         var aHost = self.host()

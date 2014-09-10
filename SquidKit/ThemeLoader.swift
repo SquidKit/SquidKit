@@ -26,24 +26,14 @@ public class ThemeLoader {
             
             for aTheme in themes {
                 var theme:Theme = Theme()
-                theme.name = aTheme["name"].string()
+                theme.name = aTheme["name"].stringWithDefault("unnamed theme")
                 
                 let attributes = aTheme["attributes"]
                 let themeDictionary = NSMutableDictionary(capacity: attributes.count)
                 for attribute in attributes {
-                    let anyAttribute:AnyObject? = ThemeLoader.attributeFromAttributeDictionary(attribute.dictionary(NSDictionary())!)
-                    if anyAttribute != nil {
-                        if let attributeKey = attribute["key"].string() {
-                            themeDictionary.setObject(anyAttribute, forKeyedSubscript: attributeKey)
-                        }
-                        else if let attributeKeys:NSArray = attribute["keys"].array() {
-                            for keyValue:AnyObject in attributeKeys {
-                                themeDictionary.setObject(anyAttribute, forKeyedSubscript: keyValue as String)
-                            }
-                        }
-                        else {
-                            themeDictionary.addEntriesFromDictionary(attribute.dictionary(NSDictionary())!)
-                        }
+                    let (key, value: AnyObject?) = ThemeLoader.attributeFromAttributeEntity(attribute)
+                    if value != nil {
+                        themeDictionary.setObject(value!, forKey: key)
                     }
                 }
                 
@@ -68,28 +58,25 @@ public class ThemeLoader {
         return result
     }
     
-    class func attributeFromAttributeDictionary(attributeDictionary:NSDictionary) -> AnyObject? {
+    class func attributeFromAttributeEntity(entity:JSONEntity) -> (String, AnyObject?) {
         
-        var attribute:AnyObject?
+        var attribute:AnyObject
         
-        if let attributeType = attributeDictionary.objectForKey("type") as? String {
-            if attributeType == "color" {
-                attribute = ThemeLoader.colorFromAttributeDictionary(attributeDictionary)
+        if let dictionary = entity.dictionary() {
+            if let color = dictionary.objectForKey("color") as? String {
+                return (entity.key, ThemeLoader.colorFromAttributeDictionary(dictionary))
             }
         }
-        else {
-            attribute = attributeDictionary.objectForKey("value")
-        }
         
-        return attribute
+        return (entity.key, entity.realValue)
     }
     
     class func colorFromAttributeDictionary(attributeDictionary:NSDictionary) -> UIColor? {
         var color:UIColor?
         
-        if let value:String = attributeDictionary.objectForKey("value") as? String {
+        if let hexColor:String = attributeDictionary.objectForKey("color") as? String {
             let alpha:NSNumber? = attributeDictionary.objectForKey("alpha") as? NSNumber
-            color = UIColor.colorWithHexString(value, alpha: alpha != nil ? Float(alpha!.floatValue) : 1)
+            color = UIColor.colorWithHexString(hexColor, alpha: alpha != nil ? Float(alpha!.floatValue) : 1)
         }
         
         return color

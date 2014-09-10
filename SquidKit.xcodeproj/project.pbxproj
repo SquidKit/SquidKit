@@ -25,8 +25,8 @@
 		1C57DAF119BCE3A7009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
 		1C8220D919A4F7E700A17B56 /* SquidKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C8220D819A4F7E700A17B56 /* SquidKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C8220E319A4F7E700A17B56 /* SquidKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220E219A4F7E700A17B56 /* SquidKitTests.swift */; };
-		1C8220F419A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F319A4F92F00A17B56 /* ACAccount+SquidKit.swift */; };
-		1C8220F519A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F319A4F92F00A17B56 /* ACAccount+SquidKit.swift */; };
+		1C8220F419A4F92F00A17B56 /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F319A4F92F00A17B56 /* AccountHelper.swift */; };
+		1C8220F519A4F92F00A17B56 /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F319A4F92F00A17B56 /* AccountHelper.swift */; };
 		1C82210219A4F94300A17B56 /* DismissibleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F619A4F94300A17B56 /* DismissibleViewController.swift */; };
 		1C82210319A4F94300A17B56 /* DismissibleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F619A4F94300A17B56 /* DismissibleViewController.swift */; };
 		1C82210619A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F819A4F94300A17B56 /* NSDictionary+Utility.swift */; };
@@ -70,7 +70,7 @@
 		1C8220DE19A4F7E700A17B56 /* SquidKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SquidKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8220E119A4F7E700A17B56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C8220E219A4F7E700A17B56 /* SquidKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquidKitTests.swift; sourceTree = "<group>"; };
-		1C8220F319A4F92F00A17B56 /* ACAccount+SquidKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ACAccount+SquidKit.swift"; sourceTree = "<group>"; };
+		1C8220F319A4F92F00A17B56 /* AccountHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountHelper.swift; sourceTree = "<group>"; };
 		1C8220F619A4F94300A17B56 /* DismissibleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissibleViewController.swift; sourceTree = "<group>"; };
 		1C8220F819A4F94300A17B56 /* NSDictionary+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDictionary+Utility.swift"; sourceTree = "<group>"; };
 		1C8220F919A4F94300A17B56 /* String+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+File.swift"; sourceTree = "<group>"; };
@@ -205,7 +205,7 @@
 		1C8220ED19A4F8E200A17B56 /* Social */ = {
 			isa = PBXGroup;
 			children = (
-				1C8220F319A4F92F00A17B56 /* ACAccount+SquidKit.swift */,
+				1C8220F319A4F92F00A17B56 /* AccountHelper.swift */,
 			);
 			name = Social;
 			sourceTree = "<group>";
@@ -372,7 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C8220F419A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */,
+				1C8220F419A4F92F00A17B56 /* AccountHelper.swift in Sources */,
 				1C0C601E19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */,
 				1C82211419A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
@@ -407,7 +407,7 @@
 				1C82210D19A4F94300A17B56 /* TableItem.swift in Sources */,
 				1C82211519A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210719A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
-				1C8220F519A4F92F00A17B56 /* ACAccount+SquidKit.swift in Sources */,
+				1C8220F519A4F92F00A17B56 /* AccountHelper.swift in Sources */,
 				1C0C601B19BBB123003E300C /* EndpointMap.swift in Sources */,
 				1C0C601219BBB077003E300C /* Alamofire.swift in Sources */,
 				1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */,

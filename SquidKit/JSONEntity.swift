@@ -30,6 +30,9 @@ public class JSONEntity: SequenceType {
         if let array = self.array() {
             return array.count
         }
+        else if let dictionary = self.dictionary() {
+            return dictionary.count
+        }
         return 0
     }
     
@@ -42,6 +45,13 @@ public class JSONEntity: SequenceType {
     
     public var key:String {
         return self.entity.key
+    }
+    
+    public var realValue:AnyObject? {
+        if let nilValue = self.entity.value as? NilValue {
+            return nil
+        }
+        return self.entity.value
     }
     
     public init(_ key:String, _ value:AnyObject) {
@@ -61,19 +71,43 @@ public class JSONEntity: SequenceType {
         self.entity = Entity("", jsonDictionary)
     }
     
-    public func string(_ defaultValue:String? = nil) -> String? {
+    public func string() -> String? {
+        return self.stringWithDefault(nil)
+    }
+    
+    public func array() -> NSArray? {
+        return self.arrayWithDefault(nil)
+    }
+    
+    public func dictionary() -> NSDictionary? {
+        return self.dictionaryWithDefault(nil)
+    }
+    
+    public func int() -> Int? {
+        return self.intWithDefault(nil)
+    }
+    
+    public func float() -> Float? {
+        return self.floatWithDefault(nil)
+    }
+    
+    public func bool() -> Bool? {
+        return self.boolWithDefault(nil)
+    }
+    
+    public func stringWithDefault(defaultValue:String?) -> String? {
         return EntityConverter<String>().get(entity.value, defaultValue)
     }
     
-    public func array(_ defaultValue:NSArray? = nil) -> NSArray? {
+    public func arrayWithDefault(defaultValue:NSArray?) -> NSArray? {
         return EntityConverter<NSArray>().get(entity.value, defaultValue)
     }
     
-    public func dictionary(_ defaultValue:NSDictionary? = nil) -> NSDictionary? {
+    public func dictionaryWithDefault(defaultValue:NSDictionary?) -> NSDictionary? {
         return EntityConverter<NSDictionary>().get(entity.value, defaultValue)
     }
     
-    public func int(_ defaultValue:Int? = nil) -> Int? {
+    public func intWithDefault(defaultValue:Int?) -> Int? {
         if let int = EntityConverter<Int>().get(entity.value, nil) {
             return int
         }
@@ -83,7 +117,7 @@ public class JSONEntity: SequenceType {
         return defaultValue
     }
     
-    public func float(_ defaultValue:Float? = nil) -> Float? {
+    public func floatWithDefault(defaultValue:Float?) -> Float? {
         if let float = EntityConverter<Float>().get(entity.value, nil) {
             return float
         }
@@ -93,7 +127,7 @@ public class JSONEntity: SequenceType {
         return defaultValue
     }
     
-    public func bool(_ defaultValue:Bool? = nil) -> Bool? {
+    public func boolWithDefault(defaultValue:Bool?) -> Bool? {
         if let bool = EntityConverter<Bool>().get(entity.value, nil) {
             return bool
         }
@@ -141,6 +175,16 @@ public struct JSONEntityGenerator:GeneratorType {
         if let array = self.entity.array() {
             if sequenceIndex < array.count {
                 let result = JSONEntity(self.entity.entity.key, array[sequenceIndex])
+                sequenceIndex++
+                return result
+            }
+            else {
+                sequenceIndex = 0
+            }
+        }
+        else if let dictionary = self.entity.dictionary() {
+            if sequenceIndex < dictionary.count {
+                let result = JSONEntity(dictionary.allKeys[sequenceIndex] as String, dictionary.objectForKey(dictionary.allKeys[sequenceIndex])!)
                 sequenceIndex++
                 return result
             }

@@ -89,9 +89,11 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         
         let endpointsSection = TableSection("Endpoints")
         let endpoint1 = EnpointTableItem(TestEndpoint())
-        let endpoint2 = EnpointTableItem(RDCTestEndpoint())
+        let endpoint2 = EnpointTableItem(TaxeeTestEndpoint())
+        let endpoint3 = EnpointTableItem(TaxeeTestEndpoint2())
         endpointsSection.append(endpoint1)
         endpointsSection.append(endpoint2)
+        endpointsSection.append(endpoint3)
         self.model.append(endpointsSection)
     }
     

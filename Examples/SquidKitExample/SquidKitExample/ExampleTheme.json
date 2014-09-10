@@ -4,22 +4,16 @@
         {
             "name": "ExampleTheme",
             "attributes":
-            [
-				{
-					"type":		"color",
-					"value":	"0000FF(blue)",
-					"key":		"defaultBackgroundColor"
+            {
+				"myThemeText": "Theme view with theme label",
+				"defaultBackgroundColor": {
+					"color": "0000FF(blue)",
+					"alpha": 0.3
 				},
-				{
-					"type":		"color",
-					"value":	"FF0000(red)",
-					"key":		"defaultLabelTextColor"
-				},
-				{
-					"value":	"Theme view with theme label",
-					"key":		"myThemeText"
+				"defaultLabelTextColor": {
+					"color": "FF0000(red)"
 				}
-            ]
+            }
         }
     ]
 }

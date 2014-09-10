@@ -29,22 +29,22 @@
                                   ]
                        },
                        {
-       "canonical_host": "mapi.move.com",
+       "canonical_host": "taxee.io",
        "canonical_protocol": "http",
        "prerelease_key": "DEV",
        "release_key": "PROD",
        "hosts":  [
                      {
                      "key": "PROD",
-                     "host": "mapi.move.com"
+                     "host": "taxee.io"
                      },
                      {
                      "key": "QA",
-                     "host": "qa.mapi.move.com"
+                     "host": "qa.taxee.io"
                      },
                      {
                      "key": "DEV",
-                     "host": "dev.mapi.move.com"
+                     "host": "dev.taxee.io"
                      },
                      {
                      "key": "localhost",

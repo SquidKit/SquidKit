@@ -19,7 +19,7 @@ private let _SquidKitLogSharedInstance = Log()
 
 public class Log {
     
-    private var logStatus:LogStatus = .Always
+    private var logStatus:LogStatus = .Simulator
     private var isSimulator:Bool {
         #if arch(i386) || arch(x86_64)
             return true
