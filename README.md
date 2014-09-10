@@ -1,12 +1,12 @@
 ![SquidKit: Swift stuff](https://raw.githubusercontent.com/SquidKit/SquidKit/assets/squidkit_logo.png)
 
-###Somewhat useful Swift code, somewhat tested.
+### Somewhat useful Swift code, somewhat tested.
 
 -----
 
 ## That's nice, but what is SquidKit more specifically?
 
-SquidKit is a collection of classes, etc that would often be useful in new iOS development projects. It is intended to relieve the developer of the task of building out some of the boring infrastructure that often needs to be built out for modern apps, especially ones that communicate with a server and receive responses in JSON format. SquidKit is a growing project, but already includes lots of rather useful stuff.
+SquidKit is a collection of classes and related code that would often be useful in new iOS development projects. It is intended to relieve the developer of the task of building out some of the boring infrastructure that often needs to be built out for modern apps, especially ones that communicate with a server and receive responses in JSON format. SquidKit is a growing project, but already includes lots of rather useful stuff.
 
 ## Versions
 Release  | Supported OS 
@@ -16,7 +16,7 @@ Release  | Supported OS
 ## Major functional components
 
 ### Networking
-SquidKit networking is built on top of the excellent [Alamofire][1] networking library written by Mattt Thompson. SquidKit takes networking abstraction a bit further by building upon the idea that most apps communicate to a set of endpoints, each with their own set of query or post parameters, and which return data as JSON. Thus, SquidKit introduces the Endpoint class, which is designed to be overridden by various endpoint configurations. SquidKit provides one such overriding class - JSONResponseEndpoint - which is an Endpoint that expects a JSON response format. Defining an endpoint is typically as simple as overriding 3 methods:
+SquidKit networking is built on top of the excellent [Alamofire][1] networking library written by Mattt Thompson. SquidKit takes networking abstraction a bit further by building upon the idea that most apps communicate with a set of endpoints, each with their own set of query or post parameters, and which return data as JSON. Thus, SquidKit introduces the Endpoint class, which is designed to be overridden by various endpoint configurations. SquidKit provides one such overriding class - JSONResponseEndpoint - which is an Endpoint that expects a JSON response format. Defining an endpoint is typically as simple as overriding 3 methods:
 * override func host() -> String
 * override func path() -> String
 * override func params() -> ([String: AnyObject]?, SquidKit.Method)
@@ -70,7 +70,7 @@ MyEndpoint.connect {(JSON, status) -> Void in
 In the SquidKitExample project that is included with SquidKit, take a look at TestEndpoint.swift and EndpointTestTableViewController.swift for further examples of working with SquidKit networking.
 
 ### Network host environments
-Typically in a development project, one is working with a variety of service environments for a collection of endpoints - production, QA and dev are common examples. SquidKit offers an elegant and complete solution for putting environment switching capabilities into your iOS application *(note: you it is often useful to leave such capabilities in your production app as well, especially if you want to test your production app against planned service modifications. We'll leave it to you how you might wish to hide the service configuration UI from your users)*. In SquidKit, providing an environment switcher is as easy as providing a JSON file that describes your various environments, and including SquidKit's HostConfigurationTableViewController that provides the UI for switching among the environments described in your JSON file.
+Typically in a development project, one is working with a variety of service environments for a collection of endpoints - production, QA and dev are common examples. SquidKit offers an elegant and complete solution for putting environment switching capabilities into your iOS application *(note: it is often useful to leave such capabilities in your production app as well, especially if you want to test your production app against planned service modifications. We'll leave it to you as to how you might wish to hide the service configuration UI from your users)*. In SquidKit, providing an environment switcher is as easy as providing a JSON file that describes your various environments, and including SquidKit's HostConfigurationTableViewController that provides the UI for switching among the environments described in your JSON file.
 
 *JSON file example*
 ```json
@@ -111,7 +111,7 @@ Typically in a development project, one is working with a variety of service env
 
 You can define as many configurations as you like. And note the "USER" key that lacks a "host" or "protocol" entry - this tells SquidKit to treat this key as a runtime defined environment field with a text entry field for inputting the host name.
 
-SquidKit Endpoints automatically work with network host environments, no other or endpoint management is required.
+SquidKit Endpoints automatically work with network host environments, no other endpoint management is required.
 
 To use host environment configuration, add a line in your app's startup code that looks like this:
 ```swift
@@ -153,7 +153,7 @@ HostMapManager.sharedInstance.hostMapCache = nil
 In the SquidKitExample project, see EndpointExampleViewController.swift, TestEndpoint.swift and HostMap.json for examples of all of the above.
 
 ### JSON parsing
-While not quite a full on parser, SquidKit offers a utility for working with JSON response data that abstracts away some of the ugliness of directly dealing with Dictionary objects and extracting values therein. SquidKit handles JSON data with one public class: JSONEntity. JSONEntity is effectively a wrapper for a JSON element's key and value. Unlike walking through a Dictionary checking to see if particular keys exist, a JSONEntity is guaranteed to be non-nil, thus always directly inspectable without checking for non-nil optional values.
+While not quite a full on parser, SquidKit offers a utility for working with JSON response data that abstracts away some of the ugliness of directly dealing with Dictionary objects and extracting values therein. SquidKit handles JSON data with one public class: JSONEntity. JSONEntity is effectively a wrapper for a JSON element's key and value. Unlike walking through a Dictionary checking to see if particular keys exist, a JSONEntity is guaranteed to be non-nil, thus always directly inspectable without checking for nil optional values.
   
 A JSONEntity can be constructed with a key/value pair, a JSON resource file, or a JSON dictionary:
 ```swift
@@ -192,7 +192,7 @@ let address = entity["address"].string()
 let address = entity["address"].stringWithDefault("Address N/A")
 ```
   
-JSONEntity also supports two subscript operators: one that takes a String (for extracting key values) and one that takes an Int (for extracting array element values). The subscript operators return a non-nil JSONEntity that wraps the value. Of course, values don't always exist; this is way the value extraction methods all return optionals. One can also look at the "isValid" bool value of a JSONEntity to determine if it contains a valid value.
+JSONEntity supports two subscript operators: one that takes a String (for extracting key values) and one that takes an Int (for extracting array element values). The subscript operators return a non-nil JSONEntity that wraps the value. Of course, values don't always exist; this is way the value extraction methods all return optionals. One can also look at the "isValid" bool value of a JSONEntity to determine if it contains a valid value.
   
 JSONEntity conforms to SequenceType, which means it supports iteration using for-in syntax:
 ```swift
@@ -220,7 +220,7 @@ Theme JSON looks like this:
             "name": "ExampleTheme",
             "attributes":
             {
-				"myThemeText": "Theme view with theme label",
+				"myThemeText": "Hello themes",
 				"defaultBackgroundColor": {
 					"color": "0000FF(blue)",
 					"alpha": 0.3
@@ -251,7 +251,7 @@ See ThemedViewController.swift and ExampleTheme.json in the SquidKitExample proj
 SquidKit's TableItem and TableSection classes provide a mechanism for modeling table data, especially in cases where there is no "natural" model otherwise available. A good example is the commonly used slide-out "left" menu found in many apps; these menus typically provide access to various non-hierarchical app views. There is typically no "natural" model for such a system. Alternatively, if you get a list of coffee shop locations from some API, then that list is the "natural" model, and would probably represent a better (or more efficient) modeling scheme than TableItem/Section. Or maybe not. You decide ;-)
   
 ##### TableItem
-TableItem models a single row item UITableView. At it's most basic level, it has a name property which might be used to populate a cell's textLabel text. However, it also allows for a closure that will be called when the TableItem is selected (as long as you call the closure in your table view delegate's "didSelectRowAtIndexPath" method, or use a "TableItemBackedTableViewController" (see below)). In these ways, TableItem provides all of the functionality for a table row in once central place - no scattering of logic amongst table view delegates and data sources. Other TableItem properties include *rowHeight* and *reuseIdentifier*. All properties are optional (rowHeight is actually a computed property). A typical TableItem might look like this:
+TableItem models a single row item UITableView. At it's most basic level, it has a name property which might be used to populate a cell's textLabel text. It also allows for a closure that will be called when the TableItem is selected (as long as you call the closure in your table view delegate's "didSelectRowAtIndexPath" method, or use a "TableItemBackedTableViewController" (see below)). In these ways, TableItem provides all of the functionality for a table row in once central place - no scattering of logic amongst table view delegates and data sources. Other TableItem properties include *rowHeight* and *reuseIdentifier*. All properties are optional (rowHeight is actually a computed property). A typical TableItem might look like this:
 ```swift
 
 let myTableItem = TableItem("Hello", reuseIdentifier:"myCellIdentifier", selectBlock: { (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
@@ -287,7 +287,7 @@ public enum NavigatingTableItemNavigationType {
 See HomeViewController.swift in the Example project for a better understanding of how to use a NavigatingTableItem.
 
 ##### TableSection
-A TableSection is simply an array of TableItems. TableSection models a section in a UITableView. It may also have a height and a title. By default, the height is nil if title is non-nil, meaning use the UITableView's default section height property for the height.
+A TableSection is simply an array of TableItems. TableSection models a section in a UITableView. It may also have a height and a title. By default, the height is nil if title is non-nil (which means: use the UITableView's default section height property for the height).
 
 ##### TableItemBackedTableViewController
 TableItemBackedTableViewController makes working with TableItems and TableSections really simple. Just plop an array of TableSections into a TableItemBackedTableViewController, and this controller really does the rest: it handles calling a TableItem's selectBlock, it handles all of the rowCount, sectionCount, etc stuff. The only thing it doesn't do is implement *cellForRowAtIndexPath*; you are expected to override TableItemBackedTableViewController and provide cells.
@@ -295,7 +295,7 @@ TableItemBackedTableViewController makes working with TableItems and TableSectio
 All of the table view controllers in the SquidKitExample project use TableItemBackedTableViewController, TableItems and TableSections. Look at any or all of them for a comprehensive picture of how to make use of these simple yet powerful constructs.
 
 ### Log
-SquidKit provides a basic yet powerful and useful logging facility. I'm not big on logging "levels" (warning, debug, info, blah blah) - I find that the utility of "levels" is often compromised over time. In any event, SquidKit log eschews them. Instead, SquidKit offers a handful of logging methods and a way to enable or disable logging on both devices and simulators. Furthermore, the primary logging methods use autoclosures, which allows the entire log statement to be ignored when logging is disabled (in much the same way that assert conditions are typically ignored in C and C++ implementations).
+SquidKit provides a basic yet powerful and useful logging facility. I'm not big on logging "levels" (warning, debug, info, blah blah) - I find that the utility of "levels" is often compromised over time. In any event, SquidKit log eschews them. Instead, SquidKit offers a handful of logging methods and a way to enable or disable logging on both devices and simulators. Furthermore, the primary logging methods use autoclosures, which allows the entire log statement to be ignored when logging is disabled (in much the same way that assert conditions are typically ignored in C and C++ assert implementations).
 
 The primary logging methods are:
 ```swift
@@ -312,7 +312,7 @@ public enum LogStatus {
     case Never
 }
 ```
-the *print* method is used to log any object, while message is for strings only. I'm not sure about the utility of providing both mechanisms, but there they are.
+the *print* method is used to log any object, while *message* is for strings only. I'm not sure about the utility of providing both mechanisms, but there they are.
 
 a simple example:
 ```swift
@@ -335,7 +335,7 @@ bar
 foo
 hello
 
-// again with logging disabled, to illustrate the foo() and bar() are not called:
+// again with logging disabled, to illustrate that foo() and bar() are not called:
 
 Log.setLogStatus(.Never)	// disable logging
 Log.print(bar())
