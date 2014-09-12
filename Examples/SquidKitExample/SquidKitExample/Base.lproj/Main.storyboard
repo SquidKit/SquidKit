@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rS3-R9-Ivy">
     <dependencies>
         <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -184,10 +184,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fIO-1l-wIL" customClass="ThemeView" customModule="SquidKit">
-                                <rect key="frame" x="128" y="74" width="344" height="373"/>
+                                <rect key="frame" x="140" y="113" width="320" height="373"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ThemeView with ThemeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocG-CD-PpM" customClass="ThemeLabel" customModule="SquidKit">
-                                        <rect key="frame" x="60" y="85" width="224" height="204"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ThemeView with ThemeLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ocG-CD-PpM" customClass="ThemeLabel" customModule="SquidKit">
+                                        <rect key="frame" x="48" y="85" width="224" height="204"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -195,21 +195,15 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="centerX" secondItem="ocG-CD-PpM" secondAttribute="centerX" id="Gp9-Iz-82e"/>
-                                    <constraint firstItem="ocG-CD-PpM" firstAttribute="centerX" secondItem="fIO-1l-wIL" secondAttribute="centerX" id="Umb-3H-BdB"/>
-                                    <constraint firstItem="ocG-CD-PpM" firstAttribute="leading" secondItem="fIO-1l-wIL" secondAttribute="leading" constant="60" id="dqc-rU-qsS"/>
-                                    <constraint firstItem="ocG-CD-PpM" firstAttribute="top" secondItem="fIO-1l-wIL" secondAttribute="top" constant="85" id="h9d-Mc-jxI"/>
-                                    <constraint firstAttribute="centerY" secondItem="ocG-CD-PpM" secondAttribute="centerY" id="qfz-bW-9Bc"/>
-                                    <constraint firstAttribute="bottom" secondItem="ocG-CD-PpM" secondAttribute="bottom" constant="84" id="zFd-pW-3kJ"/>
+                                    <constraint firstAttribute="height" constant="373" id="Xql-3t-h8H"/>
+                                    <constraint firstAttribute="width" constant="320" id="ZDJ-6I-j6B"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="fIO-1l-wIL" secondAttribute="centerX" id="5QN-0C-wNO"/>
-                            <constraint firstAttribute="centerY" secondItem="fIO-1l-wIL" secondAttribute="centerY" constant="39.5" id="Vbf-C5-Ehh"/>
-                            <constraint firstItem="fIO-1l-wIL" firstAttribute="top" secondItem="UxB-dd-xKX" secondAttribute="bottom" constant="54" id="jq3-sh-CHM"/>
-                            <constraint firstItem="fIO-1l-wIL" firstAttribute="centerX" secondItem="UxB-dd-xKX" secondAttribute="centerX" id="mbn-PX-qEE"/>
+                            <constraint firstAttribute="centerX" secondItem="fIO-1l-wIL" secondAttribute="centerX" id="MZ9-SV-3hw"/>
+                            <constraint firstAttribute="centerY" secondItem="fIO-1l-wIL" secondAttribute="centerY" id="lXJ-fP-C6O"/>
                         </constraints>
                     </view>
                     <connections>
