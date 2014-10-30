@@ -48,13 +48,13 @@ public extension String {
     }
 
     public func phoneURL() -> NSURL {
-        return NSURL(string: "tel://\(self.phoneDigitsString())")
+        return NSURL(string: "tel://\(self.phoneDigitsString())")!
     }
 
     public func validEmail() -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         let predicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return predicate.evaluateWithObject(self)
+        return predicate!.evaluateWithObject(self)
     }
 }
 

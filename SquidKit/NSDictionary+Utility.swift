@@ -12,7 +12,7 @@ public extension NSDictionary {
     
     public class func dictionaryFromResourceFile(fileName:String) -> NSDictionary? {
         
-        if let inputStream = NSInputStream.inputStreamWithFileAtPath(String.stringWithPathToResourceFile(fileName)) {
+        if let inputStream = NSInputStream(fileAtPath:String.stringWithPathToResourceFile(fileName)) {
             inputStream.open()
             var error:NSErrorPointer = nil
             let dictionary:NSDictionary? = NSJSONSerialization.JSONObjectWithStream(inputStream, options:nil, error: error) as? NSDictionary

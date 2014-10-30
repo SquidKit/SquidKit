@@ -66,7 +66,7 @@ class JSONEntityExampleViewController: TableItemBackedTableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("jsonEntityExampleCell", forIndexPath: indexPath) as UITableViewCell
         let item:JSONEntityItem = self.model[indexPath]! as JSONEntityItem
-        cell.textLabel!.text = item.key
+        cell.textLabel.text = item.key
         cell.detailTextLabel!.text = item.value
         return cell
     }

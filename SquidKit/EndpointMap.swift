@@ -260,7 +260,7 @@ extension Dictionary {
     private subscript(key:HostConfigurationKey) -> NSObject {
         for k in self.keys {
             if let kstring = k as? String {
-                if kstring == key.toRaw() {
+                if kstring == key.rawValue {
                     return self[k]! as NSObject
                 }
             }

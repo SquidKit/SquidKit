@@ -21,7 +21,6 @@
 		1C8C1B0319A6F7AF000169F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C8C1B0119A6F7AF000169F6 /* Main.storyboard */; };
 		1C8C1B0519A6F7AF000169F6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C8C1B0419A6F7AF000169F6 /* Images.xcassets */; };
 		1C8C1B1119A6F7AF000169F6 /* SquidKitExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B1019A6F7AF000169F6 /* SquidKitExampleTests.swift */; };
-		1C8C1B2519A6F7D6000169F6 /* SquidKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8C1B2019A6F7BE000169F6 /* SquidKit.framework */; };
 		1C8C1B3B19AA44DD000169F6 /* ThemedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */; };
 		1C8C1B3C19AA44DD000169F6 /* ThemedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */; };
 		1CAA653119BECBBD002C25A7 /* SquidKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8C1B2019A6F7BE000169F6 /* SquidKit.framework */; };
@@ -108,7 +107,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CAA653119BECBBD002C25A7 /* SquidKit.framework in Frameworks */,
-				1C8C1B2519A6F7D6000169F6 /* SquidKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,7 +241,7 @@
 		1C8C1AEE19A6F7AF000169F6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = SquidKit;
 				TargetAttributes = {
 					1C8C1AF519A6F7AF000169F6 = {
