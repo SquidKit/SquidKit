@@ -10,7 +10,19 @@
 			"bool_item": true,
             "bool_item_as_int": 1,
             "bool_item_as_string": "FALSE",
-			"string_item": "Hello SquidKit"
+			"string_item": "Hello SquidKit",
+            "dictionary_item": {
+				"name": "dictionary item",
+				"value": 1
+			},
+			"array_item": [
+				{
+					"item": "one"
+				},
+				{
+					"item": "two"
+				}
+			]
 		}
 	]
 }

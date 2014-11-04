@@ -57,6 +57,15 @@ class JSONEntityExampleViewController: TableItemBackedTableViewController {
             
             let string = entity["string_item"].string()
             tableSection.append(JSONEntityItem(key: "string_item", value:"\(string)"))
+            
+            let dictionaryItem = entity["dictionary_item"]["name"].string()
+            tableSection.append(JSONEntityItem(key: "dictionary_item", value:"\(dictionaryItem)"))
+            
+            let arrayItem = entity["array_item"]
+            for arrayObj in arrayItem {
+                let arrayObjEntity = arrayObj["item"].string()
+                tableSection.append(JSONEntityItem(key: "array_item", value:"\(arrayObjEntity)"))
+            }
         }
         
         self.model.append(tableSection)
