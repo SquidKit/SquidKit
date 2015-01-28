@@ -82,10 +82,10 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
 
         if let item = self.model[indexPath] {
             if let title = item.titleForIndexPath(indexPath) {
-                cell.textLabel.text = title
+                cell.textLabel!.text = title
             }
             else {
-                cell.textLabel.text = item.title
+                cell.textLabel!.text = item.title
             }
         }
         return cell

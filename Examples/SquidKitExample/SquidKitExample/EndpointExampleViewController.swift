@@ -109,10 +109,10 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(tableItem.reuseIdentifier!, forIndexPath: indexPath) as UITableViewCell
 
         if let title = tableItem.titleForIndexPath(indexPath) {
-            cell.textLabel.text = title
+            cell.textLabel!.text = title
         }
         else {
-            cell.textLabel.text = tableItem.title
+            cell.textLabel!.text = tableItem.title
         }
 
         return cell

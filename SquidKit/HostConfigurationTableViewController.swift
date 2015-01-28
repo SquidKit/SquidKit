@@ -83,7 +83,7 @@ public class HostConfigurationTableViewController: TableItemBackedTableViewContr
                     cell = UITableViewCell(style: .Subtitle, reuseIdentifier: configItemReuseIdentifier)
                 }
                 
-                cell?.textLabel.text = configItem.title
+                cell?.textLabel!.text = configItem.title
                 cell?.detailTextLabel!.text = configItem.key
             }
             else {
