@@ -53,6 +53,12 @@
 		1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */; };
 		1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
 		1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
+		1CEE105C1A8160B5001ABD72 /* Alamofire+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE105B1A8160B5001ABD72 /* Alamofire+Image.swift */; };
+		1CEE105D1A8160B5001ABD72 /* Alamofire+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE105B1A8160B5001ABD72 /* Alamofire+Image.swift */; };
+		1CEE10641A818149001ABD72 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10631A818149001ABD72 /* URLImageView.swift */; };
+		1CEE10651A818149001ABD72 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10631A818149001ABD72 /* URLImageView.swift */; };
+		1CEE10671A81912D001ABD72 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10661A81912D001ABD72 /* UIView+Utility.swift */; };
+		1CEE10681A81912D001ABD72 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10661A81912D001ABD72 /* UIView+Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +90,9 @@
 		1C82212819A5033C00A17B56 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTableView.swift; sourceTree = "<group>"; };
 		1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItemBackedTableViewController.swift; sourceTree = "<group>"; };
+		1CEE105B1A8160B5001ABD72 /* Alamofire+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire+Image.swift"; sourceTree = "<group>"; };
+		1CEE10631A818149001ABD72 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
+		1CEE10661A81912D001ABD72 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +136,7 @@
 				1C0C601519BBB123003E300C /* EndpointMap.swift */,
 				1C0C601619BBB123003E300C /* HostConfigurationTableViewController.swift */,
 				1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */,
+				1CEE105B1A8160B5001ABD72 /* Alamofire+Image.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -173,6 +183,7 @@
 				1C57DAF219BD1982009226AD /* TableItem */,
 				1C8220F119A4F8FC00A17B56 /* Theme */,
 				1C8220F219A4F90B00A17B56 /* Utility */,
+				1CEE10621A81807F001ABD72 /* View */,
 			);
 			path = SquidKit;
 			sourceTree = "<group>";
@@ -225,6 +236,7 @@
 				1C8220F919A4F94300A17B56 /* String+File.swift */,
 				1C8220FA19A4F94300A17B56 /* String+Utility.swift */,
 				1C82210019A4F94300A17B56 /* UIColor+Hex.swift */,
+				1CEE10661A81912D001ABD72 /* UIView+Utility.swift */,
 			);
 			name = "Class Extensions";
 			sourceTree = "<group>";
@@ -264,6 +276,14 @@
 				1C8220D819A4F7E700A17B56 /* SquidKit.h */,
 			);
 			name = "Public Headers";
+			sourceTree = "<group>";
+		};
+		1CEE10621A81807F001ABD72 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1CEE10631A818149001ABD72 /* URLImageView.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,6 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C8220F419A4F92F00A17B56 /* AccountHelper.swift in Sources */,
+				1CEE10671A81912D001ABD72 /* UIView+Utility.swift in Sources */,
 				1C0C601E19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */,
 				1C82211419A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
@@ -386,6 +407,8 @@
 				1C82210C19A4F94300A17B56 /* TableItem.swift in Sources */,
 				1C0C5FFF19B7D33A003E300C /* JSONEntity.swift in Sources */,
 				1C82210A19A4F94300A17B56 /* String+Utility.swift in Sources */,
+				1CEE10641A818149001ABD72 /* URLImageView.swift in Sources */,
+				1CEE105C1A8160B5001ABD72 /* Alamofire+Image.swift in Sources */,
 				1C0C601819BBB123003E300C /* Endpoint.swift in Sources */,
 				1C82210619A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
 				1C82211019A4F94300A17B56 /* ThemeLabel.swift in Sources */,
@@ -404,14 +427,17 @@
 				1C82211119A4F94300A17B56 /* ThemeLabel.swift in Sources */,
 				1C82210F19A4F94300A17B56 /* Theme.swift in Sources */,
 				1C82210919A4F94300A17B56 /* String+File.swift in Sources */,
+				1CEE10651A818149001ABD72 /* URLImageView.swift in Sources */,
 				1C82210D19A4F94300A17B56 /* TableItem.swift in Sources */,
 				1C82211519A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210719A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
+				1CEE105D1A8160B5001ABD72 /* Alamofire+Image.swift in Sources */,
 				1C8220F519A4F92F00A17B56 /* AccountHelper.swift in Sources */,
 				1C0C601B19BBB123003E300C /* EndpointMap.swift in Sources */,
 				1C0C601219BBB077003E300C /* Alamofire.swift in Sources */,
 				1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */,
 				1C82210319A4F94300A17B56 /* DismissibleViewController.swift in Sources */,
+				1CEE10681A81912D001ABD72 /* UIView+Utility.swift in Sources */,
 				1C0C601D19BBB123003E300C /* HostConfigurationTableViewController.swift in Sources */,
 				1C82210B19A4F94300A17B56 /* String+Utility.swift in Sources */,
 				1C82211719A4F94300A17B56 /* UIColor+Hex.swift in Sources */,

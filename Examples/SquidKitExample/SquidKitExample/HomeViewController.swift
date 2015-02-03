@@ -22,11 +22,18 @@ class HomeViewController: TableItemBackedTableViewController {
         
         let jsonExampleItem = NavigatingTableItem("JSON Entity Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"jsonEntityExampleVC"))
         
+        let remoteImageItem = NavigatingTableItem("Remote Image Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"remoteImageVC"))
+        
+        let urlImageItem = NavigatingTableItem("URLImageView Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"urlImageVC"))
+        
+        
         let section = TableSection()
         section.append(tableItemExampleItem)
         section.append(themeExampleItem)
         section.append(endpointExampleItem)
         section.append(jsonExampleItem)
+        section.append(remoteImageItem)
+        section.append(urlImageItem)
         self.model.append(section)
     }
 

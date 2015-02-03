@@ -25,6 +25,10 @@
 		1C8C1B3C19AA44DD000169F6 /* ThemedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */; };
 		1CAA653119BECBBD002C25A7 /* SquidKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8C1B2019A6F7BE000169F6 /* SquidKit.framework */; };
 		1CAA653219BECBBD002C25A7 /* SquidKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1C8C1B2019A6F7BE000169F6 /* SquidKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1CEE105F1A8164CC001ABD72 /* RemoteImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE105E1A8164CB001ABD72 /* RemoteImageViewController.swift */; };
+		1CEE10601A8164CC001ABD72 /* RemoteImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE105E1A8164CB001ABD72 /* RemoteImageViewController.swift */; };
+		1CEE106A1A8192AB001ABD72 /* URLImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10691A8192AB001ABD72 /* URLImageViewController.swift */; };
+		1CEE106B1A8192AB001ABD72 /* URLImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10691A8192AB001ABD72 /* URLImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +103,8 @@
 		1C8C1B1019A6F7AF000169F6 /* SquidKitExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquidKitExampleTests.swift; sourceTree = "<group>"; };
 		1C8C1B1A19A6F7BE000169F6 /* SquidKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SquidKit.xcodeproj; path = ../../SquidKit.xcodeproj; sourceTree = "<group>"; };
 		1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemedViewController.swift; sourceTree = "<group>"; };
+		1CEE105E1A8164CB001ABD72 /* RemoteImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteImageViewController.swift; sourceTree = "<group>"; };
+		1CEE10691A8192AB001ABD72 /* URLImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +162,8 @@
 				1C8C1B3A19AA44DD000169F6 /* ThemedViewController.swift */,
 				1C0C602619BBDB7D003E300C /* JSONEntityExampleViewController.swift */,
 				1C0C602819BBDBBA003E300C /* JSONEntityExample.json */,
+				1CEE105E1A8164CB001ABD72 /* RemoteImageViewController.swift */,
+				1CEE10691A8192AB001ABD72 /* URLImageViewController.swift */,
 			);
 			path = SquidKitExample;
 			sourceTree = "<group>";
@@ -327,9 +335,11 @@
 				1C8C1B0019A6F7AF000169F6 /* DetailViewController.swift in Sources */,
 				1C0C602719BBDB7D003E300C /* JSONEntityExampleViewController.swift in Sources */,
 				1C0C602519BBB1DB003E300C /* TestEndpoint.swift in Sources */,
+				1CEE105F1A8164CC001ABD72 /* RemoteImageViewController.swift in Sources */,
 				1C8C1AFE19A6F7AF000169F6 /* ExampleTableItemViewController.swift in Sources */,
 				1C8C1AFC19A6F7AF000169F6 /* AppDelegate.swift in Sources */,
 				1C0C602319BBB1DB003E300C /* EndpointExampleViewController.swift in Sources */,
+				1CEE106A1A8192AB001ABD72 /* URLImageViewController.swift in Sources */,
 				1C8C1B3B19AA44DD000169F6 /* ThemedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,7 +348,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CEE106B1A8192AB001ABD72 /* URLImageViewController.swift in Sources */,
 				1C8C1B1119A6F7AF000169F6 /* SquidKitExampleTests.swift in Sources */,
+				1CEE10601A8164CC001ABD72 /* RemoteImageViewController.swift in Sources */,
 				1C8C1B3C19AA44DD000169F6 /* ThemedViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
