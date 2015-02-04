@@ -52,7 +52,7 @@ public class URLImageView: UIImageView {
             
             startActivity()
             
-            self.imageRequest = request(.GET, url!).responseImage({[unowned self]
+            self.imageRequest = request(.GET, url!).responseImageCacheable({[unowned self]
                 (_, _, image:UIImage?) -> Void in
                 
                 self.stopActivity()

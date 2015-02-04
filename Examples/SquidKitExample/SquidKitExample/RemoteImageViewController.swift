@@ -18,7 +18,7 @@ class RemoteImageViewController: UIViewController {
         
         let scale = UIScreen.mainScreen().scale
                 
-        SquidKit.request(.GET, url!).responseImage {[unowned self]
+        SquidKit.request(.GET, url!).responseImageCacheable {[unowned self]
             (_, _, image:UIImage?) -> Void in
             if image != nil {
                 self.imageView?.image = image

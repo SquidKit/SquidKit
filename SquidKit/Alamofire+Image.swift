@@ -25,7 +25,7 @@ public extension Request {
     }
     
     
-    func responseImage(completion: (NSURLRequest, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
+    func responseImageCacheable(completion: (NSURLRequest, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
         if let cachedImage = Cache<UIImage>()[request] {
             completion(request, nil, cachedImage)
             return self
@@ -40,7 +40,17 @@ public extension Request {
         })
     }
     
+    func responseImage(completion: (NSURLRequest, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
+        let serializer = Request.imageResponseSerializer()
+        return response(serializer: serializer, completionHandler: { request, response, image, error in
+            completion(request, response, image as? UIImage)
+        })
+    }
+    
     // MARK: Private methods
+    // From AFNetworking, as ported to Swift by Martin Conte Mac Donell (Reflejo@gmail.com) on 2/3/15.
+    // Copyright (c) 2013-2015 Lyft (http://lyft.com)
+    // also here: https://github.com/Alamofire/Alamofire/pull/333
     
     private class func decompressImage(response: NSHTTPURLResponse, data: NSData) -> UIImage? {
         if data.length == 0 {
