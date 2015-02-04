@@ -9,101 +9,62 @@
 import Foundation
 
 
-private var caches = [AnyObject]()
+private var caches = [CacheEntry]()
+private var cacheIdentifierPrefix = "com.squidkit.cache.type."
 
-
-
-public class AnyCache<T:NSObject> {
-    
-    private var cache: NSCache
-    
-    public init () {
-        cache = NSCache()
-        Log.message("new cache for \(self)")
-    }
-    
-    public func insert(object:T, key:String) {
-        self.cache.setObject(object, forKey: key)
-    }
-    
-    public func get(key:String) -> T? {
-        return self.cache.objectForKey(key) as? T
-    }
-    
-    public func cacheFor() -> AnyCache<T> {
-        var result = AnyCache<T>()
-        Log.message("this is \(result)")
-        return result
-    }
-}
-
-
-public extension NSObject {
-    
-    public class func cacheFor<T:NSObject>() -> AnyCache<T> {
-        for cache in caches {
-//            if let matchingCache = cache as? AnyCache<T> {
-//                return matchingCache
-//            }
-            
-            let klass: T.Type = T.self
-            Log.message("klass is \(klass)")
-            if cache is AnyCache<T> {
-                return cache as AnyCache<T>
-            }
-        }
-        
-        let newCache = AnyCache<T>()
-        caches.append(newCache)
-        
-        return newCache
-    }
-    
-}
-
-
-private var allcaches = [AnyObject]()
-
-private struct CacheEntry {
+private class CacheEntry {
     var cache = NSCache()
     var identifier:NSString
-    private static let cacheIdentifierPrefix = "com.squidkit.cache.type."
     
     init(identifier:String) {
-        self.identifier = CacheEntry.cacheIdentifierPrefix + identifier
+        self.identifier = identifier
     }
 }
 
 public class Cache<T:NSObject> {
     
-    private var cache: NSCache?
-    
+    private var cacheEntry:CacheEntry?
     
     public init () {
         
-        Log.message("my dumb type is \(NSStringFromClass(T.self))")
-        
-        for cache in allcaches {
-            if let matchingCache = cache as? Cache<T> {
-                self.cache = matchingCache.cache
+        var cacheIdentifier = cacheIdentifierPrefix + NSStringFromClass(T.self)
+        for cache in caches {
+            if cacheIdentifier == cache.identifier {
+                self.cacheEntry = cache
             }
         }
         
-        if self.cache == nil {
-            self.cache = NSCache()
-            allcaches.append(self)
-            Log.message("new dumb cache for \(self)")
+        if self.cacheEntry == nil {
+            self.cacheEntry = CacheEntry(identifier:cacheIdentifier)
+            caches.append(self.cacheEntry!)
+        }
+    }
+    
+    public func insert(object:T, key:AnyObject) {
+        self.cacheEntry!.cache.setObject(object, forKey: key)
+    }
+    
+    public func get(key:AnyObject) -> T? {
+        return self.cacheEntry!.cache.objectForKey(key) as? T
+    }
+    
+    public func get(request:NSURLRequest) -> T? {
+        switch request.cachePolicy {
+            case .ReloadIgnoringLocalCacheData, .ReloadIgnoringLocalAndRemoteCacheData:
+                return nil
+            default:
+                break;
         }
         
-        
+        return self.get(request.URL)
     }
     
-    public func insert(object:T, key:String) {
-        self.cache!.setObject(object, forKey: key)
+    public subscript(key:AnyObject) -> T? {
+        return self.get(key)
     }
     
-    public func get(key:String) -> T? {
-        return self.cache!.objectForKey(key) as? T
+    public subscript(request:NSURLRequest) -> T? {
+        return self.get(request)
     }
     
 }

@@ -52,14 +52,16 @@ public class URLImageView: UIImageView {
             
             startActivity()
             
-            self.imageRequest = request(.GET, url!).responseImage(Float(scale)) {[unowned self]
-                (_, _, image, error) in
+            self.imageRequest = request(.GET, url!).responseImage({[unowned self]
+                (_, _, image:UIImage?) -> Void in
+                
                 self.stopActivity()
-                if error == nil && image != nil {
-                    self.image = image;
+                
+                if image != nil {
+                    self.image = image
                     self.setNeedsDisplay()
                 }
-            }
+            })
         }
     }
     
