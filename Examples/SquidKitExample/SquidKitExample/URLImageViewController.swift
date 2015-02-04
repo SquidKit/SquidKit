@@ -22,4 +22,28 @@ class URLImageViewController: UIViewController {
         self.imageView?.activityIndicatorType = .Dark
         self.imageView?.load()
     }
+    
+    override func viewDidLoad() {
+        
+        var cache = NSString.cacheFor()
+        cache.insert("hello", key:"1")
+        
+        var someOtherCache = NSString.cacheFor()
+        someOtherCache.insert("goodbye", key: "2")
+        
+        var astring = cache.get("1") as? String
+        Log.message(astring)
+        
+        var someothercache = NSDictionary.cacheFor()
+        someOtherCache.insert(["foo":"bar"], key: "1")
+        
+        Log.message("i am a \(self)")
+        
+        var foo = AnyCache<NSString>().cacheFor()
+        
+        var goober = Cache<NSString>()
+        var stupidity = Cache<NSString>()
+        var killme = Cache<UIImage>()
+
+    }
 }

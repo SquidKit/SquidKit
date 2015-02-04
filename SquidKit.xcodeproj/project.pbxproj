@@ -59,6 +59,8 @@
 		1CEE10651A818149001ABD72 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10631A818149001ABD72 /* URLImageView.swift */; };
 		1CEE10671A81912D001ABD72 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10661A81912D001ABD72 /* UIView+Utility.swift */; };
 		1CEE10681A81912D001ABD72 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10661A81912D001ABD72 /* UIView+Utility.swift */; };
+		1CEE106D1A829197001ABD72 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE106C1A829197001ABD72 /* Cache.swift */; };
+		1CEE106E1A829197001ABD72 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE106C1A829197001ABD72 /* Cache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +95,7 @@
 		1CEE105B1A8160B5001ABD72 /* Alamofire+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire+Image.swift"; sourceTree = "<group>"; };
 		1CEE10631A818149001ABD72 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
 		1CEE10661A81912D001ABD72 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
+		1CEE106C1A829197001ABD72 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +269,7 @@
 			children = (
 				1C82212819A5033C00A17B56 /* Log.swift */,
 				1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */,
+				1CEE106C1A829197001ABD72 /* Cache.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -398,6 +402,7 @@
 				1C82211419A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
 				1C82212E19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
+				1CEE106D1A829197001ABD72 /* Cache.swift in Sources */,
 				1C0C601C19BBB123003E300C /* HostConfigurationTableViewController.swift in Sources */,
 				1C82210219A4F94300A17B56 /* DismissibleViewController.swift in Sources */,
 				1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */,
@@ -434,6 +439,7 @@
 				1CEE105D1A8160B5001ABD72 /* Alamofire+Image.swift in Sources */,
 				1C8220F519A4F92F00A17B56 /* AccountHelper.swift in Sources */,
 				1C0C601B19BBB123003E300C /* EndpointMap.swift in Sources */,
+				1CEE106E1A829197001ABD72 /* Cache.swift in Sources */,
 				1C0C601219BBB077003E300C /* Alamofire.swift in Sources */,
 				1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */,
 				1C82210319A4F94300A17B56 /* DismissibleViewController.swift in Sources */,

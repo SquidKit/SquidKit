@@ -14,7 +14,7 @@ class RemoteImageViewController: UIViewController {
     @IBOutlet weak var imageView:UIImageView?
 
     override func viewDidLoad() {
-        let url = NSURL(string: "http://static1.squarespace.com/static/53f53bcfe4b0a95765d3c5ed/t/53f53dd6e4b08f2d1d7dc8ba/1410483871285/")
+        let url = NSURL(string: "http://static1.squarespace.com/static/52eea758e4b0fff11bf07129/52eeeda0e4b0fff11bf09db9/52eeee57e4b0cfc36d9583d1/1391390297091/DSCF0984.jpg")
         
         let scale = UIScreen.mainScreen().scale
         
