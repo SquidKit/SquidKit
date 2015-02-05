@@ -17,7 +17,14 @@ public class URLImageView: UIImageView {
         case LightLarge
     }
     
+    public enum URLImageViewImageAppearanceType {
+        case None
+        case Fade(NSTimeInterval, Float, Float)
+        case FadeIfNotCached(NSTimeInterval, Float, Float)
+    }
+    
     @IBInspectable public var activityIndicatorType:URLImageViewActivityIndicatorType = .None
+    @IBInspectable public var imageAppearanceType:URLImageViewImageAppearanceType = .None
     
     public var urlString:String? {
         didSet {
@@ -53,16 +60,37 @@ public class URLImageView: UIImageView {
             startActivity()
             
             self.imageRequest = request(.GET, url!).responseImageCacheable({[unowned self]
-                (_, _, image:UIImage?) -> Void in
+                (_, response:NSHTTPURLResponse?, image:UIImage?) -> Void in
                 
                 self.stopActivity()
                 
                 if image != nil {
-                    self.image = image
-                    self.setNeedsDisplay()
+                    
+                    switch self.imageAppearanceType {
+                    case .Fade(let duration, let beginAlpha, let endAlpha):
+                        self.animateFade(image, duration: duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
+                        
+                    case .FadeIfNotCached(let duration, let beginAlpha, let endAlpha):
+                        self.animateFade(image, duration: response == nil ? 0 : duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
+                        
+                    default:
+                        self.image = image
+                        self.setNeedsDisplay()
+                    }
+                    
                 }
             })
         }
+    }
+    
+    private func animateFade(image:UIImage?, duration:NSTimeInterval, beginAlpha:Float, endAlpha:Float) {
+        self.alpha = CGFloat(beginAlpha)
+        self.image = image
+        
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDuration(duration)
+        self.alpha = CGFloat(endAlpha)
+        UIView.commitAnimations()
     }
     
     public func cancel() {

@@ -24,12 +24,7 @@ class URLImageViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        
-        
-        
-        var goober = Cache<NSString>()
-        var stupidity = Cache<NSString>()
-        var killme = Cache<UIImage>()
-
+        super.viewDidLoad()
+        self.imageView?.imageAppearanceType = .FadeIfNotCached(0.5, 0.0, 1.0)
     }
 }
