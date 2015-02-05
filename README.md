@@ -9,9 +9,10 @@
 SquidKit is a collection of classes and related code that would often be useful in new iOS development projects. It is intended to relieve the developer of the task of building out some of the boring infrastructure that often needs to be built out for modern apps, especially ones that communicate with a server and receive responses in JSON format. SquidKit is a growing project, but already includes lots of rather useful stuff.
 
 ## Versions
-Release  | Supported OS 
--------- | ------------- 
-1.0      | iOS 7.1 and up    
+Release  | Supported OS    | Notes
+-------- | -------------   | ------
+1.1      | iOS 7.1 and up  | added image downloading, URLImageView, and caching<br>removed built frameworks - don't see that it added any real benefit
+1.0      | iOS 7.1 and up  | 
 
 ## Major functional components
 
@@ -125,7 +126,7 @@ and to release by doing this:
 ```swift
 HostMapManager.sharedInstance.setReleaseConfigurations()
 ```
-Note that these methods set the environment to whatever is defined in your host map JSON file's "prerelease_key" and "release_key", respectively.
+Note that these methods set the environment to whatever is defined in your host map JSON file's "prerelease\_key" and "release\_key", respectively.
   
   
 To show the configuration selection UI, add code to load SquidKit's HostConfigurationTableViewController:
@@ -151,6 +152,66 @@ HostMapManager.sharedInstance.hostMapCache = nil
   
   
 In the SquidKitExample project, see EndpointExampleViewController.swift, TestEndpoint.swift and HostMap.json for examples of all of the above.
+
+### Remote Image Handling
+SquidKit offers and extension of the Alamofire Request class that provides for image (jpeg and png) serialization. Image serialization supports background thread decompression, using a port of AFNetworking's _AFInflatedImageFromResponseWithDataAtScale_ method (as ported by Martin Conte Mac Donell). SquidKit also offers optional local caching of images downloaded through the Request extension. For more on caching, see the Caching section below.
+
+Image requests are serviced by the responseImageCacheable and responseImage methods (the former does caching, the latter does not). Typical usage would like like this:
+```swift
+let url = NSURL(string: "http://static1.squarespace.com/static/52eea758e4b0fff11bf07129/52eeeda0e4b0fff11bf09db9/52eeee57e4b0cfc36d9583d1/1391390297091/DSCF0984.jpg")
+                        
+SquidKit.request(.GET, url!).responseImageCacheable {
+    (_, _, image:UIImage?) -> Void in
+    if image != nil {
+        // do something with it
+    }
+}
+```
+See Alamofire+Image.swift for the responseImage and related functions. See RemoteImageViewController.swift in the SquidKitExample project for usage examples.
+
+##### URLImageView
+SquidKit also offers a UIImageView subclass which handles the details of fetching and displaying remote images. URLImageView has a simple _load_ and _cancel_ interface. It can optionally display an activity indicator by setting it's _activityIndicatorType_ member to the appropriate value:
+```swift
+public enum URLImageViewActivityIndicatorType {
+    case None
+    case Dark
+    case Light
+    case LightLarge
+}
+
+@IBInspectable public var activityIndicatorType:URLImageViewActivityIndicatorType = .None
+```
+
+URLImageView has a set of simple appearance animation options - none, fade, and fade if not cached (URLImageView caches images by default):
+```swift
+public enum URLImageViewImageAppearanceType {
+    case None
+    case Fade(NSTimeInterval, Float, Float)
+    case FadeIfNotCached(NSTimeInterval, Float, Float)
+}
+
+@IBInspectable public var imageAppearanceType:URLImageViewImageAppearanceType = .None
+```
+The parameters to the two fade options are fade animation duration, initial alpha value and final alpha value, respectively.
+
+Example usage:
+```swift
+// within a UIViewController...
+
+@IBOutlet var imageView:URLImageView?
+    
+var urlString = "http://static1.squarespace.com/static/52eea758e4b0fff11bf07129/52eeeda0e4b0fff11bf09db9/52eeee41e4b0b43e3bb4e615/1391390276529/DSC_3729.jpg"
+
+override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    
+	self.imageView?.imageAppearanceType = .FadeIfNotCached(0.5, 0.0, 1.0)
+    self.imageView?.urlString = urlString
+    self.imageView?.activityIndicatorType = .Dark
+    self.imageView?.load()
+}
+```
+See URLImageViewController.swift in the SquidKitExample project for more details.
 
 ### JSON parsing
 While not quite a full on parser, SquidKit offers a utility for working with JSON response data that abstracts away some of the ugliness of directly dealing with Dictionary objects and extracting values therein. SquidKit handles JSON data with one public class: JSONEntity. JSONEntity is effectively a wrapper for a JSON element's key and value. Unlike walking through a Dictionary checking to see if particular keys exist, a JSONEntity is guaranteed to be non-nil, thus always directly inspectable without checking for nil optional values.
@@ -355,6 +416,21 @@ func bar() -> AnyObject {
 ```
 Both the example project and SquidKit itself use SquidKit logging, so poke around for further examples.
 
+### Caching
+SquidKit offers a super-simple caching model built on a generic of NSObject and using NSCache underneath. See Cache.swift. Usage is trivial:
+```swift
+var myStringCache = Cache<NSString>()
+var anotherStringCache = Cache<NSString>() // Note: same types use the same underlying NSCache object
+var imageCache = Cache<UIImage>()
+
+// add an item to a cache using insert:
+Cache<UIImage>().insert(someImage, key: "foo")
+
+// retrieve an item from a cache using get or the subscript operator:
+let cachedImage = Cache<UIImage>()["foo"]
+```
+There are also versions of get and subscript that take a NSURLRequest; these simply use the NSURLRequest's URL member as the key.
+
 ### Other stuff
 There are various other classes and extensions scattered about. Look in the "Class Extensions" and "Utility" groups in the SquidKit project for these. *Preferences*, for example (in the Utility group) is a useful wrapper for NSUserDefaults.
 
@@ -364,7 +440,6 @@ The easiest way to use SquidKit is to drag the SquidKit project file into your a
 1. Select your app target, go to Build Settings and add SquidKit to Target Dependencies
 1. In Link Binary with Libraries, add SquidKit.framework
 
-Alternatively, you can choose not to include the SquidKit project and instead add the built SquidKit.framework (in FrameworkRelease/Release) to your project.
 
 You may also choose to only include individual source files from SquidKit. While there isn't an over abundance of interdependence amongst classes in SquidKit, there is some. Notably, Log is used by many other classes, as is JSONEntity. Source files that are logically grouped together in the same project file groups are likely to be interdependent.
 
