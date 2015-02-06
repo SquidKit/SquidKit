@@ -179,7 +179,7 @@ public enum URLImageViewActivityIndicatorType {
     case LightLarge
 }
 
-@IBInspectable public var activityIndicatorType:URLImageViewActivityIndicatorType = .None
+public var activityIndicatorType:URLImageViewActivityIndicatorType = .None
 ```
 
 URLImageView has a set of simple appearance animation options - none, fade, and fade if not cached (URLImageView caches images by default):
@@ -190,7 +190,7 @@ public enum URLImageViewImageAppearanceType {
     case FadeIfNotCached(NSTimeInterval, Float, Float)
 }
 
-@IBInspectable public var imageAppearanceType:URLImageViewImageAppearanceType = .None
+public var imageAppearanceType:URLImageViewImageAppearanceType = .None
 ```
 The parameters to the two fade options are fade animation duration, initial alpha value and final alpha value, respectively.
 

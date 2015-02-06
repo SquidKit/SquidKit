@@ -23,8 +23,8 @@ public class URLImageView: UIImageView {
         case FadeIfNotCached(NSTimeInterval, Float, Float)
     }
     
-    @IBInspectable public var activityIndicatorType:URLImageViewActivityIndicatorType = .None
-    @IBInspectable public var imageAppearanceType:URLImageViewImageAppearanceType = .None
+    public var activityIndicatorType:URLImageViewActivityIndicatorType = .None
+    public var imageAppearanceType:URLImageViewImageAppearanceType = .None
     
     public var urlString:String? {
         didSet {
