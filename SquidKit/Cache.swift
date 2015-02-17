@@ -56,7 +56,7 @@ public class Cache<T:NSObject> {
                 break;
         }
         
-        return self.get(request.URL)
+        return self.get(request.URL!)
     }
     
     public subscript(key:AnyObject) -> T? {

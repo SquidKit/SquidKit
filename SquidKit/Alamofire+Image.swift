@@ -34,7 +34,7 @@ public extension Request {
         let serializer = Request.imageResponseSerializer()
         return response(serializer: serializer, completionHandler: { request, response, image, error in
             if let cacheImage = image as? UIImage {
-                Cache<UIImage>().insert(cacheImage, key: request.URL)
+                Cache<UIImage>().insert(cacheImage, key: request.URL!)
             }
             completion(request, response, image as? UIImage)
         })

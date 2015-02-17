@@ -22,7 +22,7 @@ public extension String {
         let uuid:CFUUIDRef = CFUUIDCreate(kCFAllocatorDefault)
 
         let guid = CFUUIDCreateString(kCFAllocatorDefault, uuid) as NSString
-        return guid
+        return guid as! String
     }
 
     public func stringByTrimmingLeadingWhitespace() -> String {
@@ -54,7 +54,7 @@ public extension String {
     public func validEmail() -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         let predicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return predicate!.evaluateWithObject(self)
+        return predicate.evaluateWithObject(self)
     }
 }
 

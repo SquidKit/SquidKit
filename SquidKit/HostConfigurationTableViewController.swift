@@ -89,7 +89,7 @@ public class HostConfigurationTableViewController: TableItemBackedTableViewContr
             else {
                 cell = CustomHostCell(style: .Default, reuseIdentifier: userItemReuseIdentifier)
                 
-                let customCell = cell as CustomHostCell
+                let customCell = cell as! CustomHostCell
                 customCell.configItem = configItem
                 customCell.delegate = self
             }
@@ -136,12 +136,12 @@ public class CustomHostCell: UITableViewCell, UITextFieldDelegate {
     
     // MARK: - UITextFieldDelegate
     
-    public func textFieldShouldReturn(textField: UITextField!) -> Bool {
+    public func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    public func textFieldDidEndEditing(textField: UITextField!) {
+    public func textFieldDidEndEditing(textField: UITextField) {
         delegate?.hostTextDidChange(textField.text, configItem: configItem!)
     }
 }

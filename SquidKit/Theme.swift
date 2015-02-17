@@ -54,7 +54,7 @@ public class ThemeManager {
         for aView in view.subviews {
             aView.setNeedsDisplay()
             if (recursive) {
-                self.updateThemedSubviewsOfView(aView as UIView, recursive: true)
+                self.updateThemedSubviewsOfView(aView as! UIView, recursive: true)
             }
         }
     }

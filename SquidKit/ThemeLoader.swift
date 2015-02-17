@@ -41,7 +41,7 @@ public class ThemeLoader {
                     var swDictionary = [String: AnyObject]()
                     
                     themeDictionary.enumerateKeysAndObjectsUsingBlock({ (key:AnyObject!, value:AnyObject!, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
-                        swDictionary[key as String] = value!
+                        swDictionary[key as! String] = value!
                     })
                     
                     theme.dictionary = swDictionary

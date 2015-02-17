@@ -184,7 +184,7 @@ public struct JSONEntityGenerator:GeneratorType {
         }
         else if let dictionary = self.entity.dictionary() {
             if sequenceIndex < dictionary.count {
-                let result = JSONEntity(dictionary.allKeys[sequenceIndex] as String, dictionary.objectForKey(dictionary.allKeys[sequenceIndex])!)
+                let result = JSONEntity(dictionary.allKeys[sequenceIndex] as! String, dictionary.objectForKey(dictionary.allKeys[sequenceIndex])!)
                 sequenceIndex++
                 return result
             }

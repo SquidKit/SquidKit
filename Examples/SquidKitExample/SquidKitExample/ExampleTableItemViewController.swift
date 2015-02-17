@@ -33,7 +33,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
         // navigator is the callback that we will use for the first 3 TableItems.
         let navigator:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () = { (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
             Log.message(item.title)
-            let detailVC:DetailViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("detailVC") as DetailViewController
+            let detailVC:DetailViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("detailVC") as! DetailViewController
             detailVC.detailItem = item
             self.navigationController!.pushViewController(detailVC, animated: true)
         }
@@ -70,7 +70,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
         if segue.identifier == "showDetail" {
             let indexPath = self.tableView.indexPathForSelectedRow()
             if let item = self.model[indexPath!] {
-                (segue.destinationViewController as DetailViewController).detailItem = item
+                (segue.destinationViewController as! DetailViewController).detailItem = item
             }
         }
     }
@@ -78,7 +78,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
     // MARK: - Table View
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
 
         if let item = self.model[indexPath] {
             if let title = item.titleForIndexPath(indexPath) {

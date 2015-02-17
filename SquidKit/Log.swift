@@ -47,7 +47,7 @@ public class Log {
         _SquidKitLogSharedInstance.logStatus = status
     }
     
-    public class func print<T>(output:@autoclosure() -> T?) {
+    public class func print<T>(@autoclosure output:() -> T?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
             if let object = output() {
                 println(object)
@@ -55,7 +55,7 @@ public class Log {
         }
     }
     
-    public class func message(output: @autoclosure() -> String?) {
+    public class func message(@autoclosure output: () -> String?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
             if let message = output() {
                 NSLog(message)

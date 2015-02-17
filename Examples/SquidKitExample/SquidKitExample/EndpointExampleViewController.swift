@@ -106,7 +106,7 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         
         let tableItem = self.model[indexPath]!
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableItem.reuseIdentifier!, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableItem.reuseIdentifier!, forIndexPath: indexPath) as! UITableViewCell
 
         if let title = tableItem.titleForIndexPath(indexPath) {
             cell.textLabel!.text = title

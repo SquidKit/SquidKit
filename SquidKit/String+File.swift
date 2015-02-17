@@ -23,7 +23,7 @@ public extension String {
     public static func stringWithContentsOfResourceFile(fileName:String) -> String? {
         var filePath = String.stringWithPathToResourceFile(fileName)
         if let data = NSFileManager.defaultManager().contentsAtPath(filePath) {
-            return NSString(data:data, encoding:NSUTF8StringEncoding)
+            return NSString(data:data, encoding:NSUTF8StringEncoding) as? String
         }
         
         return nil

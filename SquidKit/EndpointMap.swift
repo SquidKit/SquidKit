@@ -201,10 +201,10 @@ public class HostMapManager {
         
         private class func handleConfiguration(configuration:AnyObject) {
             if let config:[String: AnyObject] = configuration as? [String: AnyObject] {
-                let canonicalHost:String? = config[.CanonicalHost] as? String
-                let canonicalProtocol:String? = config[.CanonicalProtocol] as? String
-                let releaseKey:String? = config[.ReleaseKey] as? String
-                let prereleaseKey:String? = config[.PrereleaseKey] as? String
+                let canonicalHost:String? = config[HostConfigurationKey.CanonicalHost.rawValue] as? String
+                let canonicalProtocol:String? = config[HostConfigurationKey.CanonicalProtocol.rawValue] as? String
+                let releaseKey:String? = config[HostConfigurationKey.ReleaseKey.rawValue] as? String
+                let prereleaseKey:String? = config[HostConfigurationKey.PrereleaseKey.rawValue] as? String
 
                 if canonicalHost != nil && canonicalProtocol != nil {
                     var hostMap = HostMap(canonicalProtocolHostPair:ProtocolHostPair(canonicalProtocol, canonicalHost))
@@ -216,7 +216,7 @@ public class HostMapManager {
                         hostMap.prereleaseKey = prerelease
                     }
 
-                    if let hostsArray:[[String: String]] = config[.Hosts] as? [[String: String]] {
+                    if let hostsArray:[[String: String]] = config[HostConfigurationKey.Hosts.rawValue] as? [[String: String]] {
                         for host in hostsArray {
                             let aKey:String? = host[.HostsKey] as? String
                             let aHost:String? = host[.HostsHost] as? String
@@ -261,7 +261,7 @@ extension Dictionary {
         for k in self.keys {
             if let kstring = k as? String {
                 if kstring == key.rawValue {
-                    return self[k]! as NSObject
+                    return self[k]! as! NSObject
                 }
             }
         }
@@ -284,7 +284,7 @@ public class SquidKitHostMapCache: HostMapCache {
         let prefs = Preferences()
         var mutableCache:NSMutableDictionary?
         if let cache:NSDictionary = prefs.preference(squidKitHostMapCacheKey) as? NSDictionary {
-            mutableCache = (cache.mutableCopy() as NSMutableDictionary)
+            mutableCache = (cache.mutableCopy() as! NSMutableDictionary)
         }
         else {
             mutableCache = NSMutableDictionary()
@@ -305,8 +305,8 @@ public class SquidKitHostMapCache: HostMapCache {
         var result:(String, String)?
         let prefs = Preferences()
         if let cache:NSDictionary = prefs.preference(squidKitHostMapCacheKey) as? NSDictionary {
-            if let hostDict:NSDictionary = cache[canonicalHost]? as? NSDictionary {
-                result = (hostDict["key"]! as String, hostDict["host"]! as String)
+            if let hostDict:NSDictionary = cache[canonicalHost] as? NSDictionary {
+                result = (hostDict["key"]! as! String, hostDict["host"]! as! String)
             }
         }
         return result
@@ -315,7 +315,7 @@ public class SquidKitHostMapCache: HostMapCache {
     public func removeCachedKeyForCanonicalHost(canonicalHost:String) {
         let prefs = Preferences()
         if let cache:NSDictionary = prefs.preference(squidKitHostMapCacheKey) as? NSDictionary {
-            var mutableCache:NSMutableDictionary = (cache.mutableCopy() as NSMutableDictionary)
+            var mutableCache:NSMutableDictionary = (cache.mutableCopy() as! NSMutableDictionary)
             mutableCache.removeObjectForKey(canonicalHost)
             prefs.setPreference(mutableCache, key:squidKitHostMapCacheKey)
         }

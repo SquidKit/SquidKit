@@ -41,7 +41,7 @@ class HomeViewController: TableItemBackedTableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let item = self.model[indexPath]!
-        let cell = tableView.dequeueReusableCellWithIdentifier(item.reuseIdentifier!, forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(item.reuseIdentifier!, forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel!.text = item.title
         return cell
     }

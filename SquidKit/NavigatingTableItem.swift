@@ -23,7 +23,7 @@ public class NavigatingTableItem: TableItem {
         self.reuseIdentifier = reuseIdentifier
         
         self.selectBlock = {[unowned self] (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
-            let tableItemsVC:UIViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("tableItemsExampleVC") as UIViewController
+            let tableItemsVC:UIViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("tableItemsExampleVC") as! UIViewController
             if let tableAction = actionsTarget {
                 switch self.navigationType {
                 case .Push(let storyboard, let viewControllerID):

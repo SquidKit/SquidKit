@@ -16,14 +16,14 @@ public class TableItemBackedTableViewController: UITableViewController {
     // MARK: - Table View
     
     public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if let height = self.model[indexPath]?.rowHeight? {
+        if let height = self.model[indexPath]?.rowHeight {
             return CGFloat(height)
         }
         return tableView.rowHeight
     }
     
     public override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let height = self.model[section]?.height? {
+        if let height = self.model[section]?.height {
             return CGFloat(height)
         }
         return tableView.sectionHeaderHeight
@@ -115,13 +115,13 @@ extension TableItemBackedTableViewController: TableActions {
     
     public func pushViewController(storyboardName:String, storyboardID:String) {
         if let navigationController = self.navigationController {
-            let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) as UIViewController
+            let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) as! UIViewController
             navigationController.pushViewController(viewController, animated: true)
         }
     }
     
     public func presentViewController(storyboardName:String, storyboardID:String) {
-        let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) as UIViewController
+        let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) as! UIViewController
         self.presentViewController(viewController, animated: true, completion: nil)
     }
 
