@@ -18,6 +18,17 @@ private class CacheEntry {
     
     init(identifier:String) {
         self.identifier = identifier
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLowMemory:", name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+        self.cache.removeAllObjects()
+    }
+    
+    @objc func handleLowMemory(notification:NSNotification?) {
+        self.cache.removeAllObjects()
     }
 }
 
