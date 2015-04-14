@@ -24,10 +24,14 @@ private class CacheEntry {
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
-        self.cache.removeAllObjects()
+        clear()
     }
     
     @objc func handleLowMemory(notification:NSNotification?) {
+        clear()
+    }
+    
+    func clear () {
         self.cache.removeAllObjects()
     }
 }
@@ -76,6 +80,10 @@ public class Cache<T:NSObject> {
     
     public subscript(request:NSURLRequest) -> T? {
         return self.get(request)
+    }
+    
+    public func clear () -> Void {
+        self.cacheEntry?.clear()
     }
     
 }
