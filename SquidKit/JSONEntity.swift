@@ -54,21 +54,25 @@ public class JSONEntity: SequenceType {
         return self.entity.value
     }
     
+    public init () {
+        self.entity = Entity("", NilValue())
+    }
+    
     public init(_ key:String, _ value:AnyObject) {
         self.entity = Entity(key, value)
     }
     
     public init(resourceFilename:String) {
-        if let dictionary = NSDictionary.dictionaryFromResourceFile(resourceFilename) {
-            self.entity = Entity(resourceFilename, dictionary)
-        }
-        else {
-            self.entity = Entity("", NilValue())
-        }
+        let jsonEntity = JSONEntity.entityFromResourceFile(resourceFilename)
+        self.entity = jsonEntity.entity;
     }
     
     public init(jsonDictionary:NSDictionary) {
         self.entity = Entity("", jsonDictionary)
+    }
+    
+    public init(jsonArray:NSArray) {
+        self.entity = Entity("", jsonArray)
     }
     
     public func string() -> String? {
@@ -159,6 +163,35 @@ public class JSONEntity: SequenceType {
         return generator
     }
     
+}
+
+public extension JSONEntity {
+    
+    public class func entityFromResourceFile(fileName:String) -> JSONEntity {
+        var result:JSONEntity?
+        
+        if let inputStream = NSInputStream(fileAtPath:String.stringWithPathToResourceFile(fileName)) {
+            inputStream.open()
+            var error:NSErrorPointer = nil
+            if let serialized:AnyObject = NSJSONSerialization.JSONObjectWithStream(inputStream, options:nil, error: error) {
+                if let serializedASDictionary = serialized as? NSDictionary {
+                    result = JSONEntity(jsonDictionary: serializedASDictionary)
+                }
+                else if let serializedAsArray = serialized as? NSArray {
+                    result = JSONEntity(jsonArray: serializedAsArray)
+                }
+                else {
+                    result = JSONEntity()
+                }
+            }
+            inputStream.close()
+        }
+        else {
+            result = JSONEntity()
+        }
+        
+        return result!
+    }
 }
 
 public struct JSONEntityGenerator:GeneratorType {
