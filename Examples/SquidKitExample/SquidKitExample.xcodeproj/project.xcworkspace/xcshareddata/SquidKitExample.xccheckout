@@ -7,7 +7,7 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>A5BB89A8-1668-47E7-81F6-53AA785B18CE</string>
 	<key>IDESourceControlProjectName</key>
-	<string>SquidKitExample</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>4967185241955299B3106D61DF74DBF61FD5146C</key>
@@ -16,13 +16,13 @@
 		<string>https://github.com/Alamofire/Alamofire.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Examples/SquidKitExample/SquidKitExample.xcodeproj</string>
+	<string>Examples/SquidKitExample/SquidKitExample.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>4967185241955299B3106D61DF74DBF61FD5146C</key>
 		<string>../../../..</string>
 		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
-		<string>../../../../3rdparty/Alamofire</string>
+		<string>../../../..3rdparty/Alamofire/</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/SquidKit/SquidKit.git</string>

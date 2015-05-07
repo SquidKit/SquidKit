@@ -19,9 +19,14 @@ public class Preferences {
         return NSUserDefaults.standardUserDefaults()
     }
     
-    public func setPreference(object:AnyObject, key:String) {
-        self.userDefaults.setObject(object, forKey: key)
-        self.userDefaults.synchronize()
+    public func setPreference(object:AnyObject?, key:String) {
+        if let objectToSet:AnyObject = object {
+            self.userDefaults.setObject(objectToSet, forKey: key)
+            self.userDefaults.synchronize()
+        }
+        else {
+            self.remove(key)
+        }
     }
     
     public func preference(key:String) -> AnyObject? {
@@ -30,5 +35,6 @@ public class Preferences {
     
     public func remove(key:String) {
         self.userDefaults.removeObjectForKey(key)
+        self.userDefaults.synchronize()
     }
 }
