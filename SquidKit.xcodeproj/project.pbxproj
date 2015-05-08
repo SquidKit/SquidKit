@@ -23,6 +23,7 @@
 		1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
 		1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
 		1C57DAF119BCE3A7009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
+		1C6B73FF1AFC6CCA0060678A /* KVObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */; };
 		1C8220D919A4F7E700A17B56 /* SquidKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C8220D819A4F7E700A17B56 /* SquidKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C8220E319A4F7E700A17B56 /* SquidKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220E219A4F7E700A17B56 /* SquidKitTests.swift */; };
 		1C8220F419A4F92F00A17B56 /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F319A4F92F00A17B56 /* AccountHelper.swift */; };
@@ -72,6 +73,7 @@
 		1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONResponseEndpoint.swift; sourceTree = "<group>"; };
 		1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingTableItem.swift; sourceTree = "<group>"; };
 		1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObserving.swift; sourceTree = "<group>"; };
 		1C8220D319A4F7E700A17B56 /* SquidKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SquidKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8220D719A4F7E700A17B56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C8220D819A4F7E700A17B56 /* SquidKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SquidKit.h; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				1C82212819A5033C00A17B56 /* Log.swift */,
 				1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */,
 				1CEE106C1A829197001ABD72 /* Cache.swift */,
+				1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 				1CEE10671A81912D001ABD72 /* UIView+Utility.swift in Sources */,
 				1C0C601E19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */,
 				1C82211419A4F94300A17B56 /* ThemeView.swift in Sources */,
+				1C6B73FF1AFC6CCA0060678A /* KVObserving.swift in Sources */,
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
 				1C82212E19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
 				1CEE106D1A829197001ABD72 /* Cache.swift in Sources */,
