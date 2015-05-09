@@ -28,4 +28,26 @@ public extension String {
         
         return nil
     }
+    
+    public static func pathToApplicationBundle() -> String {
+        return NSBundle.mainBundle().bundlePath
+    }
+    
+    public static func pathToDocumentsDirectory() -> String? {
+        
+        return String.pathToUserDirectory(NSSearchPathDirectory.DocumentDirectory)
+    }
+    
+    public static func pathToCacheDirectory() -> String? {
+        
+        return String.pathToUserDirectory(NSSearchPathDirectory.CachesDirectory)
+    }
+    
+    public static func pathToUserDirectory(directory: NSSearchPathDirectory) -> String? {
+        
+        if let directories:[String] = NSSearchPathForDirectoriesInDomains(directory, NSSearchPathDomainMask.UserDomainMask, true) as? [String] {
+            return directories.last!
+        }
+        return nil
+    }
 }

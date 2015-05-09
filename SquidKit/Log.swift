@@ -55,6 +55,12 @@ public class Log {
         }
     }
     
+    public class func printNewLine() {
+        if _SquidKitLogSharedInstance.loggingEnabled {
+            println()
+        }
+    }
+    
     public class func message(@autoclosure output: () -> String?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
             if let message = output() {
