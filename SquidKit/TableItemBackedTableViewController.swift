@@ -91,6 +91,15 @@ public class TableItemBackedTableViewController: UITableViewController {
             return nil
         }
         
+        public subscript(tag:TableItem.Tag) -> TableItem? {
+            for section in sections {
+                if let item:TableItem = section[tag] {
+                    return item
+                }
+            }
+            return nil
+        }
+        
         public subscript(section:Int) -> TableSection? {
             if sections.count > section {
                 return sections[section]

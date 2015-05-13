@@ -16,12 +16,27 @@ import Foundation
 }
 
 public class TableItem {
+    
+    public class Tag {
+        let value:Int
+        public init(value:Int) {
+            self.value = value
+        }
+    }
+    
     public var title:String?
     public var rowHeight:Float? {
         return nil
     }
     public var reuseIdentifier:String?
+    public var tag:Tag?
     public var selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () = {(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in}
+    
+    public var valueBlock:(item:TableItem) -> AnyObject? = {(item:TableItem) -> AnyObject? in
+        return nil
+    }
+    
+    public var setValueBlock:(item:TableItem, value:AnyObject?) -> () = {(item:TableItem, value:AnyObject?) -> () in}
     
     public convenience init(_ title:String, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
         self.init(title, reuseIdentifier:nil, selectBlock:selectBlock)
@@ -30,6 +45,16 @@ public class TableItem {
     public convenience init(_ title:String, reuseIdentifier:String?, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
         self.init(title, reuseIdentifier:reuseIdentifier)
         self.selectBlock = selectBlock
+    }
+    
+    public convenience init(_ title:String, reuseIdentifier:String?, valueBlock:(item:TableItem) -> AnyObject?) {
+        self.init(title, reuseIdentifier:reuseIdentifier)
+        self.valueBlock = valueBlock
+    }
+    
+    public convenience init(_ title:String, reuseIdentifier:String?, valueBlock:(item:TableItem) -> AnyObject?, setValueBlock:(item:TableItem, value:AnyObject?) -> ()) {
+        self.init(title, reuseIdentifier:reuseIdentifier, valueBlock:valueBlock)
+        self.setValueBlock = setValueBlock
     }
     
     public init(_ title:String) {
@@ -43,6 +68,15 @@ public class TableItem {
     
     public func titleForIndexPath(indexPath:NSIndexPath) -> String? {
         return nil
+    }
+    
+    public func value() -> AnyObject? {
+        let blockValue:AnyObject? = self.valueBlock(item: self)
+        return blockValue
+    }
+    
+    public func setValue(value:AnyObject?) {
+        self.setValueBlock(item: self, value: value)
     }
 }
 
@@ -88,6 +122,15 @@ public class TableSection {
             return items[index]
         }
         
+        return nil
+    }
+    
+    public subscript(tag:TableItem.Tag) -> TableItem? {
+        for item in items {
+            if let itemTag = item.tag where itemTag.value == tag.value {
+                return item
+            }
+        }
         return nil
     }
 }
