@@ -23,13 +23,13 @@ public class NavigatingTableItem: TableItem {
         self.reuseIdentifier = reuseIdentifier
         
         self.selectBlock = {[unowned self] (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
-            let tableItemsVC:UIViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("tableItemsExampleVC") as! UIViewController
+            
             if let tableAction = actionsTarget {
                 switch self.navigationType {
-                case .Push(let storyboard, let viewControllerID):
-                    tableAction.pushViewController(storyboard, storyboardID: viewControllerID)
-                case .Present(let storyboard, let viewControllerID):
-                    tableAction.presentViewController(storyboard, storyboardID: viewControllerID)
+                case .Push(let storyboardName, let viewControllerID):
+                    tableAction.pushViewController(storyboardName, storyboardID: viewControllerID)
+                case .Present(let storyboardName, let viewControllerID):
+                    tableAction.presentViewController(storyboardName, storyboardID: viewControllerID)
                 }
                 tableAction.deselect(indexPath)
                 tableAction.reload()
