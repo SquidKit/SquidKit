@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 SquidKit. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 
 private var caches = [CacheEntry]()

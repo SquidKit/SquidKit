@@ -9,7 +9,7 @@
 //  after which this SquidKit themes are modeled. SquidKit eschews Plists in favor of a more portable
 //  JSON text file to define a theme; and there are fewer “themeable” elements in SquidKit.
 
-import Foundation
+import UIKit
 
 public class ThemeLoader {
     

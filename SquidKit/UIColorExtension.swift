@@ -15,7 +15,7 @@ public class UIColorExtension {
         return UIColor.colorWithHex(hex, alpha: alpha)
     }
     
-    public class func colorWithHexString(hexString:String, alpha:Float = -1) -> UIColor {
+    public class func colorWithHexString(hexString:String, alpha:Float = -1) -> UIColor? {
         return UIColor.colorWithHexString(hexString, alpha: alpha)
     }
 }
