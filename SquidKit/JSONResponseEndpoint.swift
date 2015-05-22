@@ -29,10 +29,9 @@ public class JSONResponseEndpoint: Endpoint {
         
         var defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
         if let additionalHeaders = self.additionalHeaders() {
-            defaultHeaders = additionalHeaders
-//            for (headerName, headerValue) in additionalHeaders {
-//                defaultHeaders[headerName] = headerValue
-//            }
+            for (headerName, headerValue) in additionalHeaders {
+                defaultHeaders[headerName] = headerValue
+            }
         }
         
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()

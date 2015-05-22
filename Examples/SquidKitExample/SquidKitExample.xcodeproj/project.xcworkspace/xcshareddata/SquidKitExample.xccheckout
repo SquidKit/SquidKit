@@ -22,7 +22,7 @@
 		<key>4967185241955299B3106D61DF74DBF61FD5146C</key>
 		<string>../../../..</string>
 		<key>67620B5EFA902936DF04070AF595B76AB0333747</key>
-		<string>../../../..3rdparty/Alamofire/</string>
+		<string>../../../..3rdparty/Alamofire</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/SquidKit/SquidKit.git</string>
