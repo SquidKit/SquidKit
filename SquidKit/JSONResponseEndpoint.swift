@@ -42,7 +42,10 @@ public class JSONResponseEndpoint: Endpoint {
         
         Log.message(self.url())
         
-        self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
+        let (user, password) = self.basicAuthPair()
+        
+        let request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
+            .shouldAuthenticate(user: user, password: password)
             .responseJSON { (request, response, data, error) -> Void in
                 if (error != nil) {
                     completionHandler(nil, self.formatError(response, error:error))
@@ -58,5 +61,13 @@ public class JSONResponseEndpoint: Endpoint {
                 }
         }
     }
-    
+}
+
+extension Request {
+    func shouldAuthenticate(#user: String?, password: String?) -> Self {
+        if let haveUser = user, havePassword = password {
+            return self.authenticate(user: haveUser, password: havePassword)
+        }
+        return self
+    }
 }

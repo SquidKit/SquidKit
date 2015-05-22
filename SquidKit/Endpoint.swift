@@ -54,6 +54,11 @@ public class Endpoint {
         return nil
     }
     
+    // OVERRIDE: return basic auth username / password
+    public func basicAuthPair() -> (name:String?, password:String?) {
+        return (nil, nil)
+    }
+    
     public func url() -> String {
         var aProtocol = self.hostProtocol()
         var aHost = self.host()
