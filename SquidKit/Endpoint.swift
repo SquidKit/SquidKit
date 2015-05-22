@@ -49,6 +49,11 @@ public class Endpoint {
         return nil
     }
     
+    // OVERRIDE: return additional HTTP headers
+    public func additionalHeaders() -> [NSObject : AnyObject]? {
+        return nil
+    }
+    
     public func url() -> String {
         var aProtocol = self.hostProtocol()
         var aHost = self.host()

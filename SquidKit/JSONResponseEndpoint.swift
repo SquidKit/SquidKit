@@ -9,8 +9,10 @@
 import UIKit
 
 public class JSONResponseEndpoint: Endpoint {
+    
+    var manager:Manager?
    
-    public func connect(completionHandler: ([String: AnyObject]?, ResponseStatus) -> Void) {
+    public func connect(completionHandler: (AnyObject?, ResponseStatus) -> Void) {
         let (params, method) = self.params()
         var encoding:ParameterEncoding = .URL
         if let specifiedEncoding = self.encoding() {
@@ -25,15 +27,32 @@ public class JSONResponseEndpoint: Endpoint {
             }
         }
         
+        var defaultHeaders = Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
+        if let additionalHeaders = self.additionalHeaders() {
+            defaultHeaders = additionalHeaders
+//            for (headerName, headerValue) in additionalHeaders {
+//                defaultHeaders[headerName] = headerValue
+//            }
+        }
+        
+        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        configuration.HTTPAdditionalHeaders = defaultHeaders
+        
+        self.manager = Manager(configuration: configuration)
+        
+        
         Log.message(self.url())
         
-        request(method, self.url(), parameters: params, encoding: encoding)
+        self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
             .responseJSON { (request, response, data, error) -> Void in
                 if (error != nil) {
                     completionHandler(nil, self.formatError(response, error:error))
                 }
-                else if let JSON = data as? [String: AnyObject] {
-                    completionHandler(JSON, .OK)
+                else if let jsonDictionary = data as? [String: AnyObject] {
+                    completionHandler(jsonDictionary, .OK)
+                }
+                else if let jsonArray = data as? [AnyObject] {
+                    completionHandler(jsonArray, .OK)
                 }
                 else {
                     completionHandler(nil, .ResponseFormatError)
