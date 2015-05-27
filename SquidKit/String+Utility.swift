@@ -24,6 +24,27 @@ public extension String {
         let guid = CFUUIDCreateString(kCFAllocatorDefault, uuid) as NSString
         return guid as! String
     }
+    
+    public static func deserializeJSON(jsonObject:AnyObject, pretty:Bool) -> String? {
+        
+        var result:String?
+        
+        if NSJSONSerialization.isValidJSONObject(jsonObject) {
+            let outputStream:NSOutputStream = NSOutputStream.outputStreamToMemory()
+            outputStream.open()
+            var error:NSError?
+            let bytesWritten:Int = NSJSONSerialization.writeJSONObject(jsonObject, toStream: outputStream, options: pretty ? NSJSONWritingOptions.PrettyPrinted : NSJSONWritingOptions(0), error: &error)
+            outputStream.close()
+            
+            if bytesWritten > 0 {
+                if let data:NSData = outputStream.propertyForKey(NSStreamDataWrittenToMemoryStreamKey) as? NSData {
+                    result = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+                }
+            }
+        }
+        
+        return result
+    }
 
     public func stringByTrimmingLeadingWhitespace() -> String {
         if let range = self.rangeOfString("^\\s*", options:.RegularExpressionSearch) {
@@ -56,5 +77,7 @@ public extension String {
         let predicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
         return predicate.evaluateWithObject(self)
     }
+    
+    
 }
 
