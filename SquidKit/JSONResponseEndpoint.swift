@@ -40,8 +40,6 @@ public class JSONResponseEndpoint: Endpoint {
         self.manager = Manager(configuration: configuration)
         
         
-        Log.message(self.url())
-        
         let (user, password) = self.basicAuthPair()
         
         let request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
@@ -60,6 +58,8 @@ public class JSONResponseEndpoint: Endpoint {
                     completionHandler(nil, .ResponseFormatError)
                 }
         }
+        
+        Log.message(request.description)
     }
 }
 
