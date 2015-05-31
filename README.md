@@ -450,7 +450,7 @@ You may also choose to only include individual source files from SquidKit. While
 
 
 ## Contact
-Mike Leavy • mike@tinboxrobot.com • [@mleavysd](https://twitter.com/mleavysd)
+Mike Leavy • mike@squidstore.com • [@mleavysd](https://twitter.com/mleavysd)
 
 ## License
 SquidKit is available under the MIT license. See the LICENSE file at the root level of this repository for further information.
