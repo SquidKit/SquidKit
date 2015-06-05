@@ -79,6 +79,10 @@ public class TableItemBackedTableViewController: UITableViewController {
             }
         }
         
+        public func reset() {
+            sections = [TableSection]()
+        }
+        
         public subscript(indexPath:NSIndexPath) -> TableItem? {
             return self[indexPath.section, indexPath.row]
         }

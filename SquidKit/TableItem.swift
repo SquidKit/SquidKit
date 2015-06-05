@@ -25,6 +25,7 @@ public class TableItem {
     }
     
     public var title:String?
+    public var detailTitle:String?
     public var rowHeight:Float? {
         return nil
     }
