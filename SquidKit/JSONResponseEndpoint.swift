@@ -44,6 +44,7 @@ public class JSONResponseEndpoint: Endpoint {
         
         let request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
             .shouldAuthenticate(user: user, password: password)
+            .validate()
             .responseJSON { (request, response, data, error) -> Void in
                 if (error != nil) {
                     completionHandler(nil, self.formatError(response, error:error))
