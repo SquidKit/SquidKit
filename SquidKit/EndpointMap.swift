@@ -53,7 +53,7 @@ public class EndpointMapper {
         EndpointMapper.sharedInstance.mappedHosts[canonicalHost] = nil
     }
     
-    internal class func mappedPairForCanonicalHost(canonicalHost:String) -> (ProtocolHostPair?) {
+    public class func mappedPairForCanonicalHost(canonicalHost:String) -> (ProtocolHostPair?) {
         return EndpointMapper.sharedInstance.mappedHosts[canonicalHost]
     }
     
