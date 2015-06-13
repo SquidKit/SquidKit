@@ -42,10 +42,11 @@ public class JSONResponseEndpoint: Endpoint {
         
         let (user, password) = self.basicAuthPair()
         
+        
         let request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
             .shouldAuthenticate(user: user, password: password)
             .validate()
-            .responseJSON { (request, response, data, error) -> Void in
+            .responseJSON(options: self.jsonReadingOptions, completionHandler:{ (request, response, data, error) -> Void in
                 if (error != nil) {
                     completionHandler(nil, self.formatError(response, error:error))
                 }
@@ -58,10 +59,18 @@ public class JSONResponseEndpoint: Endpoint {
                 else {
                     completionHandler(nil, .ResponseFormatError)
                 }
-        }
+        })
         
         Log.message(request.description)
     }
+    
+    //OVERRIDE
+    public var jsonReadingOptions:NSJSONReadingOptions {
+        get {
+            return .AllowFragments
+        }
+    }
+    
 }
 
 extension Request {
