@@ -43,7 +43,7 @@ public class JSONResponseEndpoint: Endpoint {
         let (user, password) = self.basicAuthPair()
         
         
-        let request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
+        self.request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
             .shouldAuthenticate(user: user, password: password)
             .validate()
             .responseJSON(options: self.jsonReadingOptions, completionHandler:{ (request, response, data, error) -> Void in
@@ -61,7 +61,7 @@ public class JSONResponseEndpoint: Endpoint {
                 }
         })
         
-        Log.message(request.description)
+        Log.message(self.request?.description)
     }
     
     //OVERRIDE

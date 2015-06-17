@@ -20,6 +20,8 @@ public class Endpoint {
         case UnknownError(NSError?)
     }
     
+    var request:Request?
+    
     public init() {
         
     }
@@ -57,6 +59,10 @@ public class Endpoint {
     // OVERRIDE: return basic auth username / password
     public func basicAuthPair() -> (name:String?, password:String?) {
         return (nil, nil)
+    }
+    
+    public func cancel() {
+        self.request?.cancel()
     }
     
     public func url() -> String {
