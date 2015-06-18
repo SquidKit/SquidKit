@@ -71,6 +71,13 @@ public class Theme {
         return ThemeManager.sharedInstance.activeTheme
     }
     
+    public class func anyTheme() -> Theme {
+        if let activeTheme = ThemeManager.sharedInstance.activeTheme {
+            return activeTheme
+        }
+        return Theme()
+    }
+    
     public init() {
         
     }
