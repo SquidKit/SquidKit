@@ -120,6 +120,7 @@ public class CustomHostCell: UITableViewCell, UITextFieldDelegate {
     var delegate:CustomHostCellDelegate?
     
     public override func layoutSubviews() {
+        super.layoutSubviews()
         if textField == nil {
             textField = UITextField(frame:CGRectInset(self.contentView.bounds, 15, 5))
             self.contentView.addSubview(textField!)
