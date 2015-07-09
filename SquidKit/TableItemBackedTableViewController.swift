@@ -83,6 +83,45 @@ public class TableItemBackedTableViewController: UITableViewController {
             sections = [TableSection]()
         }
         
+        public func indexForSection(section:TableSection) -> Int? {
+            var index:Int?
+            
+            var sectionCount = 0
+            for aSection in sections {
+                if aSection === section {
+                    index = sectionCount
+                    break
+                }
+                sectionCount++
+            }
+            return index
+        }
+        
+        public func indexPathForItem(item:TableItem) -> NSIndexPath? {
+            var indexPath:NSIndexPath?
+            
+            var sectionCount = 0
+            for aSection in sections {
+                
+                var itemCount = 0
+                for aItem in aSection.items {
+                    if aItem === item {
+                        indexPath = NSIndexPath(forRow: itemCount, inSection: sectionCount)
+                        break
+                    }
+                    itemCount++
+                }
+                
+                if let foundIndexPath = indexPath {
+                    break
+                }
+                
+                sectionCount++
+            }
+            
+            return indexPath
+        }
+        
         public subscript(indexPath:NSIndexPath) -> TableItem? {
             return self[indexPath.section, indexPath.row]
         }

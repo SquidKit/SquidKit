@@ -42,6 +42,10 @@ public class TableItem {
     
     public var setValueBlock:(item:TableItem, value:AnyObject?) -> () = {(item:TableItem, value:AnyObject?) -> () in}
     
+    public var enabledBlock:(item:TableItem) -> Bool = {(item:TableItem) -> Bool in
+        return true
+    }
+    
     public convenience init(_ title:String, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
         self.init(title, reuseIdentifier:nil, selectBlock:selectBlock)
     }
