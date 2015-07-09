@@ -54,6 +54,7 @@
 		1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */; };
 		1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
 		1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
+		1CD097EF1B4F0A9F006FD332 /* UIImage+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */; };
 		1CD2E42A1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */; };
 		1CD2E42B1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */; };
 		1CEE105C1A8160B5001ABD72 /* Alamofire+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE105B1A8160B5001ABD72 /* Alamofire+Image.swift */; };
@@ -96,6 +97,7 @@
 		1C82212819A5033C00A17B56 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTableView.swift; sourceTree = "<group>"; };
 		1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItemBackedTableViewController.swift; sourceTree = "<group>"; };
+		1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Utility.swift"; sourceTree = "<group>"; };
 		1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Utility.swift"; sourceTree = "<group>"; };
 		1CEE105B1A8160B5001ABD72 /* Alamofire+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Alamofire+Image.swift"; sourceTree = "<group>"; };
 		1CEE10631A818149001ABD72 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				1C8220FA19A4F94300A17B56 /* String+Utility.swift */,
 				1C82210019A4F94300A17B56 /* UIColor+Hex.swift */,
 				1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */,
+				1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */,
 				1CEE10661A81912D001ABD72 /* UIView+Utility.swift */,
 			);
 			name = "Class Extensions";
@@ -411,6 +414,7 @@
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
 				1C82212E19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
 				1CEE106D1A829197001ABD72 /* Cache.swift in Sources */,
+				1CD097EF1B4F0A9F006FD332 /* UIImage+Utility.swift in Sources */,
 				1C0C601C19BBB123003E300C /* HostConfigurationTableViewController.swift in Sources */,
 				1C82210219A4F94300A17B56 /* DismissibleViewController.swift in Sources */,
 				1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */,

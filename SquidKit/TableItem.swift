@@ -26,6 +26,9 @@ public class TableItem {
     
     public var title:String?
     public var detailTitle:String?
+    public var imageName:String?
+    public var image:UIImage?
+    
     public var rowHeight:Float? {
         return nil
     }
