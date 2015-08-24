@@ -10,8 +10,8 @@ import UIKit
 
 public extension Request {
     
-    class func imageResponseSerializer(decompressImage: Bool = true) -> Serializer {
-        return { request, response, data in
+    class func imageResponseSerializer(decompressImage: Bool = true) -> GenericResponseSerializer<UIImage> {
+        return GenericResponseSerializer { request, response, data in
             if data == nil || response == nil {
                 return (nil, nil)
             }
@@ -32,18 +32,18 @@ public extension Request {
         }
         
         let serializer = Request.imageResponseSerializer()
-        return response(serializer: serializer, completionHandler: { request, response, image, error in
-            if let cacheImage = image as? UIImage {
+        return response(responseSerializer: serializer, completionHandler: { request, response, image, error in
+            if let cacheImage = image {
                 Cache<UIImage>().insert(cacheImage, key: request.URL!)
             }
-            completion(request, response, image as? UIImage)
+            completion(request, response, image)
         })
     }
     
     func responseImage(completion: (NSURLRequest, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
         let serializer = Request.imageResponseSerializer()
-        return response(serializer: serializer, completionHandler: { request, response, image, error in
-            completion(request, response, image as? UIImage)
+        return response(responseSerializer: serializer, completionHandler: { request, response, image, error in
+            completion(request, response, image)
         })
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SquidKit
 
 public class JSONResponseEndpoint: Endpoint {
     
