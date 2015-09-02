@@ -10,7 +10,7 @@ import UIKit
 
 public extension Request {
     
-    class func imageResponseSerializer(decompressImage: Bool = true) -> GenericResponseSerializer<UIImage> {
+    public static func imageResponseSerializer(decompressImage: Bool = true) -> GenericResponseSerializer<UIImage> {
         return GenericResponseSerializer { request, response, data in
             if data == nil || response == nil {
                 return (nil, nil)
@@ -61,18 +61,21 @@ public extension Request {
         
         var imageRef: CGImageRef?
         if response.MIMEType == "image/png" {
-            imageRef = CGImageCreateWithPNGDataProvider(dataProvider, nil, true, kCGRenderingIntentDefault)
+            imageRef = CGImageCreateWithPNGDataProvider(dataProvider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
             
         } else if response.MIMEType == "image/jpeg" {
-            imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, kCGRenderingIntentDefault)
+            imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
             
             // CGImageCreateWithJPEGDataProvider does not properly handle CMKY, so if so,
             // fall back to AFImageWithDataAtScale
             if imageRef != nil {
                 let imageColorSpace = CGImageGetColorSpace(imageRef)
                 let imageColorSpaceModel = CGColorSpaceGetModel(imageColorSpace)
-                if imageColorSpaceModel.value == kCGColorSpaceModelCMYK.value {
+                switch (imageColorSpaceModel) {
+                case .CMYK:
                     imageRef = nil
+                default:
+                    break
                 }
             }
         }
@@ -102,14 +105,14 @@ public extension Request {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         let colorSpaceModel = CGColorSpaceGetModel(colorSpace)
         let alphaInfo = CGImageGetAlphaInfo(imageRef)
-        var bitmapInfo = CGImageGetBitmapInfo(imageRef)
-        if colorSpaceModel.value == kCGColorSpaceModelRGB.value {
+        var bitmapInfo:UInt32 = CGImageGetBitmapInfo(imageRef).rawValue
+        if colorSpaceModel == .RGB {
             if alphaInfo == .None {
-                bitmapInfo &= ~CGBitmapInfo.AlphaInfoMask
-                bitmapInfo |= CGBitmapInfo(CGImageAlphaInfo.NoneSkipFirst.rawValue)
+                bitmapInfo &= ~CGBitmapInfo.AlphaInfoMask.rawValue
+                bitmapInfo |= CGBitmapInfo(rawValue: CGImageAlphaInfo.NoneSkipFirst.rawValue).rawValue
             } else if (!(alphaInfo == .NoneSkipFirst || alphaInfo == .NoneSkipLast)) {
-                bitmapInfo &= ~CGBitmapInfo.AlphaInfoMask
-                bitmapInfo |= CGBitmapInfo(CGImageAlphaInfo.PremultipliedFirst.rawValue)
+                bitmapInfo &= ~CGBitmapInfo.AlphaInfoMask.rawValue
+                bitmapInfo |= CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedFirst.rawValue).rawValue
             }
         }
         
@@ -122,6 +125,6 @@ public extension Request {
         let drawRect = CGRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height))
         CGContextDrawImage(context, drawRect, imageRef)
         let inflatedImageRef = CGBitmapContextCreateImage(context)
-        return UIImage(CGImage: inflatedImageRef, scale: scale, orientation: image!.imageOrientation)
+        return UIImage(CGImage: inflatedImageRef!, scale: scale, orientation: image!.imageOrientation)
     }
 }

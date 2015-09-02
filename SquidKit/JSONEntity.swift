@@ -37,7 +37,7 @@ public class JSONEntity: SequenceType {
     }
     
     public var isValid:Bool {
-        if let e = self.entity.value as? NilValue {
+        if let _ = self.entity.value as? NilValue {
             return false
         }
         return true
@@ -48,7 +48,7 @@ public class JSONEntity: SequenceType {
     }
     
     public var realValue:AnyObject? {
-        if let nilValue = self.entity.value as? NilValue {
+        if let _ = self.entity.value as? NilValue {
             return nil
         }
         return self.entity.value
@@ -159,7 +159,7 @@ public class JSONEntity: SequenceType {
     
     public typealias GeneratorType = JSONEntityGenerator
     public func generate() -> GeneratorType {
-        var generator = JSONEntityGenerator(self)
+        let generator = JSONEntityGenerator(self)
         return generator
     }
     
@@ -172,8 +172,9 @@ public extension JSONEntity {
         
         if let inputStream = NSInputStream(fileAtPath:String.stringWithPathToResourceFile(fileName)) {
             inputStream.open()
-            var error:NSErrorPointer = nil
-            if let serialized:AnyObject = NSJSONSerialization.JSONObjectWithStream(inputStream, options:nil, error: error) {
+            do {
+                let serialized = try NSJSONSerialization.JSONObjectWithStream(inputStream, options:NSJSONReadingOptions(rawValue: 0))
+                
                 if let serializedASDictionary = serialized as? NSDictionary {
                     result = JSONEntity(jsonDictionary: serializedASDictionary)
                 }
@@ -184,6 +185,10 @@ public extension JSONEntity {
                     result = JSONEntity()
                 }
             }
+            catch {
+                result = JSONEntity()
+            }
+            
             inputStream.close()
         }
         else {

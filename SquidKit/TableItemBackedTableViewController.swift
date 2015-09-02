@@ -112,7 +112,7 @@ public class TableItemBackedTableViewController: UITableViewController {
                     itemCount++
                 }
                 
-                if let foundIndexPath = indexPath {
+                if let _ = indexPath {
                     break
                 }
                 
@@ -167,13 +167,13 @@ extension TableItemBackedTableViewController: TableActions {
     
     public func pushViewController(storyboardName:String, storyboardID:String) {
         if let navigationController = self.navigationController {
-            let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) as! UIViewController
+            let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) 
             navigationController.pushViewController(viewController, animated: true)
         }
     }
     
     public func presentViewController(storyboardName:String, storyboardID:String) {
-        let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) as! UIViewController
+        let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) 
         self.presentViewController(viewController, animated: true, completion: nil)
     }
 

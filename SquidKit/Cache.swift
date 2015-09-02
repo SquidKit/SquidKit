@@ -42,7 +42,7 @@ public class Cache<T:NSObject> {
     
     public init () {
         
-        var cacheIdentifier = cacheIdentifierPrefix + NSStringFromClass(T.self)
+        let cacheIdentifier = cacheIdentifierPrefix + NSStringFromClass(T.self)
         for cache in caches {
             if cacheIdentifier == cache.identifier {
                 self.cacheEntry = cache

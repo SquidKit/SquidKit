@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SquidKit
 
 public class JSONResponseEndpoint: Endpoint {
     
@@ -47,18 +46,20 @@ public class JSONResponseEndpoint: Endpoint {
         self.request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
             .shouldAuthenticate(user: user, password: password)
             .validate()
-            .responseJSON(options: self.jsonReadingOptions, completionHandler:{ (request, response, data, error) -> Void in
-                if (error != nil) {
-                    completionHandler(nil, self.formatError(response, error:error))
-                }
-                else if let jsonDictionary = data as? [String: AnyObject] {
-                    completionHandler(jsonDictionary, .OK)
-                }
-                else if let jsonArray = data as? [AnyObject] {
-                    completionHandler(jsonArray, .OK)
-                }
-                else {
-                    completionHandler(nil, .ResponseFormatError)
+            .responseJSON(options: self.jsonReadingOptions, completionHandler:{ (request, response, result) -> Void in
+                switch (result) {
+                    case .Success(let value):
+                        if let jsonDictionary = value as? [String: AnyObject] {
+                            completionHandler(jsonDictionary, .OK)
+                        }
+                        else if let jsonArray = value as? [AnyObject] {
+                            completionHandler(jsonArray, .OK)
+                        }
+                        else {
+                            completionHandler(nil, .ResponseFormatError)
+                        }
+                    case .Failure(_, let error):
+                        completionHandler(nil, self.formatError(response, error:error as NSError))
                 }
         })
         
@@ -75,7 +76,7 @@ public class JSONResponseEndpoint: Endpoint {
 }
 
 extension Request {
-    func shouldAuthenticate(#user: String?, password: String?) -> Self {
+    func shouldAuthenticate(user user: String?, password: String?) -> Self {
         if let haveUser = user, havePassword = password {
             return self.authenticate(user: haveUser, password: havePassword)
         }

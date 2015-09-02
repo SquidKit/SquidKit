@@ -50,14 +50,15 @@ public class Log {
     public class func print<T>(@autoclosure output:() -> T?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
             if let object = output() {
-                println(object)
+                print(object)
             }
         }
     }
     
+    //TODO: REMOVE
     public class func printNewLine() {
         if _SquidKitLogSharedInstance.loggingEnabled {
-            println()
+            print("")
         }
     }
     

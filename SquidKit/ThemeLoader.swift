@@ -25,13 +25,13 @@ public class ThemeLoader {
             var loadedThemes = [String: Theme]()
             
             for aTheme in themes {
-                var theme:Theme = Theme()
+                let theme:Theme = Theme()
                 theme.name = aTheme["name"].stringWithDefault("unnamed theme")
                 
                 let attributes = aTheme["attributes"]
                 let themeDictionary = NSMutableDictionary(capacity: attributes.count)
                 for attribute in attributes {
-                    let (key, value: AnyObject?) = ThemeLoader.attributeFromAttributeEntity(attribute)
+                    let (key, value) = ThemeLoader.attributeFromAttributeEntity(attribute)
                     if value != nil {
                         themeDictionary.setObject(value!, forKey: key)
                     }
@@ -60,10 +60,8 @@ public class ThemeLoader {
     
     class func attributeFromAttributeEntity(entity:JSONEntity) -> (String, AnyObject?) {
         
-        var attribute:AnyObject
-        
         if let dictionary = entity.dictionary() {
-            if let color = dictionary.objectForKey("color") as? String {
+            if let _ = dictionary.objectForKey("color") as? String {
                 return (entity.key, ThemeLoader.colorFromAttributeDictionary(dictionary))
             }
         }

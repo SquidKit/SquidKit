@@ -13,7 +13,7 @@ public extension UIImage {
     class func imageFromView(view:UIView, rect:CGRect, scaleForDevice:Bool = true) -> UIImage? {
         
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, scaleForDevice ? 0.0 : 1.0)
-        view.layer.renderInContext(UIGraphicsGetCurrentContext())
+        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         
         let viewImage = UIGraphicsGetImageFromCurrentImageContext()
         
@@ -23,7 +23,7 @@ public extension UIImage {
         let imageRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width * scale, rect.size.height * scale)
         let imageRef = CGImageCreateWithImageInRect(viewImage.CGImage, imageRect)
         
-        var resultImage = UIImage(CGImage: imageRef)
+        let resultImage = UIImage(CGImage: imageRef!)
         
         return resultImage
     }

@@ -21,7 +21,7 @@ public extension UIColor {
     public class func colorWithHexString(hexString:String?, alpha:Float = 1) -> UIColor? {
         
         if let hex = hexString {
-            var s:NSMutableString = NSMutableString(string:hex)
+            let s:NSMutableString = NSMutableString(string:hex)
             s.replaceOccurrencesOfString("#", withString: "", options:.LiteralSearch, range: NSRange(location: 0, length: s.length))
             s.replaceOccurrencesOfString("0x", withString: "", options:.CaseInsensitiveSearch, range: NSRange(location: 0, length: s.length))
             CFStringTrimWhitespace(s as CFMutableStringRef);

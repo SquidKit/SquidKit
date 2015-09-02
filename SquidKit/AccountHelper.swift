@@ -44,7 +44,7 @@ public class AccountHelper {
                 if let twitterAccount = self?.firstAccount(accountStore, accountType: acAccountTypeTwitter) {
                     Log.message("Twitter: " + String.nonNilString(twitterAccount.userFullName, stringForNil:"<nil>"))
                     Log.message("Twitter: " + twitterAccount.username)
-                    Log.message("Twitter: " + twitterAccount.identifier)
+                    Log.message("Twitter: \(twitterAccount.identifier)")
                 }
             }
             
@@ -60,7 +60,7 @@ public class AccountHelper {
                 if let facebookAccount = self?.firstAccount(accountStore, accountType: acAccountTypeFacebook) {
                     Log.message("Facebook: " + String.nonNilString(facebookAccount.userFullName, stringForNil:"<nil>"))
                     Log.message("Facebook: " + facebookAccount.username)
-                    Log.message("Facebook: " + facebookAccount.identifier)
+                    Log.message("Facebook: \(facebookAccount.identifier)")
                 }
             }
             

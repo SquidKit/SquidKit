@@ -14,11 +14,12 @@ public extension NSDictionary {
         
         if let inputStream = NSInputStream(fileAtPath:String.stringWithPathToResourceFile(fileName)) {
             inputStream.open()
-            var error:NSErrorPointer = nil
-            let dictionary:NSDictionary? = NSJSONSerialization.JSONObjectWithStream(inputStream, options:nil, error: error) as? NSDictionary
+            
+            let dictionary = try? NSJSONSerialization.JSONObjectWithStream(inputStream, options:NSJSONReadingOptions(rawValue: 0))
+
             inputStream.close()
             
-            return dictionary
+            return dictionary as? NSDictionary
             
         }
         

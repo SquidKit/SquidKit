@@ -22,7 +22,7 @@ public extension String {
         let uuid:CFUUIDRef = CFUUIDCreate(kCFAllocatorDefault)
 
         let guid = CFUUIDCreateString(kCFAllocatorDefault, uuid) as NSString
-        return guid as! String
+        return guid as String
     }
     
     public static func deserializeJSON(jsonObject:AnyObject, pretty:Bool) -> String? {
@@ -33,7 +33,7 @@ public extension String {
             let outputStream:NSOutputStream = NSOutputStream.outputStreamToMemory()
             outputStream.open()
             var error:NSError?
-            let bytesWritten:Int = NSJSONSerialization.writeJSONObject(jsonObject, toStream: outputStream, options: pretty ? NSJSONWritingOptions.PrettyPrinted : NSJSONWritingOptions(0), error: &error)
+            let bytesWritten:Int = NSJSONSerialization.writeJSONObject(jsonObject, toStream: outputStream, options: pretty ? NSJSONWritingOptions.PrettyPrinted : NSJSONWritingOptions(rawValue: 0), error: &error)
             outputStream.close()
             
             if bytesWritten > 0 {

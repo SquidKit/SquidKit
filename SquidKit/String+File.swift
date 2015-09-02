@@ -15,13 +15,14 @@ public extension String {
     }
     
     public static func stringWithPathToResourceFile(fileName:String) -> String {
-        var path = String.stringWithPathToResourceDirectory()
-        path = path.stringByAppendingPathComponent(fileName)
-        return path
+        let path = String.stringWithPathToResourceDirectory()
+        var url = NSURL(fileURLWithPath: path)
+        url = url.URLByAppendingPathComponent(fileName)
+        return url.absoluteString
     }
     
     public static func stringWithContentsOfResourceFile(fileName:String) -> String? {
-        var filePath = String.stringWithPathToResourceFile(fileName)
+        let filePath = String.stringWithPathToResourceFile(fileName)
         if let data = NSFileManager.defaultManager().contentsAtPath(filePath) {
             return NSString(data:data, encoding:NSUTF8StringEncoding) as? String
         }
@@ -45,7 +46,7 @@ public extension String {
     
     public static func pathToUserDirectory(directory: NSSearchPathDirectory) -> String? {
         
-        if let directories:[String] = NSSearchPathForDirectoriesInDomains(directory, NSSearchPathDomainMask.UserDomainMask, true) as? [String] {
+        if let directories:[String] = NSSearchPathForDirectoriesInDomains(directory, NSSearchPathDomainMask.UserDomainMask, true) {
             return directories.last!
         }
         return nil

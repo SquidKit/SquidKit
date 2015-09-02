@@ -88,7 +88,7 @@ public class TableItem {
     }
 }
 
-extension TableItem: Printable, DebugPrintable {
+extension TableItem: CustomStringConvertible, CustomDebugStringConvertible {
     public var description: String {
         if let description = self.title {
             return description

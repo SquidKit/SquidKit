@@ -53,8 +53,6 @@ public class URLImageView: UIImageView {
         cancel()
         if let urlString = self.urlString {
             
-            let scale = UIScreen.mainScreen().scale
-            
             let url = NSURL(string: urlString)
             
             startActivity()

@@ -10,7 +10,7 @@ import Foundation
 
 private let _EndpointMapperSharedInstance = EndpointMapper()
 
-public struct ProtocolHostPair: Printable, DebugPrintable {
+public struct ProtocolHostPair: CustomStringConvertible, CustomDebugStringConvertible {
     public var hostProtocol:String?
     public var host:String?
     
@@ -91,7 +91,7 @@ public class HostMap {
     }
 
     public func isEditable(key:String) -> Bool {
-        return contains(editableKeys, key)
+        return editableKeys.contains(key)
     }
 }
 
@@ -207,7 +207,7 @@ public class HostMapManager {
                 let prereleaseKey:String? = config[HostConfigurationKey.PrereleaseKey.rawValue] as? String
 
                 if canonicalHost != nil && canonicalProtocol != nil {
-                    var hostMap = HostMap(canonicalProtocolHostPair:ProtocolHostPair(canonicalProtocol, canonicalHost))
+                    let hostMap = HostMap(canonicalProtocolHostPair:ProtocolHostPair(canonicalProtocol, canonicalHost))
                     
                     if let release = releaseKey {
                         hostMap.releaseKey = release
@@ -290,14 +290,14 @@ public class SquidKitHostMapCache: HostMapCache {
             mutableCache = NSMutableDictionary()
         }
         
-        var dictionaryItem = NSMutableDictionary()
+        let dictionaryItem = NSMutableDictionary()
         dictionaryItem.setObject(key, forKey: "key")
         dictionaryItem.setObject(mappedHost, forKey: "host")
         mutableCache!.setObject(dictionaryItem, forKey: canonicalHost)
 
         prefs.setPreference(mutableCache!, key:squidKitHostMapCacheKey)
 
-        let thing:AnyObject? = prefs.preference(squidKitHostMapCacheKey)
+        prefs.preference(squidKitHostMapCacheKey)
     }
 
     
@@ -315,7 +315,7 @@ public class SquidKitHostMapCache: HostMapCache {
     public func removeCachedKeyForCanonicalHost(canonicalHost:String) {
         let prefs = Preferences()
         if let cache:NSDictionary = prefs.preference(squidKitHostMapCacheKey) as? NSDictionary {
-            var mutableCache:NSMutableDictionary = (cache.mutableCopy() as! NSMutableDictionary)
+            let mutableCache:NSMutableDictionary = (cache.mutableCopy() as! NSMutableDictionary)
             mutableCache.removeObjectForKey(canonicalHost)
             prefs.setPreference(mutableCache, key:squidKitHostMapCacheKey)
         }

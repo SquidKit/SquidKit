@@ -78,7 +78,7 @@ public class HostConfigurationTableViewController: TableItemBackedTableViewContr
         if let configItem = self.model[indexPath]! as? ConfigurationItem {
         
             if !configItem.editable {
-                cell = tableView.dequeueReusableCellWithIdentifier(configItemReuseIdentifier) as? UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier(configItemReuseIdentifier)
                 if cell == nil {
                     cell = UITableViewCell(style: .Subtitle, reuseIdentifier: configItemReuseIdentifier)
                 }

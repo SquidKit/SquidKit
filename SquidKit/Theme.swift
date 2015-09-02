@@ -45,7 +45,7 @@ public class ThemeManager {
     public func setDefaultTheme() {
         if themes.count > 0 {
             var arrayOfKeys:[String] = Array(themes.keys)
-            arrayOfKeys = sorted(arrayOfKeys) {$0 < $1}
+            arrayOfKeys = arrayOfKeys.sort()
             self.activeTheme = themes[arrayOfKeys[0]]
         }
     }
@@ -54,7 +54,7 @@ public class ThemeManager {
         for aView in view.subviews {
             aView.setNeedsDisplay()
             if (recursive) {
-                self.updateThemedSubviewsOfView(aView as! UIView, recursive: true)
+                self.updateThemedSubviewsOfView(aView , recursive: true)
             }
         }
     }

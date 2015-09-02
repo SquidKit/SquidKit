@@ -15,9 +15,9 @@ public typealias KVObservingBlock = (keyPath: String, object: AnyObject, change:
 
 @objc public protocol KVObserving {
     
-    func observableObject(#kvoHelper:KVOHelper) -> NSObject?
+    func observableObject(kvoHelper kvoHelper:KVOHelper) -> NSObject?
     
-    optional func observeValueForKeyPath(#kvoHelper:KVOHelper, keyPath: String, ofObject object: AnyObject, change: [NSObject: AnyObject])
+    optional func observeValueForKeyPath(kvoHelper kvoHelper:KVOHelper, keyPath: String, ofObject object: AnyObject, change: [NSObject: AnyObject])
     
 }
 
@@ -50,16 +50,16 @@ public class KVOHelper : NSObject {
     }
     
     // register to observe a key path. callback will happen via the KVObserving protocol's observeValueForKeyPath method
-    public func observe(#keyPath:String) {
-            if !contains(keys, keyPath) {
+    public func observe(keyPath keyPath:String) {
+            if !keys.contains(keyPath) {
                 observed.addObserver(self, forKeyPath: keyPath, options: .New, context: &KVOHelper.observerContext)
                 keys.append(keyPath)
             }
     }
     
     // register to observe a key path, with specified callback block (KVObserving protocol not involved)
-    public func observe(#keyPath:String, block:KVObservingBlock) {
-        if !contains(keys, keyPath) {
+    public func observe(keyPath keyPath:String, block:KVObservingBlock) {
+        if !keys.contains(keyPath) {
             observed.addObserver(self, forKeyPath: keyPath, options: .New, context: &KVOHelper.observerContext)
             keys.append(keyPath)
             blockMap[keyPath] = block
@@ -67,7 +67,7 @@ public class KVOHelper : NSObject {
     }
     
     // register to observe multiple key paths, with single specified callback block (KVObserving protocol not involved)
-    public func observe(#keyPaths:[String], block:KVObservingBlock) {
+    public func observe(keyPaths keyPaths:[String], block:KVObservingBlock) {
         for keyPath in keyPaths {
             self.observe(keyPath: keyPath, block: block)
         }
@@ -75,21 +75,25 @@ public class KVOHelper : NSObject {
     
     // unobserve a key path
     public func unobserve(keyPath:String) {
-            if contains(keys, keyPath) {
+            if keys.contains(keyPath) {
                 observed.removeObserver(self, forKeyPath: keyPath, context: &KVOHelper.observerContext)
-                keys.removeAtIndex(find(keys, keyPath)!)
+                keys.removeAtIndex(keys.indexOf(keyPath)!)
                 blockMap.removeValueForKey(keyPath)
             }
     }
     
-    override public func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject: AnyObject], context: UnsafeMutablePointer<Void>) {
+    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
+        guard let aKeyPath = keyPath, anObject = object, aChange = change else {
+            return
+        }
         if context == &KVOHelper.observerContext {
             if let observing:KVObserving = self.observer as? KVObserving {
-                if let block = blockMap[keyPath] {
-                    block(keyPath: keyPath, object: object, change: change)
+                if let block = blockMap[aKeyPath] {
+                    block(keyPath: aKeyPath, object: anObject, change: aChange)
                 }
                 else {
-                    observing.observeValueForKeyPath?(kvoHelper:self, keyPath: keyPath, ofObject: object, change: change)
+                    observing.observeValueForKeyPath?(kvoHelper:self, keyPath: aKeyPath, ofObject: anObject, change: aChange)
                 }
             }
         }
