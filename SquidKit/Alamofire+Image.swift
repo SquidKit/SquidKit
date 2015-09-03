@@ -13,37 +13,61 @@ public extension Request {
     public static func imageResponseSerializer(decompressImage: Bool = true) -> GenericResponseSerializer<UIImage> {
         return GenericResponseSerializer { request, response, data in
             if data == nil || response == nil {
-                return (nil, nil)
+                let failureReason = (data == nil) ? "Input data was nil" : "URL response was nil"
+                let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
+                return .Failure(data, error)
             }
             
             if decompressImage {
-                return (self.decompressImage(response! as NSHTTPURLResponse, data: data!), nil)
+                if let image = self.decompressImage(response! as NSHTTPURLResponse, data: data!) {
+                    return .Success(image)
+                }
+                else {
+                    let failureReason = "Image failed to decompress"
+                    let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
+                    return .Failure(data, error)
+                }
             } else {
-                return (UIImage(data: data!, scale: UIScreen.mainScreen().scale), nil)
+                if let image = UIImage(data: data!, scale: UIScreen.mainScreen().scale) {
+                    return .Success(image)
+                }
+                else {
+                    let failureReason = "Failed to initialize UIImage from data"
+                    let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
+                    return .Failure(data, error)
+                }
             }
         }
     }
     
     
-    func responseImageCacheable(completion: (NSURLRequest, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
-        if let cachedImage = Cache<UIImage>()[request] {
-            completion(request, nil, cachedImage)
+    func responseImageCacheable(completion: (NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
+        if let httpRequest = request, let cachedImage = Cache<UIImage>()[httpRequest] {
+            completion(httpRequest, nil, cachedImage)
             return self
         }
         
         let serializer = Request.imageResponseSerializer()
-        return response(responseSerializer: serializer, completionHandler: { request, response, image, error in
-            if let cacheImage = image {
-                Cache<UIImage>().insert(cacheImage, key: request.URL!)
+        return response(responseSerializer: serializer, completionHandler: { request, response, result in
+            switch (result) {
+            case let .Success(image):
+                Cache<UIImage>().insert(image, key: request!.URL!)
+                completion(request, response, image)
+            case .Failure(_, _):
+                completion(request, response, nil)
             }
-            completion(request, response, image)
         })
     }
     
-    func responseImage(completion: (NSURLRequest, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
+    func responseImage(completion: (NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
         let serializer = Request.imageResponseSerializer()
-        return response(responseSerializer: serializer, completionHandler: { request, response, image, error in
-            completion(request, response, image)
+        return response(responseSerializer: serializer, completionHandler: { request, response, result in
+            switch (result) {
+            case let .Success(image):
+                completion(request, response, image)
+            case .Failure(_, _):
+                completion(request, response, nil)
+            }
         })
     }
     
