@@ -22,6 +22,13 @@ public class Endpoint {
     
     var request:Request?
     
+    // OVERRIDE
+    public var serverTrustPolicy:[String: ServerTrustPolicy] {
+        get {
+            return Dictionary<String, ServerTrustPolicy>()
+        }
+    }
+    
     public init() {
         
     }

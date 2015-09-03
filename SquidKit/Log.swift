@@ -17,6 +17,10 @@ public enum LogStatus {
 
 private let _SquidKitLogSharedInstance = Log()
 
+private func stdSwiftPrint(message:Any) {
+    print(message)
+}
+
 public class Log {
     
     private var logStatus:LogStatus = .Simulator
@@ -50,7 +54,7 @@ public class Log {
     public class func print<T>(@autoclosure output:() -> T?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
             if let object = output() {
-                print(object)
+                stdSwiftPrint(object)
             }
         }
     }

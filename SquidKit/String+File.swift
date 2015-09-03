@@ -18,7 +18,7 @@ public extension String {
         let path = String.stringWithPathToResourceDirectory()
         var url = NSURL(fileURLWithPath: path)
         url = url.URLByAppendingPathComponent(fileName)
-        return url.absoluteString
+        return url.path!
     }
     
     public static func stringWithContentsOfResourceFile(fileName:String) -> String? {

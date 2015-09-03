@@ -37,7 +37,12 @@ public class JSONResponseEndpoint: Endpoint {
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
         configuration.HTTPAdditionalHeaders = defaultHeaders
         
-        self.manager = Manager(configuration: configuration)
+        
+        var serverTrustPolicyManager:ServerTrustPolicyManager?
+        if self.serverTrustPolicy.count > 0 {
+            serverTrustPolicyManager = ServerTrustPolicyManager(policies: self.serverTrustPolicy)
+        }
+        self.manager = Manager(configuration: configuration, serverTrustPolicyManager: serverTrustPolicyManager)
         
         
         let (user, password) = self.basicAuthPair()

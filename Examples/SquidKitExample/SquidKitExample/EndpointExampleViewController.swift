@@ -89,11 +89,9 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         
         let endpointsSection = TableSection("Endpoints")
         let endpoint1 = EnpointTableItem(TestEndpoint())
-        let endpoint2 = EnpointTableItem(TaxeeTestEndpoint())
-        let endpoint3 = EnpointTableItem(TaxeeTestEndpoint2())
+        let endpoint2 = EnpointTableItem(NHTSATestEndpoint())
         endpointsSection.append(endpoint1)
         endpointsSection.append(endpoint2)
-        endpointsSection.append(endpoint3)
         self.model.append(endpointsSection)
     }
     
@@ -106,7 +104,7 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         
         let tableItem = self.model[indexPath]!
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(tableItem.reuseIdentifier!, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(tableItem.reuseIdentifier!, forIndexPath: indexPath) 
 
         if let title = tableItem.titleForIndexPath(indexPath) {
             cell.textLabel!.text = title
