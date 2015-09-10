@@ -12,7 +12,7 @@ import SquidKit
 class TestEndpoint: JSONResponseEndpoint {
     
     override func hostProtocol() -> String {
-        return "http"
+        return "https"
     }
     
     override func host() -> String {
@@ -29,47 +29,29 @@ class TestEndpoint: JSONResponseEndpoint {
    
 }
 
-class TaxeeTestEndpoint: JSONResponseEndpoint {
+class NHTSATestEndpoint: JSONResponseEndpoint {
+    
+    override var serverTrustPolicy:[String: ServerTrustPolicy] {
+        get {
+            return ["api.nal.usda.gov": .PerformDefaultEvaluation(validateHost:false)]
+        }
+    }
     
     override func hostProtocol() -> String {
-        return "http"
+        return "https"
     }
     
     override func host() -> String {
-        return "taxee.io"
+        return "api.nal.usda.gov"
     }
     
     override func path() -> String {
-        return "api/v1/federal/2014"
+        return "ndb/list"
     }
     
     override func params() -> ([String: AnyObject]?, SquidKit.Method) {
-        return (nil, .GET)
+        return (["format":"json", "lt":"f", "sort": "n", "api_key":"DEMO_KEY"], .GET)
     }
-    
-}
 
-class TaxeeTestEndpoint2: JSONResponseEndpoint {
-    
-    override func hostProtocol() -> String {
-        return "http"
-    }
-    
-    override func host() -> String {
-        return "taxee.io"
-    }
-    
-    override func path() -> String {
-        return "api/v1/calculate/2014"
-    }
-    
-    override func params() -> ([String: AnyObject]?, SquidKit.Method) {
-        return (["pay_rate": 100000, "filing_status": "single"], .POST)
-    }
-    
-    override func encoding() -> ParameterEncoding? {
-        return .URL
-    }
-    
 }
 

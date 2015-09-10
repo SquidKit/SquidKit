@@ -38,14 +38,14 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
             self.navigationController!.pushViewController(detailVC, animated: true)
         }
         
-        var section1 = TableSection("One")
-        var item1 = TableItem("One", selectBlock:navigator)
+        let section1 = TableSection("One")
+        let item1 = TableItem("One", selectBlock:navigator)
         section1.append(item1)
         self.model.append(section1)
         
-        var section2 = TableSection("Two")
+        let section2 = TableSection("Two")
         // here we create an instance of our subclassed TableItem - TallTableItem
-        var item2 = TallTableItem("Tall Two", selectBlock:navigator)
+        let item2 = TallTableItem("Tall Two", selectBlock:navigator)
         section2.append(item2)
         self.model.append(section2)
         
@@ -54,8 +54,8 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
         // We can even add the same TableItem multiple times to a section; in this case, we do this with a subclass
         // of TableItem named RepeatingTableItem (defined above). RepeatingTableItem returns a title denoting
         // its position in the table.
-        var repeatingItemSection = TableSection("Repeating items")
-        var item4 = RepeatingTableItem("Repeating", selectBlock:navigator)
+        let repeatingItemSection = TableSection("Repeating items")
+        let item4 = RepeatingTableItem("Repeating", selectBlock:navigator)
         repeatingItemSection.append(item4)
         repeatingItemSection.append(item4)
         repeatingItemSection.append(item4)
@@ -68,7 +68,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
-            let indexPath = self.tableView.indexPathForSelectedRow()
+            let indexPath = self.tableView.indexPathForSelectedRow
             if let item = self.model[indexPath!] {
                 (segue.destinationViewController as! DetailViewController).detailItem = item
             }
@@ -78,7 +78,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
     // MARK: - Table View
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         if let item = self.model[indexPath] {
             if let title = item.titleForIndexPath(indexPath) {

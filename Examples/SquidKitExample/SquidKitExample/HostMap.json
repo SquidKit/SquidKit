@@ -2,7 +2,7 @@
     "configurations": [
                        {
                        "canonical_host": "httpbin.org",
-                       "canonical_protocol": "http",
+                       "canonical_protocol": "https",
                        "prerelease_key": "DEV",
                        "release_key": "PROD",
                        "hosts":  [
@@ -29,22 +29,22 @@
                                   ]
                        },
                        {
-       "canonical_host": "taxee.io",
-       "canonical_protocol": "http",
+       "canonical_host": "USDA",
+       "canonical_protocol": "https",
        "prerelease_key": "DEV",
        "release_key": "PROD",
        "hosts":  [
                      {
                      "key": "PROD",
-                     "host": "taxee.io"
+                     "host": "api.nal.usda.gov"
                      },
                      {
                      "key": "QA",
-                     "host": "qa.taxee.io"
+                     "host": "qa.api.nal.usda.gov"
                      },
                      {
                      "key": "DEV",
-                     "host": "dev.taxee.io"
+                     "host": "dev.api.nal.usda.gov"
                      },
                      {
                      "key": "localhost",

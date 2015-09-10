@@ -26,7 +26,7 @@ class JSONEntityExampleViewController: TableItemBackedTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var tableSection = TableSection()
+        let tableSection = TableSection()
 
         let json = JSONEntity(resourceFilename: "JSONEntityExample.json")
         let entities = json["entities_array"]
@@ -73,7 +73,7 @@ class JSONEntityExampleViewController: TableItemBackedTableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("jsonEntityExampleCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("jsonEntityExampleCell", forIndexPath: indexPath) 
         let item:JSONEntityItem = self.model[indexPath]! as! JSONEntityItem
         cell.textLabel!.text = item.key
         cell.detailTextLabel!.text = item.value
