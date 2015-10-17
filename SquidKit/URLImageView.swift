@@ -57,27 +57,28 @@ public class URLImageView: UIImageView {
             
             startActivity()
             
-            self.imageRequest = request(.GET, url!).responseImageCacheable({[unowned self]
-                (_, response:NSHTTPURLResponse?, image:UIImage?) -> Void in
+            self.imageRequest = request(.GET, url!)
+                .responseImageCacheable {[unowned self] response in
                 
                 self.stopActivity()
-                
-                if image != nil {
                     
-                    switch self.imageAppearanceType {
-                    case .Fade(let duration, let beginAlpha, let endAlpha):
-                        self.animateFade(image, duration: duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
-                        
-                    case .FadeIfNotCached(let duration, let beginAlpha, let endAlpha):
-                        self.animateFade(image, duration: response == nil ? 0 : duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
-                        
+                    switch response.result {
+                    case .Success(let image):
+                        switch self.imageAppearanceType {
+                        case .Fade(let duration, let beginAlpha, let endAlpha):
+                            self.animateFade(image, duration: duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
+                            
+                        case .FadeIfNotCached(let duration, let beginAlpha, let endAlpha):
+                            self.animateFade(image, duration: response.response == nil ? 0 : duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
+                            
+                        default:
+                            self.image = image
+                            self.setNeedsDisplay()
+                        }
                     default:
-                        self.image = image
-                        self.setNeedsDisplay()
+                        break;
                     }
-                    
-                }
-            })
+            }
         }
     }
     

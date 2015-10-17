@@ -10,65 +10,63 @@ import UIKit
 
 public extension Request {
     
-    public static func imageResponseSerializer(decompressImage: Bool = true) -> GenericResponseSerializer<UIImage> {
-        return GenericResponseSerializer { request, response, data in
+    static func imageResponseSerializer(decompressImage decompressImage: Bool = true, cacheImage: Bool = false) -> ResponseSerializer<UIImage, NSError> {
+        return ResponseSerializer { request, response, data, error in
+            
+            guard error == nil else {
+                return .Failure(error!)
+            }
+            
             if data == nil || response == nil {
                 let failureReason = (data == nil) ? "Input data was nil" : "URL response was nil"
                 let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
-                return .Failure(data, error)
+                return .Failure(error)
             }
             
             if decompressImage {
                 if let image = self.decompressImage(response! as NSHTTPURLResponse, data: data!) {
+                    if cacheImage {
+                        Cache<UIImage>().insert(image, key: request!.URL!)
+                    }
                     return .Success(image)
                 }
                 else {
                     let failureReason = "Image failed to decompress"
                     let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
-                    return .Failure(data, error)
+                    return .Failure(error)
                 }
             } else {
                 if let image = UIImage(data: data!, scale: UIScreen.mainScreen().scale) {
+                    if cacheImage {
+                        Cache<UIImage>().insert(image, key: request!.URL!)
+                    }
                     return .Success(image)
                 }
                 else {
                     let failureReason = "Failed to initialize UIImage from data"
                     let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
-                    return .Failure(data, error)
+                    return .Failure(error)
                 }
             }
         }
     }
     
     
-    func responseImageCacheable(completion: (NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
+    func responseImageCacheable(completionHandler: Response<UIImage, NSError> -> Void) -> Self {
         if let httpRequest = request, let cachedImage = Cache<UIImage>()[httpRequest] {
-            completion(httpRequest, nil, cachedImage)
+            let result:Result<UIImage, NSError> = .Success(cachedImage)
+            let response = Response<UIImage, NSError>(request:httpRequest, response:nil, data:nil, result:result)
+            completionHandler(response)
             return self
         }
         
-        let serializer = Request.imageResponseSerializer()
-        return response(responseSerializer: serializer, completionHandler: { request, response, result in
-            switch (result) {
-            case let .Success(image):
-                Cache<UIImage>().insert(image, key: request!.URL!)
-                completion(request, response, image)
-            case .Failure(_, _):
-                completion(request, response, nil)
-            }
-        })
+        let serializer = Request.imageResponseSerializer(decompressImage:true, cacheImage:true)
+        return response(responseSerializer: serializer, completionHandler: completionHandler)
     }
     
-    func responseImage(completion: (NSURLRequest?, NSHTTPURLResponse?, UIImage?) -> Void) -> Self {
+    func responseImage(completionHandler: Response<UIImage, NSError> -> Void) -> Self {
         let serializer = Request.imageResponseSerializer()
-        return response(responseSerializer: serializer, completionHandler: { request, response, result in
-            switch (result) {
-            case let .Success(image):
-                completion(request, response, image)
-            case .Failure(_, _):
-                completion(request, response, nil)
-            }
-        })
+        return response(responseSerializer: serializer, completionHandler: completionHandler)
     }
     
     // MARK: Private methods

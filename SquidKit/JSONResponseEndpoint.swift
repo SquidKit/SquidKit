@@ -51,8 +51,8 @@ public class JSONResponseEndpoint: Endpoint {
         self.request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
             .shouldAuthenticate(user: user, password: password)
             .validate()
-            .responseJSON(options: self.jsonReadingOptions, completionHandler:{ (request, response, result) -> Void in
-                switch (result) {
+            .responseJSON(options: self.jsonReadingOptions, completionHandler:{ response in
+                switch (response.result) {
                     case .Success(let value):
                         if let jsonDictionary = value as? [String: AnyObject] {
                             completionHandler(jsonDictionary, .OK)
@@ -63,8 +63,8 @@ public class JSONResponseEndpoint: Endpoint {
                         else {
                             completionHandler(nil, .ResponseFormatError)
                         }
-                    case .Failure(_, let error):
-                        completionHandler(nil, self.formatError(response, error:error as NSError))
+                    case .Failure(let error):
+                        completionHandler(nil, self.formatError(response.response, error:error))
                 }
         })
         
