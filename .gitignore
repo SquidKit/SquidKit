@@ -6,16 +6,22 @@
 build/
 DerivedData
 
-## Various settings
-*.pbxuser
-!default.pbxuser
+# Xcode per-user config
+*.mode1
 *.mode1v3
 !default.mode1v3
 *.mode2v3
 !default.mode2v3
+*.perspective
+!default.perspective
 *.perspectivev3
 !default.perspectivev3
+*.pbxuser
+!default.pbxuser
+*.xcworkspace
+!default.xcworkspace
 xcuserdata
+profile
 
 ## Other
 *.xccheckout
