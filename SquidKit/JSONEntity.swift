@@ -199,6 +199,57 @@ public extension JSONEntity {
     }
 }
 
+public extension JSONEntity {
+    
+    enum JSONEntityError:ErrorType {
+        case InvalidJSON
+    }
+    
+    // this can be useful when deserializing elements directly into something like
+    // Realm, which dies if it encounters null values
+    public func entityWithoutNullValues() throws -> JSONEntity {
+        if let array = self.array() {
+            let mutableArray = NSMutableArray(array: array)
+            return JSONEntity(jsonArray:mutableArray)
+        }
+        else if let dictionary = self.dictionary() {
+            let mutableDictionary = NSMutableDictionary(dictionary: dictionary)
+            return JSONEntity(jsonDictionary: mutableDictionary)
+        }
+        
+        throw JSONEntityError.InvalidJSON
+    }
+    
+    func removeNull(dictionary:NSMutableDictionary) {
+        for key in dictionary.allKeys {
+            let key = key as! String
+            if let _ = dictionary[key] as? NSNull {
+                dictionary.removeObjectForKey(key)
+            }
+            else if let arrayElement = dictionary[key] as? NSArray {
+                let mutableArray = NSMutableArray(array: arrayElement)
+                dictionary.setObject(mutableArray, forKey: key)
+                self.removeNull(mutableArray)
+            }
+            else if let dictionaryElement = dictionary[key] as? NSDictionary {
+                let mutableDictionary = NSMutableDictionary(dictionary: dictionaryElement)
+                dictionary.setObject(mutableDictionary, forKey: key)
+                self.removeNull(mutableDictionary)
+            }
+        }
+    }
+    
+    func removeNull(array:NSMutableArray) {
+        for element in array {
+            if let dictionary = element as? NSDictionary {
+                let mutableDictionary = NSMutableDictionary(dictionary: dictionary)
+                array.replaceObjectAtIndex(array.indexOfObject(dictionary), withObject: mutableDictionary)
+                self.removeNull(mutableDictionary)
+            }
+        }
+    }
+}
+
 public struct JSONEntityGenerator:GeneratorType {
     public typealias Element = JSONEntity
     
