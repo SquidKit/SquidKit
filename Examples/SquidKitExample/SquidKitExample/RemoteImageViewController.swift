@@ -16,10 +16,12 @@ class RemoteImageViewController: UIViewController {
     override func viewDidLoad() {
         let url = NSURL(string: "https://static1.squarespace.com/static/52eea758e4b0fff11bf07129/52eeeda0e4b0fff11bf09db9/52eeee57e4b0cfc36d9583d1/1391390297091/DSCF0984.jpg")
                         
-        SquidKit.request(.GET, url!).responseImageCacheable {[unowned self]
-            (_, _, image:UIImage?) -> Void in
-            if image != nil {
+        SquidKit.request(.GET, url!).responseImageCacheable {[unowned self] response in
+            switch response.result {
+            case .Success(let image):
                 self.imageView?.image = image
+            default:
+                break
             }
         }
         

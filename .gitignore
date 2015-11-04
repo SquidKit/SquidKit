@@ -1,10 +1,6 @@
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
-## Build generated
-build/
-DerivedData
+# OS X Finder
+.DS_Store
+*.moved-aside
 
 # Xcode per-user config
 *.mode1
@@ -23,15 +19,18 @@ DerivedData
 xcuserdata
 profile
 
-## Other
-*.xccheckout
-*.moved-aside
-*.xcuserstate
-*.xcscmblueprint
-
-## Obj-C/Swift specific
+# Build products
+build/
+*.o
+*.LinkFileList
 *.hmap
-*.ipa
+
+# Automatic backup files
+*~.nib/
+*.swp
+*~
+*.dat
+*.dep
 
 # CocoaPods
 #
