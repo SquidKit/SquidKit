@@ -25,7 +25,7 @@ public protocol Loggable {
     func log<T>(@autoclosure output: () -> T?)
 }
 
-public protocol UnwrappedLoggable : Loggable {
+public protocol VariadicLoggable : Loggable {
     func log(values:Any?...)
 }
 
@@ -72,14 +72,7 @@ public class Log {
             }
         }
     }
-    
-    //TODO: REMOVE
-    public class func printNewLine() {
-        if _SquidKitLogSharedInstance.loggingEnabled {
-            print("")
-        }
-    }
-    
+        
     public class func message(@autoclosure output: () -> String?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
             if let message = output() {
@@ -103,7 +96,7 @@ public class Log {
     }
 }
 
-extension Log : UnwrappedLoggable {
+extension Log : VariadicLoggable {
     public func log<T>(@autoclosure output: () -> T?) {
         Log.print(output)
     }

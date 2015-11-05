@@ -50,41 +50,89 @@ public class JSONResponseEndpoint: Endpoint {
         self.request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
             .shouldAuthenticate(user: user, password: password)
             .validate()
-            .responseJSON(options: self.jsonReadingOptions, completionHandler:{ response in
-                switch (response.result) {
-                    case .Success(let value):
-                        if let jsonDictionary = value as? [String: AnyObject] {
-                            completionHandler(jsonDictionary, .OK)
-                        }
-                        else if let jsonArray = value as? [AnyObject] {
-                            completionHandler(jsonArray, .OK)
-                        }
-                        else {
-                            completionHandler(nil, .ResponseFormatError)
-                        }
-                    case .Failure(let error):
-                        completionHandler(nil, self.formatError(response.response, error:error))
+            .responseJSON(options: self.jsonReadingOptions, completionHandler:{ [weak self] response in
+                if let strongSelf = self {
+                    switch (response.result) {
+                        case .Success(let value):
+                            if let jsonDictionary = value as? [String: AnyObject] {
+                                strongSelf.connectResponse(jsonDictionary, responseStatus: .OK, completionHandler: completionHandler)
+                            }
+                            else if let jsonArray = value as? [AnyObject] {
+                                strongSelf.connectResponse(jsonArray, responseStatus: .OK, completionHandler:completionHandler)
+                            }
+                            else {
+                                strongSelf.connectResponse(nil, responseStatus: .ResponseFormatError, completionHandler:completionHandler)
+                            }
+                        case .Failure(let error):
+                            strongSelf.connectResponse(nil, responseStatus: strongSelf.formatError(response.response, error:error), completionHandler:completionHandler)
+                    }
                 }
         })
         
-        if let prettyLogger = logger as? UnwrappedLoggable {
-            prettyLogger.log(   "===============================", "\n",
-                                "SquidKit Network Request", "\n",
-                                "===============================", "\n",
-                                "Request = ", self.request?.description, "\n",
-                                "Encoding = ", encoding, "\n",
-                                "HTTP headers: ", defaultHeaders, "\n",
-                                "===============================", "\n")
-        }
-        else {
-            logger?.log("\(self.request?.description)" + "\n" + "Encoding = " + "\(encoding)" + "\n" + "HTTP headers: " + "\(defaultHeaders)")
-        }
+        self.logRequest(encoding, headers: defaultHeaders)
+    }
+    
+    func connectResponse(responseData:AnyObject?, responseStatus:ResponseStatus, completionHandler: (AnyObject?, ResponseStatus) -> Void) {
+        self.logResponse(responseData, responseStatus: responseStatus)
+        
+        completionHandler(responseData, responseStatus)
     }
     
     //OVERRIDE
     public var jsonReadingOptions:NSJSONReadingOptions {
         get {
             return .AllowFragments
+        }
+    }
+}
+
+
+// MARK: Logging
+extension JSONResponseEndpoint {
+    
+    func logRequest(encoding:ParameterEncoding, headers:[NSObject : AnyObject]?) {
+        switch self.requestLogging {
+        case .Verbose:
+            if let prettyLogger = logger as? VariadicLoggable {
+                prettyLogger.log(   "===============================", "\n",
+                    "SquidKit Network Request", "\n",
+                    "===============================", "\n",
+                    "Request = ", self.request?.description, "\n",
+                    "Encoding = ", encoding, "\n",
+                    "HTTP headers: ", headers, "\n",
+                    "===============================", "\n")
+            }
+            else {
+                logger?.log("\(self.request?.description)" + "\n" + "Encoding = " + "\(encoding)" + "\n" + "HTTP headers: " + "\(headers)")
+            }
+            
+        case .Minimal:
+            logger?.log(self.request?.description)
+            
+        default:
+            break
+        }
+    }
+    
+    func logResponse(responseData:AnyObject?, responseStatus:ResponseStatus) {
+        switch self.responseLogging {
+        case .Verbose:
+            if let prettyLogger = logger as? VariadicLoggable {
+                prettyLogger.log(   "===============================", "\n",
+                    "SquidKit Network Response for ", self.request?.description, "\n",
+                    "===============================", "\n",
+                    "Response Status = ", responseStatus, "\n",
+                    "JSON:", "\n",
+                    responseData, "\n",
+                    "===============================", "\n")
+            }
+            else {
+                logger?.log("Response Status = " + "\(responseStatus)" + "\n" + "\(responseData)")
+            }
+        case .Minimal:
+            logger?.log("Response Status = " + "\(responseStatus)")
+        default:
+            break
         }
     }
 }

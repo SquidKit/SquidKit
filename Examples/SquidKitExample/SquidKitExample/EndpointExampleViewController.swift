@@ -14,8 +14,14 @@ class EnpointTableItem: TableItem {
     
     init(_ endpoint:JSONResponseEndpoint) {
         self.endpoint = endpoint
+        
+        // we want to log request/response messages - use SquidKit Log:
         self.endpoint.logger = Log.sharedLog
+        self.endpoint.requestLogging = .Verbose
+        self.endpoint.responseLogging = .Verbose
+        
         super.init(endpoint.url())
+        
         self.reuseIdentifier = "endpointCellIdentifier"
         self.selectBlock = {[unowned self] (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
             if let aTable = actionsTarget {
@@ -24,7 +30,7 @@ class EnpointTableItem: TableItem {
             self.endpoint.connect {(JSON, status) -> Void in
                 switch status {
                 case .OK:
-                    Log.print("JSON: \(JSON)")
+                    Log.print("Everything worked")
                 case .HTTPError(let code, let message):
                     Log.print("\(code): \(message)")
                 case .NotConnectedError:

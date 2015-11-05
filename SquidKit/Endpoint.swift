@@ -20,9 +20,17 @@ public class Endpoint {
         case UnknownError(NSError?)
     }
     
+    public enum EndpointLogging {
+        case None
+        case Minimal
+        case Verbose
+    }
+    
     var request:Request?
     
     public var logger:Loggable?
+    public var requestLogging:EndpointLogging = .Verbose
+    public var responseLogging:EndpointLogging = .Verbose
     
     // OVERRIDE
     public var serverTrustPolicy:[String: ServerTrustPolicy] {
