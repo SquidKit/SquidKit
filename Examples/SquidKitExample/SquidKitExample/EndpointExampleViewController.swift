@@ -14,6 +14,7 @@ class EnpointTableItem: TableItem {
     
     init(_ endpoint:JSONResponseEndpoint) {
         self.endpoint = endpoint
+        self.endpoint.logger = Log.sharedLog
         super.init(endpoint.url())
         self.reuseIdentifier = "endpointCellIdentifier"
         self.selectBlock = {[unowned self] (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in

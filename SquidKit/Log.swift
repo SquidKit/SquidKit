@@ -21,6 +21,14 @@ private func stdSwiftPrint(message:Any) {
     print(message)
 }
 
+public protocol Loggable {
+    func log<T>(@autoclosure output: () -> T?)
+}
+
+public protocol UnwrappedLoggable : Loggable {
+    func log(values:Any?...)
+}
+
 public class Log {
     
     private var logStatus:LogStatus = .Simulator
@@ -45,6 +53,12 @@ public class Log {
     
     private init() {
         
+    }
+    
+    public class var sharedLog:Log {
+        get {
+            return _SquidKitLogSharedInstance
+        }
     }
     
     public class func setLogStatus(status:LogStatus) {
@@ -86,5 +100,23 @@ public class Log {
     
     public class func point(point:CGPoint, message:String = "") {
         Log.message(message + "point -> x: \(point.x); y: \(point.y)");
+    }
+}
+
+extension Log : UnwrappedLoggable {
+    public func log<T>(@autoclosure output: () -> T?) {
+        Log.print(output)
+    }
+    
+    
+    public func log(values:Any?...) {
+        var result = ""
+        for s in values {
+            if let unwrapped = s {
+                result = "\(result)" + "\(unwrapped)"
+            }
+        }
+        
+        Log.print(result)
     }
 }

@@ -46,8 +46,7 @@ public class JSONResponseEndpoint: Endpoint {
         
         
         let (user, password) = self.basicAuthPair()
-        
-        
+                
         self.request = self.manager!.request(method, self.url(), parameters: params, encoding: encoding)
             .shouldAuthenticate(user: user, password: password)
             .validate()
@@ -68,7 +67,18 @@ public class JSONResponseEndpoint: Endpoint {
                 }
         })
         
-        Log.message(self.request?.description)
+        if let prettyLogger = logger as? UnwrappedLoggable {
+            prettyLogger.log(   "===============================", "\n",
+                                "SquidKit Network Request", "\n",
+                                "===============================", "\n",
+                                "Request = ", self.request?.description, "\n",
+                                "Encoding = ", encoding, "\n",
+                                "HTTP headers: ", defaultHeaders, "\n",
+                                "===============================", "\n")
+        }
+        else {
+            logger?.log("\(self.request?.description)" + "\n" + "Encoding = " + "\(encoding)" + "\n" + "HTTP headers: " + "\(defaultHeaders)")
+        }
     }
     
     //OVERRIDE
@@ -77,7 +87,6 @@ public class JSONResponseEndpoint: Endpoint {
             return .AllowFragments
         }
     }
-    
 }
 
 extension Request {

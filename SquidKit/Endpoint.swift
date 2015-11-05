@@ -22,6 +22,8 @@ public class Endpoint {
     
     var request:Request?
     
+    public var logger:Loggable?
+    
     // OVERRIDE
     public var serverTrustPolicy:[String: ServerTrustPolicy] {
         get {
