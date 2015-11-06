@@ -15,11 +15,6 @@ class EnpointTableItem: TableItem {
     init(_ endpoint:JSONResponseEndpoint) {
         self.endpoint = endpoint
         
-        // we want to log request/response messages - use SquidKit Log:
-        self.endpoint.logger = Log.sharedLog
-        self.endpoint.requestLogging = .Verbose
-        self.endpoint.responseLogging = .Verbose
-        
         super.init(endpoint.url())
         
         self.reuseIdentifier = "endpointCellIdentifier"
@@ -124,5 +119,22 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
     }
 }
 
+extension Endpoint : EndpointLoggable {
+    public func log<T>(@autoclosure output:() -> T?) {
+        Log.print(output)
+    }
+    
+    public var requestLogging:EndpointLogging {
+        get {
+            return .Verbose
+        }
+    }
+    
+    public var responseLogging:EndpointLogging {
+        get {
+            return .Verbose
+        }
+    }
+}
 
 

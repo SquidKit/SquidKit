@@ -14,13 +14,19 @@ import UIKit
 
 private let _ThemeManagerSharedInstance = ThemeManager()
 
+public protocol ThemeManagerLoggable {
+    func log<T>(@autoclosure output:() -> T?)
+}
+
 public class ThemeManager {
     
     var themes = [String: Theme]()
     
     var activeTheme:Theme? {
         didSet {
-            Log.message("Active theme is now: \(activeTheme?.name)")
+            if let loaggable = self as? ThemeManagerLoggable {
+                loaggable.log("Active theme is now: \(activeTheme?.name)")
+            }
         }
     }
     

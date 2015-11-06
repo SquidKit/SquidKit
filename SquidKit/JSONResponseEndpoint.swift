@@ -91,48 +91,42 @@ public class JSONResponseEndpoint: Endpoint {
 extension JSONResponseEndpoint {
     
     func logRequest(encoding:ParameterEncoding, headers:[NSObject : AnyObject]?) {
-        switch self.requestLogging {
-        case .Verbose:
-            if let prettyLogger = logger as? VariadicLoggable {
-                prettyLogger.log(   "===============================", "\n",
-                    "SquidKit Network Request", "\n",
-                    "===============================", "\n",
-                    "Request = ", self.request?.description, "\n",
-                    "Encoding = ", encoding, "\n",
-                    "HTTP headers: ", headers, "\n",
-                    "===============================", "\n")
+        if let logger = self as? EndpointLoggable {
+            switch logger.requestLogging {
+            case .Verbose:
+                logger.log(   "===============================\n" +
+                    "SquidKit Network Request\n" +
+                    "===============================\n" +
+                    "Request = " + "\(self.request?.description)" + "\n" +
+                    "Encoding = " + "\(encoding)" + "\n" +
+                    "HTTP headers: " + "\(headers)" + "\n" +
+                    "===============================\n")
+                
+            case .Minimal:
+                logger.log(self.request?.description)
+                
+            default:
+                break
             }
-            else {
-                logger?.log("\(self.request?.description)" + "\n" + "Encoding = " + "\(encoding)" + "\n" + "HTTP headers: " + "\(headers)")
-            }
-            
-        case .Minimal:
-            logger?.log(self.request?.description)
-            
-        default:
-            break
         }
     }
     
     func logResponse(responseData:AnyObject?, responseStatus:ResponseStatus) {
-        switch self.responseLogging {
-        case .Verbose:
-            if let prettyLogger = logger as? VariadicLoggable {
-                prettyLogger.log(   "===============================", "\n",
-                    "SquidKit Network Response for ", self.request?.description, "\n",
-                    "===============================", "\n",
-                    "Response Status = ", responseStatus, "\n",
-                    "JSON:", "\n",
-                    responseData, "\n",
-                    "===============================", "\n")
+        if let logger = self as? EndpointLoggable {
+            switch logger.responseLogging {
+            case .Verbose:
+                logger.log(   "===============================\n" +
+                    "SquidKit Network Response for " + "\(self.request?.description)" + "\n" +
+                    "===============================\n" +
+                    "Response Status = " + "\(responseStatus)" + "\n" +
+                    "JSON:" + "\n" +
+                    "\(responseData)" + "\n" +
+                    "===============================\n")
+            case .Minimal:
+                logger.log("Response Status = " + "\(responseStatus)")
+            default:
+                break
             }
-            else {
-                logger?.log("Response Status = " + "\(responseStatus)" + "\n" + "\(responseData)")
-            }
-        case .Minimal:
-            logger?.log("Response Status = " + "\(responseStatus)")
-        default:
-            break
         }
     }
 }

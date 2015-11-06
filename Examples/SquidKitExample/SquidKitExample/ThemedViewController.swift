@@ -28,5 +28,10 @@ class ThemedViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
 
+extension ThemeManager : ThemeManagerLoggable {
+    public func log<T>(@autoclosure output:() -> T?) {
+        Log.print(output)
+    }
 }

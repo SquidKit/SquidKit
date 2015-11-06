@@ -8,6 +8,19 @@
 
 import Foundation
 
+// MARK: - Logging
+public enum EndpointLogging {
+    case None
+    case Minimal
+    case Verbose
+}
+
+public protocol EndpointLoggable {
+    func log<T>(@autoclosure output:() -> T?)
+    var requestLogging:EndpointLogging {get}
+    var responseLogging:EndpointLogging {get}
+}
+
 public class Endpoint {
     
     public enum ResponseStatus {
@@ -20,17 +33,10 @@ public class Endpoint {
         case UnknownError(NSError?)
     }
     
-    public enum EndpointLogging {
-        case None
-        case Minimal
-        case Verbose
-    }
-    
     var request:Request?
     
-    public var logger:Loggable?
-    public var requestLogging:EndpointLogging = .Verbose
-    public var responseLogging:EndpointLogging = .Verbose
+    
+// MARK: - Server Trust Policy
     
     // OVERRIDE
     public var serverTrustPolicy:[String: ServerTrustPolicy] {
@@ -38,6 +44,8 @@ public class Endpoint {
             return Dictionary<String, ServerTrustPolicy>()
         }
     }
+    
+// MARK: - Methods
     
     public init() {
         
