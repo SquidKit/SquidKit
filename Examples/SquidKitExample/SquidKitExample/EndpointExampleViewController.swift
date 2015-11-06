@@ -50,6 +50,8 @@ class EnpointTableItem: TableItem {
 
 class EndpointExampleViewController: TableItemBackedTableViewController {
 
+    var hostMapManager:HostMapManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -57,7 +59,8 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         //HostMapManager.sharedInstance.hostMapCache?.removeAll()
         
         // load the host map file
-        HostMapManager.sharedInstance.loadConfigurationMapFromResourceFile("HostMap.json")
+        hostMapManager = HostMapManager(cacheStore: Preferences())
+        hostMapManager.loadConfigurationMapFromResourceFile("HostMap.json")
         
         // want to set all configurations to their "prerelease" values? uncomment this:
         //HostMapManager.sharedInstance.setPrereleaseConfigurations()
@@ -70,7 +73,7 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         
         
         // This is just here to print out the configurations that we've loaded
-        for hostMap in HostMapManager.sharedInstance.hostMaps {
+        for hostMap in hostMapManager.hostMaps {
             Log.print(hostMap.releaseKey)
             Log.print(hostMap.prereleaseKey)
             for key in hostMap.mappedPairs.keys {
@@ -82,9 +85,13 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         // Here we build the table view model. Using the "TableItem" model in this case isn't optimal, since we already have a real model
         // (i.e. the HostMaps that are in the HostMapManager). However, this simplifies getting the table view controller up and running...
         let configurationSection = TableSection("Configuration")
-        let configurationItem = TableItem("Configure", reuseIdentifier:"configCellIdentifier", selectBlock: { (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
+        let configurationItem = TableItem("Configure", reuseIdentifier:"configCellIdentifier", selectBlock: {[weak self] (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
             let configurationViewController:HostConfigurationTableViewController = HostConfigurationTableViewController(style: .Grouped)
-            self.navigationController!.pushViewController(configurationViewController, animated: true)
+            if let strongSelf = self {
+                configurationViewController.hostMapManager = strongSelf.hostMapManager
+                strongSelf.navigationController!.pushViewController(configurationViewController, animated: true)
+            }
+            
         })
         configurationSection.append(configurationItem)
         self.model.append(configurationSection)
@@ -134,6 +141,20 @@ extension Endpoint : EndpointLoggable {
         get {
             return .Verbose
         }
+    }
+}
+
+extension Preferences : HostMapCacheStorable {
+    public func setEntry(entry:[String: AnyObject], key:String) {
+        self.setPreference(entry, key: key)
+    }
+    
+    public func getEntry(key:String) -> [String: AnyObject]? {
+        return self.preference(key) as? [String: AnyObject]
+    }
+    
+    public func remove(key:String) {
+        self.remove(key)
     }
 }
 

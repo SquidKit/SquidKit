@@ -13,8 +13,10 @@ public class ConfigurationItem : TableItem {
     public let key:String
     public let canonicalHost:String
     public let editable:Bool
+    let hostMapManager:HostMapManager!
     
-    public required init(protocolHostPair:ProtocolHostPair?, key:String, canonicalHost:String, editable:Bool) {
+    public required init(hostMapManager:HostMapManager, protocolHostPair:ProtocolHostPair?, key:String, canonicalHost:String, editable:Bool) {
+        self.hostMapManager = hostMapManager
         self.protocolHostPair = protocolHostPair
         self.key = key
         self.canonicalHost = canonicalHost
@@ -22,7 +24,7 @@ public class ConfigurationItem : TableItem {
         super.init(String.nonNilString(protocolHostPair?.host, stringForNil: ""))
         
         self.selectBlock = {[unowned self] (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
-            HostMapManager.sharedInstance.setConfigurationForCanonicalHost(self.key, mappedHost:nil, canonicalHost: self.canonicalHost)
+            self.hostMapManager.setConfigurationForCanonicalHost(self.key, mappedHost:nil, canonicalHost: self.canonicalHost)
             if let aTable = actionsTarget {
                 aTable.deselect(indexPath)
                 aTable.reload()
@@ -33,17 +35,21 @@ public class ConfigurationItem : TableItem {
 
 
 public class HostConfigurationTableViewController: TableItemBackedTableViewController, CustomHostCellDelegate {
+    
+    public var hostMapManager:HostMapManager?
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        for hostMap in HostMapManager.sharedInstance.hostMaps {
-            let tableSection = TableSection(hostMap.canonicalHost)
-            self.model.append(tableSection)
-            for key in hostMap.sortedKeys {
-                let pair = hostMap.pairWithKey(key as String)
-                let configuration = ConfigurationItem(protocolHostPair:pair, key:key as String, canonicalHost:hostMap.canonicalHost, editable:hostMap.isEditable(key as String))
-                tableSection.append(configuration)
+        if let manager = hostMapManager {
+            for hostMap in manager.hostMaps {
+                let tableSection = TableSection(hostMap.canonicalHost)
+                self.model.append(tableSection)
+                for key in hostMap.sortedKeys {
+                    let pair = hostMap.pairWithKey(key as String)
+                    let configuration = ConfigurationItem(hostMapManager:manager, protocolHostPair:pair, key:key as String, canonicalHost:hostMap.canonicalHost, editable:hostMap.isEditable(key as String))
+                    tableSection.append(configuration)
+                }
             }
         }
         
@@ -103,7 +109,7 @@ public class HostConfigurationTableViewController: TableItemBackedTableViewContr
     // MARK: - Table CustomHostCellDelegate data source
     
     func hostTextDidChange(hostText:String?, configItem:ConfigurationItem) {
-        HostMapManager.sharedInstance.setConfigurationForCanonicalHost(configItem.key, mappedHost:hostText, canonicalHost: configItem.canonicalHost)
+        hostMapManager?.setConfigurationForCanonicalHost(configItem.key, mappedHost:hostText, canonicalHost: configItem.canonicalHost)
         let pair = ProtocolHostPair(nil, hostText)
         configItem.protocolHostPair = pair
         self.tableView.reloadData()

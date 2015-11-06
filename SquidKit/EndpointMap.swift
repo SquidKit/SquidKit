@@ -10,6 +10,12 @@ import Foundation
 
 private let _EndpointMapperSharedInstance = EndpointMapper()
 
+public protocol HostMapCacheStorable {
+    func setEntry(entry:[String: AnyObject], key:String)
+    func getEntry(key:String) -> [String: AnyObject]?
+    func remove(key:String)
+}
+
 public struct ProtocolHostPair: CustomStringConvertible, CustomDebugStringConvertible {
     public var hostProtocol:String?
     public var host:String?
@@ -59,13 +65,6 @@ public class EndpointMapper {
     
 }
 
-public protocol HostMapCache {
-    func cacheKeyAndHost(key:String, mappedHost:String, forCanonicalHost canonicalHost:String)
-    func retreiveCachedKeyAndHostForCanonicalHost(canonicalHost:String) -> (String, String)?
-    func removeCachedKeyForCanonicalHost(canonicalHost:String)
-    func removeAll()
-}
-
 public class HostMap {
     public let canonicalProtocolHost:ProtocolHostPair
     
@@ -95,23 +94,18 @@ public class HostMap {
     }
 }
 
-private let _HostMapManagerSharedInstance = HostMapManager()
-
 public class HostMapManager {
     public var hostMaps = [HostMap]()
 
-    public var hostMapCache:HostMapCache? = SquidKitHostMapCache()
+    private var hostMapCache:HostMapCache!
     
-    private init() {
-        
+    required public init(cacheStore:HostMapCacheStorable?) {
+        self.hostMapCache = HostMapCache(cacheStore: cacheStore)
     }
     
-    public class var sharedInstance: HostMapManager {
-        return _HostMapManagerSharedInstance
-    }
 
     public func loadConfigurationMapFromResourceFile(fileName:String) -> Bool {
-        let result = HostConfigurationsLoader.loadConfigurationsFromResourceFile(fileName)
+        let result = HostConfigurationsLoader.loadConfigurationsFromResourceFile(fileName, manager: self)
         self.restoreFromCache()
         return result
     }
@@ -149,13 +143,11 @@ public class HostMapManager {
                         EndpointMapper.removeProtocolHostMappedPair(canonicalHost)
                     }
                     if withCaching {
-                        if let cacher = self.hostMapCache {
-                            if !empty {
-                                cacher.cacheKeyAndHost(configurationKey, mappedHost:runtimePair!.host!, forCanonicalHost: canonicalHost)
-                            }
-                            else {
-                                cacher.removeCachedKeyForCanonicalHost(canonicalHost)
-                            }
+                        if !empty {
+                            self.hostMapCache.cacheKeyAndHost(configurationKey, mappedHost:runtimePair!.host!, forCanonicalHost: canonicalHost)
+                        }
+                        else {
+                            self.hostMapCache.removeCachedKeyForCanonicalHost(canonicalHost)
                         }
                     }
                 }
@@ -166,18 +158,16 @@ public class HostMapManager {
 
 
     private func restoreFromCache() {
-        if let mapCache = self.hostMapCache {
-            for hostMap in self.hostMaps {
-                if let (key, host) = mapCache.retreiveCachedKeyAndHostForCanonicalHost(hostMap.canonicalHost) {
-                    self.setConfigurationForCanonicalHost(key, mappedHost:host, canonicalHost: hostMap.canonicalHost, withCaching: false)
-                }
+        for hostMap in self.hostMaps {
+            if let (key, host) = self.hostMapCache.retreiveCachedKeyAndHostForCanonicalHost(hostMap.canonicalHost) {
+                self.setConfigurationForCanonicalHost(key, mappedHost:host, canonicalHost: hostMap.canonicalHost, withCaching: false)
             }
         }
     }
 
     private class HostConfigurationsLoader {
     
-        private class func loadConfigurationsFromResourceFile(fileName:String) -> Bool {
+        private class func loadConfigurationsFromResourceFile(fileName:String, manager:HostMapManager) -> Bool {
             var result = false
             
             if let hostDictionary = NSDictionary.dictionaryFromResourceFile(fileName) {
@@ -186,7 +176,7 @@ public class HostMapManager {
                 if let configurations:NSArray = hostDictionary.objectForKey("configurations") as? NSArray {
                     
                     for configuration in configurations {
-                        HostConfigurationsLoader.handleConfiguration(configuration)
+                        HostConfigurationsLoader.handleConfiguration(configuration, manager: manager)
                     }
                     
                 }
@@ -196,10 +186,7 @@ public class HostMapManager {
             return result
         }
 
-        
-
-        
-        private class func handleConfiguration(configuration:AnyObject) {
+        private class func handleConfiguration(configuration:AnyObject, manager:HostMapManager) {
             if let config:[String: AnyObject] = configuration as? [String: AnyObject] {
                 let canonicalHost:String? = config[HostConfigurationKey.CanonicalHost.rawValue] as? String
                 let canonicalProtocol:String? = config[HostConfigurationKey.CanonicalProtocol.rawValue] as? String
@@ -233,7 +220,7 @@ public class HostMapManager {
                         }
                     }
 
-                    HostMapManager.sharedInstance.hostMaps.append(hostMap)
+                    manager.hostMaps.append(hostMap)
                 }
             }
         }
@@ -271,58 +258,54 @@ extension Dictionary {
 }
 
 
-public class SquidKitHostMapCache: HostMapCache {
+private class HostMapCache {
     let squidKitHostMapCacheKey = "com.squidkit.hostMapCachePreferenceKey"
 
     typealias CacheDictionary = [String: [String: String]]
+    
+    var cacheStore:HostMapCacheStorable?
 
-    init() {
-
+    required init(cacheStore:HostMapCacheStorable?) {
+        self.cacheStore = cacheStore
     }
 
-    public func cacheKeyAndHost(key:String, mappedHost:String, forCanonicalHost canonicalHost:String) {
-        let prefs = Preferences()
-        var mutableCache:NSMutableDictionary?
-        if let cache:NSDictionary = prefs.preference(squidKitHostMapCacheKey) as? NSDictionary {
-            mutableCache = (cache.mutableCopy() as! NSMutableDictionary)
+    func cacheKeyAndHost(key:String, mappedHost:String, forCanonicalHost canonicalHost:String) {
+        var mutableCache:[String: AnyObject]?
+        if let cache:[String: AnyObject] = cacheStore?.getEntry(squidKitHostMapCacheKey) {
+            mutableCache = cache
         }
         else {
-            mutableCache = NSMutableDictionary()
+            mutableCache = [String: AnyObject]()
         }
         
-        let dictionaryItem = NSMutableDictionary()
-        dictionaryItem.setObject(key, forKey: "key")
-        dictionaryItem.setObject(mappedHost, forKey: "host")
-        mutableCache!.setObject(dictionaryItem, forKey: canonicalHost)
-
-        prefs.setPreference(mutableCache!, key:squidKitHostMapCacheKey)
-
-        prefs.preference(squidKitHostMapCacheKey)
+        var dictionaryItem = [String: String]()
+        dictionaryItem["key"] = key
+        dictionaryItem["host"] = mappedHost
+        mutableCache![canonicalHost] = dictionaryItem
+        
+        cacheStore?.setEntry(mutableCache!, key: squidKitHostMapCacheKey)
     }
 
     
-    public func retreiveCachedKeyAndHostForCanonicalHost(canonicalHost:String) -> (String, String)? {
+    func retreiveCachedKeyAndHostForCanonicalHost(canonicalHost:String) -> (String, String)? {
         var result:(String, String)?
-        let prefs = Preferences()
-        if let cache:NSDictionary = prefs.preference(squidKitHostMapCacheKey) as? NSDictionary {
-            if let hostDict:NSDictionary = cache[canonicalHost] as? NSDictionary {
-                result = (hostDict["key"]! as! String, hostDict["host"]! as! String)
+        if let cache:[String: AnyObject] = cacheStore?.getEntry(squidKitHostMapCacheKey) {
+            if let hostDict:[String: String] = cache[canonicalHost] as? [String: String] {
+                result = (hostDict["key"]! , hostDict["host"]! )
             }
         }
         return result
     }
 
-    public func removeCachedKeyForCanonicalHost(canonicalHost:String) {
-        let prefs = Preferences()
-        if let cache:NSDictionary = prefs.preference(squidKitHostMapCacheKey) as? NSDictionary {
-            let mutableCache:NSMutableDictionary = (cache.mutableCopy() as! NSMutableDictionary)
-            mutableCache.removeObjectForKey(canonicalHost)
-            prefs.setPreference(mutableCache, key:squidKitHostMapCacheKey)
+    func removeCachedKeyForCanonicalHost(canonicalHost:String) {
+        if let cache:[String: AnyObject] = cacheStore?.getEntry(squidKitHostMapCacheKey) {
+            var mutableCache = cache
+            mutableCache.removeValueForKey(canonicalHost)
+            cacheStore?.setEntry(mutableCache, key: squidKitHostMapCacheKey)
         }
     }
 
-    public func removeAll() {
-        let prefs = Preferences()
-        prefs.remove(squidKitHostMapCacheKey)
+    func removeAll() {
+        cacheStore?.remove(squidKitHostMapCacheKey)
     }
 }
