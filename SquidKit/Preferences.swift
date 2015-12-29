@@ -59,6 +59,16 @@ public class Preferences {
         }
     }
     
+    public func setString(object:String?, key:String) {
+        if let stringToSet:String = object {
+            self.userDefaults.setObject(stringToSet as NSString, forKey: key)
+            self.userDefaults.synchronize()
+        }
+        else {
+            self.remove(key)
+        }
+    }
+    
     public func preference(key:String) -> AnyObject? {
         return self.userDefaults.objectForKey(key)
     }
@@ -83,6 +93,13 @@ public class Preferences {
         }
         return defaultValue
     }
+    
+    public func stringValue(key:String, defaultValue:String?) -> String? {
+        if let result = self.userDefaults.objectForKey(key) as? String {
+            return result
+        }
+        return defaultValue
+    }
         
     public func remove(key:String) {
         self.userDefaults.removeObjectForKey(key)
@@ -94,6 +111,10 @@ public class Preference<T:NSSecureCoding> {
     
     public init() {
         
+    }
+    
+    public func set(object:T, key:String) {
+        Preferences().setPreference(object, key: key)
     }
     
     public func get(key:String, defaultValue:T) -> T {
