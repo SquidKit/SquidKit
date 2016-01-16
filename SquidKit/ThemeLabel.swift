@@ -10,7 +10,7 @@ import UIKit
 
 public class ThemeLabel: UILabel {
 
-    public var textColorName:String? = "defaultLabelTextColor" {
+    @IBInspectable public var textColorName:String? = "defaultLabelTextColor" {
         didSet {
             self.updateTextColor()
         }

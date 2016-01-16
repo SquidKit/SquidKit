@@ -10,7 +10,7 @@ import UIKit
 
 public class ThemeView: UIView {
     
-    public var backgroundColorName:String? = "defaultBackgroundColor" {
+    @IBInspectable public var backgroundColorName:String? = "defaultBackgroundColor" {
         didSet {
             self.updateBackgroundColor()
         }
