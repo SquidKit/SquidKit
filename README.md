@@ -11,6 +11,7 @@ SquidKit is a collection of classes and related code that would often be useful 
 ## Versions
 Release  | Supported OS    | Notes
 -------- | -------------   | ------
+2.0      | iOS 9.0 and up  | Updated to work with Alamofire 3.0<br>Updated to Swift 2.2
 1.2      | iOS 8.0 and up  | Cache\<T\> now clears in response to UIApplicationDidReceiveMemoryWarningNotification<br><br>Added clear method to Cache\<T\> <br><br>Removed support for iOS 7.x.
 1.1      | iOS 7.1 and up  | added image downloading, URLImageView, and caching<br>removed built frameworks - don't see that it added any real benefit
 1.0      | iOS 7.1 and up  | 
