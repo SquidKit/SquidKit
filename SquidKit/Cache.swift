@@ -19,7 +19,7 @@ private class CacheEntry {
     init(identifier:String) {
         self.identifier = identifier
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLowMemory:", name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CacheEntry.handleLowMemory(_:)), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
     }
     
     deinit {

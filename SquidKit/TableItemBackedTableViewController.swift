@@ -65,17 +65,8 @@ public class TableItemBackedTableViewController: UITableViewController {
         }
         
         public func remove(section:TableSection) {
-            var removeIndex:Int?
-            var index = 0
-            for aSection in sections {
-                if aSection === section {
-                    removeIndex = index
-                    break
-                }
-                index++
-            }
-            if let indexToRemove = removeIndex {
-                sections.removeAtIndex(indexToRemove)
+            if let index = sections.indexOf ({$0 === section}) {
+                sections.removeAtIndex(index)
             }
         }
         
@@ -84,42 +75,17 @@ public class TableItemBackedTableViewController: UITableViewController {
         }
         
         public func indexForSection(section:TableSection) -> Int? {
-            var index:Int?
-            
-            var sectionCount = 0
-            for aSection in sections {
-                if aSection === section {
-                    index = sectionCount
-                    break
-                }
-                sectionCount++
-            }
-            return index
+            return sections.indexOf{$0 === section}
         }
         
         public func indexPathForItem(item:TableItem) -> NSIndexPath? {
-            var indexPath:NSIndexPath?
-            
-            var sectionCount = 0
-            for aSection in sections {
-                
-                var itemCount = 0
-                for aItem in aSection.items {
-                    if aItem === item {
-                        indexPath = NSIndexPath(forRow: itemCount, inSection: sectionCount)
-                        break
-                    }
-                    itemCount++
+            for (count, element) in sections.enumerate() {
+                if let itemIndex = element.items.indexOf({$0 === item}) {
+                    return NSIndexPath(forRow: itemIndex, inSection: count)
                 }
-                
-                if let _ = indexPath {
-                    break
-                }
-                
-                sectionCount++
             }
             
-            return indexPath
+            return nil
         }
         
         public subscript(indexPath:NSIndexPath) -> TableItem? {
