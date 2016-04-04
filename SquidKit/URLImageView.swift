@@ -49,6 +49,10 @@ public class URLImageView: UIImageView {
     
     private var imageRequest:Request?
     
+    deinit {
+        cancel()
+    }
+    
     public func load() {
         cancel()
         if let urlString = self.urlString {
