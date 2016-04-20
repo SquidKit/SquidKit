@@ -11,6 +11,13 @@ import Foundation
 
 public class JSONEntity: SequenceType {
     
+    enum JSONEntityError:ErrorType {
+        case InvalidKey
+        case InvalidValue
+        case InvalidFormat
+        case InvalidJSON
+    }
+    
     private struct Entity {
         var key:String
         var value:AnyObject
@@ -201,10 +208,6 @@ public extension JSONEntity {
 
 public extension JSONEntity {
     
-    enum JSONEntityError:ErrorType {
-        case InvalidJSON
-    }
-    
     // this can be useful when deserializing elements directly into something like
     // Realm, which dies if it encounters null values
     public func entityWithoutNullValues() throws -> JSONEntity {
@@ -247,6 +250,19 @@ public extension JSONEntity {
                 self.removeNull(mutableDictionary)
             }
         }
+    }
+}
+
+public extension JSONEntity {
+    
+    func convertIfDate(datekeys:[String], formatter:NSDateFormatter) throws -> JSONEntity {
+        if datekeys.contains(self.entity.key) {
+            guard let value = self.entity.value as? String else {throw JSONEntityError.InvalidValue}
+            guard let date = formatter.dateFromString(value) else {throw JSONEntityError.InvalidFormat}
+            
+            return JSONEntity(self.entity.key, date)
+        }
+        return self
     }
 }
 
