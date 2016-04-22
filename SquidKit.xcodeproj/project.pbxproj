@@ -81,6 +81,7 @@
 		1CEE10681A81912D001ABD72 /* UIView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE10661A81912D001ABD72 /* UIView+Utility.swift */; };
 		1CEE106D1A829197001ABD72 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE106C1A829197001ABD72 /* Cache.swift */; };
 		1CEE106E1A829197001ABD72 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE106C1A829197001ABD72 /* Cache.swift */; };
+		1CF9389C1CC95EBC00E2F94E /* StyledString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9389B1CC95EBC00E2F94E /* StyledString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +137,7 @@
 		1CEE10631A818149001ABD72 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
 		1CEE10661A81912D001ABD72 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
 		1CEE106C1A829197001ABD72 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		1CF9389B1CC95EBC00E2F94E /* StyledString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledString.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +240,7 @@
 				1C0C601319BBB0E6003E300C /* Networking */,
 				1C82211B19A4F9B500A17B56 /* Public Headers */,
 				1C8220ED19A4F8E200A17B56 /* Social */,
+				1CF9389A1CC95E9500E2F94E /* Styled String */,
 				1C8220D619A4F7E700A17B56 /* Supporting Files */,
 				1C57DAF219BD1982009226AD /* TableItem */,
 				1C8220F119A4F8FC00A17B56 /* Theme */,
@@ -348,6 +351,14 @@
 				1CEE10631A818149001ABD72 /* URLImageView.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		1CF9389A1CC95E9500E2F94E /* Styled String */ = {
+			isa = PBXGroup;
+			children = (
+				1CF9389B1CC95EBC00E2F94E /* StyledString.swift */,
+			);
+			name = "Styled String";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -500,6 +511,7 @@
 				1C82212919A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211619A4F94300A17B56 /* UIColor+Hex.swift in Sources */,
 				1C9F75501BD1AE7400D0DD0E /* Upload.swift in Sources */,
+				1CF9389C1CC95EBC00E2F94E /* StyledString.swift in Sources */,
 				1C82211219A4F94300A17B56 /* ThemeLoader.swift in Sources */,
 				1C9F754A1BD1AE7400D0DD0E /* Request.swift in Sources */,
 				1C82210819A4F94300A17B56 /* String+File.swift in Sources */,
