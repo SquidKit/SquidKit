@@ -8,6 +8,8 @@
 
 import UIKit
 
+let SquidKitImageErrorDomain = "com.squidkit.error"
+
 public extension Request {
     
     static func imageResponseSerializer(decompressImage decompressImage: Bool = true, cacheImage: Bool = false) -> ResponseSerializer<UIImage, NSError> {
@@ -19,7 +21,7 @@ public extension Request {
             
             if data == nil || response == nil {
                 let failureReason = (data == nil) ? "Input data was nil" : "URL response was nil"
-                let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
+                let error = Error.error(domain: SquidKitImageErrorDomain, code: .DataSerializationFailed, failureReason: failureReason)
                 return .Failure(error)
             }
             
@@ -32,7 +34,7 @@ public extension Request {
                 }
                 else {
                     let failureReason = "Image failed to decompress"
-                    let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
+                    let error = Error.error(domain: SquidKitImageErrorDomain, code: .DataSerializationFailed, failureReason: failureReason)
                     return .Failure(error)
                 }
             } else {
@@ -44,7 +46,7 @@ public extension Request {
                 }
                 else {
                     let failureReason = "Failed to initialize UIImage from data"
-                    let error = Error.errorWithCode(.DataSerializationFailed, failureReason: failureReason)
+                    let error = Error.error(domain: SquidKitImageErrorDomain, code: .DataSerializationFailed, failureReason: failureReason)
                     return .Failure(error)
                 }
             }
