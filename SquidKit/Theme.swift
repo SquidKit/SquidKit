@@ -135,6 +135,14 @@ public class Theme {
         return defaultValue
     }
     
+    public func intForKey(key:String, defaultValue:Int = 0) -> Int {
+        if let someNumber = self.numberForKey(key) {
+            return someNumber.integerValue
+        }
+        
+        return defaultValue
+    }
+    
 }
 
 
