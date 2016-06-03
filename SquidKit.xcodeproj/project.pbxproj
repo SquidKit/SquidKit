@@ -18,6 +18,7 @@
 		1C0C601E19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */; };
 		1C0C601F19BBB123003E300C /* JSONResponseEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */; };
 		1C15BB521CB19B1400B894F0 /* UIApplication+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C15BB511CB19B1400B894F0 /* UIApplication+Utility.swift */; };
+		1C2B1CBD1D0222D70044B56D /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2B1CBC1D0222D70044B56D /* Dispatch.swift */; };
 		1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
 		1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
 		1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
@@ -92,6 +93,7 @@
 		1C0C601719BBB123003E300C /* JSONResponseEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONResponseEndpoint.swift; sourceTree = "<group>"; };
 		1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigatingTableItem.swift; sourceTree = "<group>"; };
 		1C15BB511CB19B1400B894F0 /* UIApplication+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Utility.swift"; sourceTree = "<group>"; };
+		1C2B1CBC1D0222D70044B56D /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObserving.swift; sourceTree = "<group>"; };
 		1C8220D319A4F7E700A17B56 /* SquidKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SquidKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -329,10 +331,11 @@
 		1C8220F219A4F90B00A17B56 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				1CEE106C1A829197001ABD72 /* Cache.swift */,
+				1C2B1CBC1D0222D70044B56D /* Dispatch.swift */,
+				1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */,
 				1C82212819A5033C00A17B56 /* Log.swift */,
 				1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */,
-				1CEE106C1A829197001ABD72 /* Cache.swift */,
-				1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				1C82211419A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C6B73FF1AFC6CCA0060678A /* KVObserving.swift in Sources */,
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
+				1C2B1CBD1D0222D70044B56D /* Dispatch.swift in Sources */,
 				1C82212E19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
 				1CEE106D1A829197001ABD72 /* Cache.swift in Sources */,
 				1CD097EF1B4F0A9F006FD332 /* UIImage+Utility.swift in Sources */,
