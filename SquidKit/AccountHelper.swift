@@ -11,27 +11,27 @@ import Accounts
 
 
 public protocol AccountHelperLoggable {
-    func log<T>(@autoclosure output:() -> T?)
+    func log<T>(@autoclosure _ output:() -> T?)
 }
 
-public class AccountHelper {
+open class AccountHelper {
     
     let acAccountTypeIdentifier:NSString!
     
-    public var accountUserFullName:String?
-    public var accountUsername:String?
-    public var accountIdentifier:String?
+    open var accountUserFullName:String?
+    open var accountUsername:String?
+    open var accountIdentifier:String?
     
     // facebook required options
-    public var facebookAppId:String?
-    public var facebookPermissions:[String]?
+    open var facebookAppId:String?
+    open var facebookPermissions:[String]?
     
     
     public init(accountIdentifier:NSString) {
         self.acAccountTypeIdentifier = accountIdentifier
     }
     
-    public func authenticateWithCompletion(completion:(Bool) -> Void) {
+    open func authenticateWithCompletion(_ completion:(Bool) -> Void) {
         
         if (self.acAccountTypeIdentifier == ACAccountTypeIdentifierTwitter) {
             self.authenticateTwitter(completion)
@@ -42,10 +42,10 @@ public class AccountHelper {
         
     }
     
-    private func authenticateTwitter(completion:(Bool) -> Void) {
+    fileprivate func authenticateTwitter(_ completion:(Bool) -> Void) {
         let accountStore = ACAccountStore()
-        let acAccountTypeTwitter = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
-        accountStore.requestAccessToAccountsWithType(acAccountTypeTwitter, options: nil, completion: {[weak self] (success:Bool, error:NSError!) -> Void in
+        let acAccountTypeTwitter = accountStore.accountType(withAccountTypeIdentifier: ACAccountTypeIdentifierTwitter)
+        accountStore.requestAccessToAccounts(with: acAccountTypeTwitter, options: nil, completion: {[weak self] (success:Bool, error:NSError!) -> Void in
             if success {
                 guard let strongSelf = self else {
                     completion(false)
@@ -60,10 +60,10 @@ public class AccountHelper {
         })
     }
     
-    private func authenticateFacebook(completion:(Bool) -> Void) {
+    fileprivate func authenticateFacebook(_ completion:(Bool) -> Void) {
         let accountStore = ACAccountStore()
-        let acAccountTypeFacebook = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierFacebook)
-        accountStore.requestAccessToAccountsWithType(acAccountTypeFacebook, options: self.makeFacebookOptions(), completion: {[weak self] (success:Bool, error:NSError!) -> Void in
+        let acAccountTypeFacebook = accountStore.accountType(withAccountTypeIdentifier: ACAccountTypeIdentifierFacebook)
+        accountStore.requestAccessToAccounts(with: acAccountTypeFacebook, options: self.makeFacebookOptions(), completion: {[weak self] (success:Bool, error:NSError!) -> Void in
             if success {
                 guard let strongSelf = self else {
                     completion(false)
@@ -78,7 +78,7 @@ public class AccountHelper {
         })
     }
     
-    private func logAccountAccessResult(accountPrefix:String, userFullName:String, userName:String, userIdentifier:String?) {
+    fileprivate func logAccountAccessResult(_ accountPrefix:String, userFullName:String, userName:String, userIdentifier:String?) {
         
         if let loaggable = self as? AccountHelperLoggable {
             loaggable.log   (
@@ -90,7 +90,7 @@ public class AccountHelper {
         
     }
     
-    private func makeFacebookOptions() -> [NSObject: AnyObject] {
+    fileprivate func makeFacebookOptions() -> [NSObject: AnyObject] {
         var options = [NSObject: AnyObject]()
         
         if let appId = self.facebookAppId {
@@ -103,10 +103,10 @@ public class AccountHelper {
         return options
     }
     
-    private func firstAccount(accountStore:ACAccountStore, accountType:ACAccountType) -> ACAccount? {
+    fileprivate func firstAccount(_ accountStore:ACAccountStore, accountType:ACAccountType) -> ACAccount? {
         var account:ACAccount?
         
-        if let accountsOfType = accountStore.accountsWithAccountType(accountType) as? [ACAccount] {
+        if let accountsOfType = accountStore.accounts(with: accountType) as? [ACAccount] {
             if accountsOfType.count > 0 {
                 account = accountsOfType[0]
             }

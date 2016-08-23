@@ -8,11 +8,11 @@
 
 import UIKit
 
-public class JSONResponseEndpoint: Endpoint {
+open class JSONResponseEndpoint: Endpoint {
     
     var manager:Manager?
    
-    public func connect(completionHandler: (AnyObject?, ResponseStatus) -> Void) {
+    open func connect(_ completionHandler: @escaping (AnyObject?, ResponseStatus) -> Void) {
         let (params, method) = self.params()
         var encoding:ParameterEncoding = .URL
         if let specifiedEncoding = self.encoding() {
@@ -34,7 +34,7 @@ public class JSONResponseEndpoint: Endpoint {
             }
         }
         
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let configuration = URLSessionConfiguration.default
         configuration.HTTPAdditionalHeaders = defaultHeaders
         
         
@@ -72,16 +72,16 @@ public class JSONResponseEndpoint: Endpoint {
         self.logRequest(encoding, headers: defaultHeaders)
     }
     
-    func connectResponse(responseData:AnyObject?, responseStatus:ResponseStatus, completionHandler: (AnyObject?, ResponseStatus) -> Void) {
+    func connectResponse(_ responseData:AnyObject?, responseStatus:ResponseStatus, completionHandler: (AnyObject?, ResponseStatus) -> Void) {
         self.logResponse(responseData, responseStatus: responseStatus)
         
         completionHandler(responseData, responseStatus)
     }
     
     //OVERRIDE
-    public var jsonReadingOptions:NSJSONReadingOptions {
+    open var jsonReadingOptions:JSONSerialization.ReadingOptions {
         get {
-            return .AllowFragments
+            return .allowFragments
         }
     }
 }
@@ -90,10 +90,10 @@ public class JSONResponseEndpoint: Endpoint {
 // MARK: Logging
 extension JSONResponseEndpoint {
     
-    func logRequest(encoding:ParameterEncoding, headers:[NSObject : AnyObject]?) {
+    func logRequest(_ encoding:ParameterEncoding, headers:[NSObject : AnyObject]?) {
         if let logger = self as? EndpointLoggable {
             switch logger.requestLogging {
-            case .Verbose:
+            case .verbose:
                 logger.log(   "===============================\n" +
                     "SquidKit Network Request\n" +
                     "===============================\n" +
@@ -102,7 +102,7 @@ extension JSONResponseEndpoint {
                     "HTTP headers: " + "\(headers)" + "\n" +
                     "===============================\n")
                 
-            case .Minimal:
+            case .minimal:
                 logger.log(self.request?.description)
                 
             default:
@@ -111,10 +111,10 @@ extension JSONResponseEndpoint {
         }
     }
     
-    func logResponse(responseData:AnyObject?, responseStatus:ResponseStatus) {
+    func logResponse(_ responseData:AnyObject?, responseStatus:ResponseStatus) {
         if let logger = self as? EndpointLoggable {
             switch logger.responseLogging {
-            case .Verbose:
+            case .verbose:
                 logger.log(   "===============================\n" +
                     "SquidKit Network Response for " + "\(self.request?.description)" + "\n" +
                     "===============================\n" +
@@ -122,7 +122,7 @@ extension JSONResponseEndpoint {
                     "JSON:" + "\n" +
                     "\(responseData)" + "\n" +
                     "===============================\n")
-            case .Minimal:
+            case .minimal:
                 logger.log("Response Status = " + "\(responseStatus)")
             default:
                 break
@@ -132,8 +132,8 @@ extension JSONResponseEndpoint {
 }
 
 extension Request {
-    func shouldAuthenticate(user user: String?, password: String?) -> Self {
-        if let haveUser = user, havePassword = password {
+    func shouldAuthenticate(user: String?, password: String?) -> Self {
+        if let haveUser = user, let havePassword = password {
             return self.authenticate(user: haveUser, password: havePassword)
         }
         return self

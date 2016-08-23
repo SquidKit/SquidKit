@@ -12,7 +12,7 @@ let SquidKitImageErrorDomain = "com.squidkit.error"
 
 public extension Request {
     
-    static func imageResponseSerializer(decompressImage decompressImage: Bool = true, cacheImage: Bool = false) -> ResponseSerializer<UIImage, NSError> {
+    static func imageResponseSerializer(decompressImage: Bool = true, cacheImage: Bool = false) -> ResponseSerializer<UIImage, NSError> {
         return ResponseSerializer { request, response, data, error in
             
             guard error == nil else {
@@ -54,7 +54,7 @@ public extension Request {
     }
     
     
-    func responseImageCacheable(completionHandler: Response<UIImage, NSError> -> Void) -> Self {
+    func responseImageCacheable(_ completionHandler: (Response<UIImage, NSError>) -> Void) -> Self {
         if let httpRequest = request, let cachedImage = Cache<UIImage>()[httpRequest] {
             let result:Result<UIImage, NSError> = .Success(cachedImage)
             let response = Response<UIImage, NSError>(request:httpRequest, response:nil, data:nil, result:result)
@@ -66,7 +66,7 @@ public extension Request {
         return response(responseSerializer: serializer, completionHandler: completionHandler)
     }
     
-    func responseImage(completionHandler: Response<UIImage, NSError> -> Void) -> Self {
+    func responseImage(_ completionHandler: (Response<UIImage, NSError>) -> Void) -> Self {
         let serializer = Request.imageResponseSerializer()
         return response(responseSerializer: serializer, completionHandler: completionHandler)
     }
@@ -76,27 +76,27 @@ public extension Request {
     // Copyright (c) 2013-2015 Lyft (http://lyft.com)
     // also here: https://github.com/Alamofire/Alamofire/pull/333
     
-    private class func decompressImage(response: NSHTTPURLResponse, data: NSData) -> UIImage? {
+    fileprivate class func decompressImage(_ response: HTTPURLResponse, data: NSData) -> UIImage? {
         if data.length == 0 {
             return nil
         }
         
-        let dataProvider = CGDataProviderCreateWithCFData(data)
+        let dataProvider = CGDataProvider(data: data)
         
-        var imageRef: CGImageRef?
-        if response.MIMEType == "image/png" {
-            imageRef = CGImageCreateWithPNGDataProvider(dataProvider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
+        var imageRef: CGImage?
+        if response.mimeType == "image/png" {
+            imageRef = CGImageCreateWithPNGDataProvider(dataProvider!, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
             
-        } else if response.MIMEType == "image/jpeg" {
-            imageRef = CGImageCreateWithJPEGDataProvider(dataProvider, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
+        } else if response.mimeType == "image/jpeg" {
+            imageRef = CGImageCreateWithJPEGDataProvider(dataProvider!, nil, true, CGColorRenderingIntent.RenderingIntentDefault)
             
             // CGImageCreateWithJPEGDataProvider does not properly handle CMKY, so if so,
             // fall back to AFImageWithDataAtScale
             if imageRef != nil {
-                let imageColorSpace = CGImageGetColorSpace(imageRef)
-                let imageColorSpaceModel = CGColorSpaceGetModel(imageColorSpace)
+                let imageColorSpace = imageRef!.colorSpace
+                let imageColorSpaceModel = imageColorSpace!.model
                 switch (imageColorSpaceModel) {
-                case .CMYK:
+                case .CGColorSpaceModel.cmyk:
                     imageRef = nil
                 default:
                     break
@@ -104,51 +104,51 @@ public extension Request {
             }
         }
         
-        let scale = UIScreen.mainScreen().scale
-        let image = UIImage(data: data, scale: scale)
+        let scale = UIScreen.main.scale
+        let image = UIImage(data: data as Data, scale: scale)
         if imageRef == nil || image == nil {
             if image == nil || image?.images != nil {
                 return image
             }
             
-            imageRef = CGImageCreateCopy(image!.CGImage)
+            imageRef = image!.cgImage!.copy()
             if imageRef == nil {
                 return nil
             }
         }
         
-        let width = CGImageGetWidth(imageRef)
-        let height = CGImageGetHeight(imageRef)
-        let bitsPerComponent = CGImageGetBitsPerComponent(imageRef)
+        let width = imageRef!.width
+        let height = imageRef!.height
+        let bitsPerComponent = imageRef!.bitsPerComponent
         
         if width * height > 1024 * 1024 || bitsPerComponent > 8 {
             return image
         }
         
-        let bytesPerRow = CGImageGetBytesPerRow(imageRef)
+        let bytesPerRow = imageRef!.bytesPerRow
         let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let colorSpaceModel = CGColorSpaceGetModel(colorSpace)
-        let alphaInfo = CGImageGetAlphaInfo(imageRef)
-        var bitmapInfo:UInt32 = CGImageGetBitmapInfo(imageRef).rawValue
-        if colorSpaceModel == .RGB {
-            if alphaInfo == .None {
-                bitmapInfo &= ~CGBitmapInfo.AlphaInfoMask.rawValue
-                bitmapInfo |= CGBitmapInfo(rawValue: CGImageAlphaInfo.NoneSkipFirst.rawValue).rawValue
-            } else if (!(alphaInfo == .NoneSkipFirst || alphaInfo == .NoneSkipLast)) {
-                bitmapInfo &= ~CGBitmapInfo.AlphaInfoMask.rawValue
-                bitmapInfo |= CGBitmapInfo(rawValue: CGImageAlphaInfo.PremultipliedFirst.rawValue).rawValue
+        let colorSpaceModel = colorSpace.model
+        let alphaInfo = imageRef!.alphaInfo
+        var bitmapInfo:UInt32 = imageRef!.bitmapInfo.rawValue
+        if colorSpaceModel == .CGColorSpaceModel.rgb {
+            if alphaInfo == .none {
+                bitmapInfo &= ~CGBitmapInfo.alphaInfoMask.rawValue
+                bitmapInfo |= CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipFirst.rawValue).rawValue
+            } else if (!(alphaInfo == .noneSkipFirst || alphaInfo == .noneSkipLast)) {
+                bitmapInfo &= ~CGBitmapInfo.alphaInfoMask.rawValue
+                bitmapInfo |= CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue).rawValue
             }
         }
         
-        let context = CGBitmapContextCreate(nil, width, height, bitsPerComponent, bytesPerRow,
-            colorSpace, bitmapInfo)
+        let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow,
+            space: colorSpace, bitmapInfo: bitmapInfo)
         if context == nil {
             return image
         }
         
         let drawRect = CGRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height))
         CGContextDrawImage(context, drawRect, imageRef)
-        let inflatedImageRef = CGBitmapContextCreateImage(context)
+        let inflatedImageRef = context!.makeImage()
         return UIImage(CGImage: inflatedImageRef!, scale: scale, orientation: image!.imageOrientation)
     }
 }

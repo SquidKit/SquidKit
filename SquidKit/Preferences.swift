@@ -8,20 +8,20 @@
 
 import Foundation
 
-public class Preferences {
+open class Preferences {
     
     public init() {
         
     }
     
     // OVERRIDE to return a different NSUserDefaults (such as a shared defaults if you're working on an extension or suite)
-    public var userDefaults:NSUserDefaults {
-        return NSUserDefaults.standardUserDefaults()
+    open var userDefaults:UserDefaults {
+        return UserDefaults.standard
     }
     
-    public func setPreference(object:NSSecureCoding?, key:String) {
+    open func setPreference(_ object:NSSecureCoding?, key:String) {
         if let objectToSet:NSSecureCoding = object {
-            self.userDefaults.setObject(objectToSet, forKey: key)
+            self.userDefaults.set(objectToSet, forKey: key)
             self.userDefaults.synchronize()
         }
         else {
@@ -29,9 +29,9 @@ public class Preferences {
         }
     }
     
-    public func setBool(object:Bool?, key:String) {
+    open func setBool(_ object:Bool?, key:String) {
         if let boolToSet:Bool = object {
-            self.userDefaults.setObject(NSNumber(bool: boolToSet), forKey: key)
+            self.userDefaults.set(NSNumber(value: boolToSet), forKey: key)
             self.userDefaults.synchronize()
         }
         else {
@@ -39,9 +39,9 @@ public class Preferences {
         }
     }
     
-    public func setInt(object:Int?, key:String) {
+    open func setInt(_ object:Int?, key:String) {
         if let intToSet:Int = object {
-            self.userDefaults.setObject(NSNumber(integer: intToSet), forKey: key)
+            self.userDefaults.set(NSNumber(value: intToSet), forKey: key)
             self.userDefaults.synchronize()
         }
         else {
@@ -49,9 +49,9 @@ public class Preferences {
         }
     }
     
-    public func setFloat(object:Float?, key:String) {
+    open func setFloat(_ object:Float?, key:String) {
         if let floatToSet:Float = object {
-            self.userDefaults.setObject(NSNumber(float: floatToSet), forKey: key)
+            self.userDefaults.set(NSNumber(value: floatToSet), forKey: key)
             self.userDefaults.synchronize()
         }
         else {
@@ -59,9 +59,9 @@ public class Preferences {
         }
     }
     
-    public func setString(object:String?, key:String) {
+    open func setString(_ object:String?, key:String) {
         if let stringToSet:String = object {
-            self.userDefaults.setObject(stringToSet as NSString, forKey: key)
+            self.userDefaults.set(stringToSet as NSString, forKey: key)
             self.userDefaults.synchronize()
         }
         else {
@@ -69,62 +69,62 @@ public class Preferences {
         }
     }
     
-    public func preference(key:String) -> AnyObject? {
-        return self.userDefaults.objectForKey(key)
+    open func preference(_ key:String) -> AnyObject? {
+        return self.userDefaults.object(forKey: key)
     }
     
-    public func boolValue(key:String, defaultValue:Bool) -> Bool {
-        if let result = self.userDefaults.objectForKey(key) as? NSNumber {
+    open func boolValue(_ key:String, defaultValue:Bool) -> Bool {
+        if let result = self.userDefaults.object(forKey: key) as? NSNumber {
             return result.boolValue
         }
         return defaultValue
     }
     
-    public func intValue(key:String, defaultValue:Int) -> Int {
-        if let result = self.userDefaults.objectForKey(key) as? NSNumber {
-            return result.integerValue
+    open func intValue(_ key:String, defaultValue:Int) -> Int {
+        if let result = self.userDefaults.object(forKey: key) as? NSNumber {
+            return result.intValue
         }
         return defaultValue
     }
     
-    public func floatValue(key:String, defaultValue:Float) -> Float {
-        if let result = self.userDefaults.objectForKey(key) as? NSNumber {
+    open func floatValue(_ key:String, defaultValue:Float) -> Float {
+        if let result = self.userDefaults.object(forKey: key) as? NSNumber {
             return result.floatValue
         }
         return defaultValue
     }
     
-    public func stringValue(key:String, defaultValue:String?) -> String? {
-        if let result = self.userDefaults.objectForKey(key) as? String {
+    open func stringValue(_ key:String, defaultValue:String?) -> String? {
+        if let result = self.userDefaults.object(forKey: key) as? String {
             return result
         }
         return defaultValue
     }
         
-    public func remove(key:String) {
-        self.userDefaults.removeObjectForKey(key)
+    open func remove(_ key:String) {
+        self.userDefaults.removeObject(forKey: key)
         self.userDefaults.synchronize()
     }
 }
 
-public class Preference<T:NSSecureCoding> {
+open class Preference<T:NSSecureCoding> {
     
     public init() {
         
     }
     
-    public func set(object:T, key:String) {
+    open func set(_ object:T, key:String) {
         Preferences().setPreference(object, key: key)
     }
     
-    public func get(key:String, defaultValue:T) -> T {
+    open func get(_ key:String, defaultValue:T) -> T {
         if let pref = Preferences().preference(key) as? T {
             return pref
         }
         return defaultValue
     }
     
-    public func get(key:String) -> T? {
+    open func get(_ key:String) -> T? {
         if let pref = Preferences().preference(key) as? T {
             return pref
         }

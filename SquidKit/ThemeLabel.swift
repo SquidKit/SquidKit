@@ -8,20 +8,20 @@
 
 import UIKit
 
-public class ThemeLabel: UILabel {
+open class ThemeLabel: UILabel {
 
-    @IBInspectable public var textColorName:String? = "defaultLabelTextColor" {
+    @IBInspectable open var textColorName:String? = "defaultLabelTextColor" {
         didSet {
             self.updateTextColor()
         }
     }
     
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         self.updateTextColor()
     }
     
-    private func updateTextColor() {
+    fileprivate func updateTextColor() {
         if (self.textColorName != nil) {
             if let color = Theme.activeTheme()?.colorForKey(self.textColorName!, defaultValue: self.textColor) {
                 self.textColor = color

@@ -8,56 +8,56 @@
 
 import UIKit
 
-public class URLImageView: UIImageView {
+open class URLImageView: UIImageView {
     
     public enum URLImageViewActivityIndicatorType {
-        case None
-        case Dark
-        case Light
-        case LightLarge
+        case none
+        case dark
+        case light
+        case lightLarge
     }
     
     public enum URLImageViewImageAppearanceType {
-        case None
-        case Fade(NSTimeInterval, Float, Float)
-        case FadeIfNotCached(NSTimeInterval, Float, Float)
+        case none
+        case fade(TimeInterval, Float, Float)
+        case fadeIfNotCached(TimeInterval, Float, Float)
     }
     
-    public var activityIndicatorType:URLImageViewActivityIndicatorType = .None
-    public var imageAppearanceType:URLImageViewImageAppearanceType = .None
+    open var activityIndicatorType:URLImageViewActivityIndicatorType = .none
+    open var imageAppearanceType:URLImageViewImageAppearanceType = .none
     
-    public var urlString:String? {
+    open var urlString:String? {
         didSet {
             cancel()
         }
     }
     
-    private var activityView:UIActivityIndicatorView?
+    fileprivate var activityView:UIActivityIndicatorView?
     
-    private var activityIndicatorStyle:UIActivityIndicatorViewStyle {
+    fileprivate var activityIndicatorStyle:UIActivityIndicatorViewStyle {
         switch self.activityIndicatorType {
-        case .Light:
-            return .White
-        case .LightLarge:
-            return .WhiteLarge
-        case .Dark:
-            return .Gray
+        case .light:
+            return .white
+        case .lightLarge:
+            return .whiteLarge
+        case .dark:
+            return .gray
         default:
-            return .Gray
+            return .gray
         }
     }
     
-    private var imageRequest:Request?
+    fileprivate var imageRequest:Request?
     
     deinit {
         cancel()
     }
     
-    public func load() {
+    open func load() {
         cancel()
         if let urlString = self.urlString {
             
-            let url = NSURL(string: urlString)
+            let url = URL(string: urlString)
             
             startActivity()
             
@@ -86,7 +86,7 @@ public class URLImageView: UIImageView {
         }
     }
     
-    private func animateFade(image:UIImage?, duration:NSTimeInterval, beginAlpha:Float, endAlpha:Float) {
+    fileprivate func animateFade(_ image:UIImage?, duration:TimeInterval, beginAlpha:Float, endAlpha:Float) {
         self.alpha = CGFloat(beginAlpha)
         self.image = image
         
@@ -96,15 +96,15 @@ public class URLImageView: UIImageView {
         UIView.commitAnimations()
     }
     
-    public func cancel() {
+    open func cancel() {
         if let activeRequest = self.imageRequest {
             activeRequest.cancel()
         }
         self.stopActivity()
     }
     
-    private func startActivity() {
-        if self.activityIndicatorType != .None {
+    fileprivate func startActivity() {
+        if self.activityIndicatorType != .none {
             if self.activityView == nil {
                 self.activityView = UIActivityIndicatorView(activityIndicatorStyle: self.activityIndicatorStyle)
                 self.activityView?.centerInView(self)
@@ -115,7 +115,7 @@ public class URLImageView: UIImageView {
         }
     }
     
-    private func stopActivity() {
+    fileprivate func stopActivity() {
         if self.activityView != nil {
             self.activityView?.stopAnimating()
             self.activityView?.removeFromSuperview()

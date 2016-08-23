@@ -12,23 +12,23 @@ import UIKit
 This is a TableItem that will navigate to the specified view controller
 when selected.
 */
-public class NavigatingTableItem: TableItem {
+open class NavigatingTableItem: TableItem {
     
     
-    public let navigationType:NavigatingTableItemNavigationType
+    open let navigationType:NavigatingTableItemNavigationType
     
     public init(_ title:String, reuseIdentifier:String?, navigationType:NavigatingTableItemNavigationType) {
         self.navigationType = navigationType
         super.init(title)
         self.reuseIdentifier = reuseIdentifier
         
-        self.selectBlock = {[unowned self] (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
+        self.selectBlock = {[unowned self] (item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in
             
             if let tableAction = actionsTarget {
                 switch self.navigationType {
-                case .Push(let storyboardName, let viewControllerID):
+                case .push(let storyboardName, let viewControllerID):
                     tableAction.pushViewController(storyboardName, storyboardID: viewControllerID)
-                case .Present(let storyboardName, let viewControllerID):
+                case .present(let storyboardName, let viewControllerID):
                     tableAction.presentViewController(storyboardName, storyboardID: viewControllerID)
                 }
                 tableAction.deselect(indexPath)
@@ -43,7 +43,7 @@ public class NavigatingTableItem: TableItem {
 }
 
 public enum NavigatingTableItemNavigationType {
-    case Push(storyboardName:String, storyboardID:String)
-    case Present(storyboardName:String, storyboardID:String)
+    case push(storyboardName:String, storyboardID:String)
+    case present(storyboardName:String, storyboardID:String)
 }
 

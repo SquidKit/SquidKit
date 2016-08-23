@@ -10,33 +10,33 @@ import UIKit
 
 public extension UIImage {
    
-    class func imageFromView(view:UIView, rect:CGRect, scaleForDevice:Bool = true) -> UIImage? {
+    class func imageFromView(_ view:UIView, rect:CGRect, scaleForDevice:Bool = true) -> UIImage? {
         
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, scaleForDevice ? 0.0 : 1.0)
-        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
         
         let viewImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         
-        let scale = scaleForDevice ? UIScreen.mainScreen().scale : 1.0
-        let imageRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width * scale, rect.size.height * scale)
-        let imageRef = CGImageCreateWithImageInRect(viewImage.CGImage, imageRect)
+        let scale = scaleForDevice ? UIScreen.main.scale : 1.0
+        let imageRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width * scale, height: rect.size.height * scale)
+        let imageRef = (viewImage?.cgImage)?.cropping(to: imageRect)
         
         let resultImage = UIImage(CGImage: imageRef!)
         
         return resultImage
     }
     
-    func imageWithInsets(insets: UIEdgeInsets) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.size.width + insets.left + insets.right, self.size.height + insets.top + insets.bottom), false, self.scale)
+    func imageWithInsets(_ insets: UIEdgeInsets) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: self.size.width + insets.left + insets.right, height: self.size.height + insets.top + insets.bottom), false, self.scale)
         
-        self.drawAtPoint(CGPoint(x: insets.left, y: insets.top))
+        self.draw(at: CGPoint(x: insets.left, y: insets.top))
         let imageWithInsets = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         
-        return imageWithInsets
+        return imageWithInsets!
     }
 }
 

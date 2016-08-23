@@ -8,11 +8,11 @@
 
 import UIKit
 
-public class ConfigurationItem : TableItem {
-    public var protocolHostPair:ProtocolHostPair?
-    public let key:String
-    public let canonicalHost:String
-    public let editable:Bool
+open class ConfigurationItem : TableItem {
+    open var protocolHostPair:ProtocolHostPair?
+    open let key:String
+    open let canonicalHost:String
+    open let editable:Bool
     let hostMapManager:HostMapManager!
     
     public required init(hostMapManager:HostMapManager, protocolHostPair:ProtocolHostPair?, key:String, canonicalHost:String, editable:Bool) {
@@ -23,7 +23,7 @@ public class ConfigurationItem : TableItem {
         self.editable = editable
         super.init(String.nonNilString(protocolHostPair?.host, stringForNil: ""))
         
-        self.selectBlock = {[unowned self] (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
+        self.selectBlock = {[unowned self] (item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in
             self.hostMapManager.setConfigurationForCanonicalHost(self.key, mappedHost:nil, canonicalHost: self.canonicalHost)
             if let aTable = actionsTarget {
                 aTable.deselect(indexPath)
@@ -34,11 +34,11 @@ public class ConfigurationItem : TableItem {
 }
 
 
-public class HostConfigurationTableViewController: TableItemBackedTableViewController, CustomHostCellDelegate {
+open class HostConfigurationTableViewController: TableItemBackedTableViewController, CustomHostCellDelegate {
     
-    public var hostMapManager:HostMapManager?
+    open var hostMapManager:HostMapManager?
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         if let manager = hostMapManager {
@@ -58,12 +58,12 @@ public class HostConfigurationTableViewController: TableItemBackedTableViewContr
 
     }
 
-    public override func didReceiveMemoryWarning() {
+    open override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    private func isSelected(configItem:ConfigurationItem) -> Bool {
+    fileprivate func isSelected(_ configItem:ConfigurationItem) -> Bool {
         if let runtimePair = EndpointMapper.mappedPairForCanonicalHost(configItem.canonicalHost) {
             if configItem.protocolHostPair != nil && runtimePair == configItem.protocolHostPair! && runtimePair.host != nil {
                 return true
@@ -78,29 +78,29 @@ public class HostConfigurationTableViewController: TableItemBackedTableViewContr
     let configItemReuseIdentifier:String = "com.squidkit.hostConfigurationDetailCellReuseIdentifier"
     let userItemReuseIdentifier:String = "com.squidkit.hostConfigurationDetailCellUserReuseIdentifier"
     
-    public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell:UITableViewCell?
         
         if let configItem = self.model[indexPath]! as? ConfigurationItem {
         
             if !configItem.editable {
-                cell = tableView.dequeueReusableCellWithIdentifier(configItemReuseIdentifier)
+                cell = tableView.dequeueReusableCell(withIdentifier: configItemReuseIdentifier)
                 if cell == nil {
-                    cell = UITableViewCell(style: .Subtitle, reuseIdentifier: configItemReuseIdentifier)
+                    cell = UITableViewCell(style: .subtitle, reuseIdentifier: configItemReuseIdentifier)
                 }
                 
                 cell?.textLabel!.text = configItem.title
                 cell?.detailTextLabel!.text = configItem.key
             }
             else {
-                cell = CustomHostCell(style: .Default, reuseIdentifier: userItemReuseIdentifier)
+                cell = CustomHostCell(style: .default, reuseIdentifier: userItemReuseIdentifier)
                 
                 let customCell = cell as! CustomHostCell
                 customCell.configItem = configItem
                 customCell.delegate = self
             }
             
-            cell?.accessoryType = self.isSelected(configItem) ? .Checkmark : .None
+            cell?.accessoryType = self.isSelected(configItem) ? .checkmark : .none
         }
         
         return cell!
@@ -108,7 +108,7 @@ public class HostConfigurationTableViewController: TableItemBackedTableViewContr
     
     // MARK: - Table CustomHostCellDelegate data source
     
-    func hostTextDidChange(hostText:String?, configItem:ConfigurationItem) {
+    func hostTextDidChange(_ hostText:String?, configItem:ConfigurationItem) {
         hostMapManager?.setConfigurationForCanonicalHost(configItem.key, mappedHost:hostText, canonicalHost: configItem.canonicalHost)
         let pair = ProtocolHostPair(nil, hostText)
         configItem.protocolHostPair = pair
@@ -117,25 +117,25 @@ public class HostConfigurationTableViewController: TableItemBackedTableViewContr
 }
 
 protocol CustomHostCellDelegate {
-    func hostTextDidChange(hostText:String?, configItem:ConfigurationItem)
+    func hostTextDidChange(_ hostText:String?, configItem:ConfigurationItem)
 }
 
-public class CustomHostCell: UITableViewCell, UITextFieldDelegate {
+open class CustomHostCell: UITableViewCell, UITextFieldDelegate {
     var textField:UITextField?
     var configItem:ConfigurationItem?
     var delegate:CustomHostCellDelegate?
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         if textField == nil {
-            textField = UITextField(frame:CGRectInset(self.contentView.bounds, 15, 5))
+            textField = UITextField(frame:self.contentView.bounds.insetBy(dx: 15, dy: 5))
             self.contentView.addSubview(textField!)
             textField?.placeholder = "Enter custom host (e.g. \"api.host.com\")"
-            textField?.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleSubheadline), size: 13)
+            textField?.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFontTextStyle.subheadline), size: 13)
             textField?.keyboardType = .URL
-            textField?.returnKeyType = .Done
-            textField?.autocorrectionType = .No
-            textField?.clearButtonMode = .WhileEditing
+            textField?.returnKeyType = .done
+            textField?.autocorrectionType = .no
+            textField?.clearButtonMode = .whileEditing
             textField?.delegate = self
             textField?.text = configItem!.protocolHostPair?.host
         }
@@ -143,12 +143,12 @@ public class CustomHostCell: UITableViewCell, UITextFieldDelegate {
     
     // MARK: - UITextFieldDelegate
     
-    public func textFieldShouldReturn(textField: UITextField) -> Bool {
+    open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    public func textFieldDidEndEditing(textField: UITextField) {
+    open func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.hostTextDidChange(textField.text, configItem: configItem!)
     }
 }

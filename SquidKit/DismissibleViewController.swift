@@ -8,10 +8,10 @@
 
 import UIKit
 
-public class DismissibleViewController: UIViewController {
+open class DismissibleViewController: UIViewController {
 
-    @IBAction public func dismissOrPop() {
-        if self.parentViewController != nil {
+    @IBAction open func dismissOrPop() {
+        if self.parent != nil {
             self.pop()
         }
         else if self.presentingViewController != nil {
@@ -22,23 +22,23 @@ public class DismissibleViewController: UIViewController {
         }
     }
     
-    private func pop() {
+    fileprivate func pop() {
         if self.navigationController != nil &&
             self.navigationController!.viewControllers[0] as NSObject == self &&
             self.navigationController!.presentingViewController != nil {
-                self.navigationController!.presentingViewController!.dismissViewControllerAnimated(true, completion: nil)
+                self.navigationController!.presentingViewController!.dismiss(animated: true, completion: nil)
         }
         else if self.navigationController != nil {
-            self.navigationController!.popViewControllerAnimated(true)
+            self.navigationController!.popViewController(animated: true)
         }
     }
     
-    private func dismissModal() {
+    fileprivate func dismissModal() {
         if self.navigationController != nil {
-            self.navigationController!.dismissViewControllerAnimated(true, completion: nil)
+            self.navigationController!.dismiss(animated: true, completion: nil)
         }
         else {
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
         }
     }
 

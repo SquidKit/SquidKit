@@ -10,27 +10,27 @@ import Foundation
 
 // MARK: - Logging
 public enum EndpointLogging {
-    case None
-    case Minimal
-    case Verbose
+    case none
+    case minimal
+    case verbose
 }
 
 public protocol EndpointLoggable {
-    func log<T>(@autoclosure output:() -> T?)
+    func log<T>(_ output:@autoclosure () -> T?)
     var requestLogging:EndpointLogging {get}
     var responseLogging:EndpointLogging {get}
 }
 
-public class Endpoint {
+open class Endpoint {
     
     public enum ResponseStatus {
-        case OK
-        case HTTPError(Int, String?)
-        case NotConnectedError
-        case HostConnectionError
-        case ResourceUnavailableError
-        case ResponseFormatError
-        case UnknownError(NSError?)
+        case ok
+        case httpError(Int, String?)
+        case notConnectedError
+        case hostConnectionError
+        case resourceUnavailableError
+        case responseFormatError
+        case unknownError(NSError?)
     }
     
     var request:Request?
@@ -39,7 +39,7 @@ public class Endpoint {
 // MARK: - Server Trust Policy
     
     // OVERRIDE
-    public var serverTrustPolicy:[String: ServerTrustPolicy] {
+    open var serverTrustPolicy:[String: ServerTrustPolicy] {
         get {
             return Dictionary<String, ServerTrustPolicy>()
         }
@@ -52,45 +52,45 @@ public class Endpoint {
     }
     
     // Return protocol - typically http or https, with or without "://"
-    public func hostProtocol() -> String {
+    open func hostProtocol() -> String {
         return "http://"
     }
     
     // OVERRIDE: return host, e.g. "www.somehost.com"
-    public func host() -> String {
+    open func host() -> String {
         return ""
     }
     
     // OVERRIDE: return path, e.g. "resource/search"
-    public func path() -> String {
+    open func path() -> String {
         return ""
     }
     
     // OVERRIDE: retrun either the body or URL params, along with the http method (i.e. .GET, .POST, etc)
-    public func params() -> ([String: AnyObject]?, Method) {
+    open func params() -> ([String: AnyObject]?, Method) {
         return (nil, .GET)
     }
     
     // OVERRIDE: return desired parameter encoding; default will be URL for GETs and JSON for POSTs
-    public func encoding() -> ParameterEncoding? {
+    open func encoding() -> ParameterEncoding? {
         return nil
     }
     
     // OVERRIDE: return additional HTTP headers
-    public func additionalHeaders() -> [NSObject : AnyObject]? {
+    open func additionalHeaders() -> [NSObject : AnyObject]? {
         return nil
     }
     
     // OVERRIDE: return basic auth username / password
-    public func basicAuthPair() -> (name:String?, password:String?) {
+    open func basicAuthPair() -> (name:String?, password:String?) {
         return (nil, nil)
     }
     
-    public func cancel() {
+    open func cancel() {
         self.request?.cancel()
     }
     
-    public func url() -> String {
+    open func url() -> String {
         var aProtocol = self.hostProtocol()
         var aHost = self.host()
         
@@ -113,7 +113,7 @@ public class Endpoint {
         return url
     }
     
-    func formatError(response:NSHTTPURLResponse?, error:NSError?) -> ResponseStatus {
+    func formatError(_ response:HTTPURLResponse?, error:NSError?) -> ResponseStatus {
         if (response != nil) {
             var errorMessage:String?
             if let message:AnyObject = response!.allHeaderFields["Error"] {
@@ -124,17 +124,17 @@ public class Endpoint {
             }
             let statusCode = response!.statusCode
             
-            return .HTTPError(statusCode, errorMessage)
+            return .httpError(statusCode, errorMessage)
         }
         else if (error != nil) {
-            var responseStatus:ResponseStatus = .UnknownError(error)
+            var responseStatus:ResponseStatus = .unknownError(error)
             switch error!.code {
             case NSURLErrorNotConnectedToInternet:
-                responseStatus = .NotConnectedError
+                responseStatus = .notConnectedError
             case NSURLErrorCannotFindHost, NSURLErrorCannotConnectToHost:
-                responseStatus = .HostConnectionError
+                responseStatus = .hostConnectionError
             case NSURLErrorResourceUnavailable:
-                responseStatus = .ResourceUnavailableError
+                responseStatus = .resourceUnavailableError
             default:
                 break
             }
@@ -142,7 +142,7 @@ public class Endpoint {
             return responseStatus
         }
         
-        return .UnknownError(error)
+        return .unknownError(error)
     }
     
 }

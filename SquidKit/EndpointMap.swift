@@ -11,9 +11,9 @@ import Foundation
 private let _EndpointMapperSharedInstance = EndpointMapper()
 
 public protocol HostMapCacheStorable {
-    func setEntry(entry:[String: AnyObject], key:String)
-    func getEntry(key:String) -> [String: AnyObject]?
-    func remove(key:String)
+    func setEntry(_ entry:[String: AnyObject], key:String)
+    func getEntry(_ key:String) -> [String: AnyObject]?
+    func remove(_ key:String)
 }
 
 public struct ProtocolHostPair: CustomStringConvertible, CustomDebugStringConvertible {
@@ -39,42 +39,42 @@ func == (left:ProtocolHostPair, right:ProtocolHostPair) -> Bool {
     return left.host == right.host && left.hostProtocol == right.hostProtocol
 }
 
-public class EndpointMapper {
+open class EndpointMapper {
     
-    private var mappedHosts = [String: ProtocolHostPair]()
+    fileprivate var mappedHosts = [String: ProtocolHostPair]()
     
-    private init() {
+    fileprivate init() {
         
     }
     
-    public class var sharedInstance: EndpointMapper {
+    open class var sharedInstance: EndpointMapper {
         return _EndpointMapperSharedInstance
     }
     
-    public class func addProtocolHostMappedPair(mappedPair:ProtocolHostPair, canonicalHost:String) {
+    open class func addProtocolHostMappedPair(_ mappedPair:ProtocolHostPair, canonicalHost:String) {
         EndpointMapper.sharedInstance.mappedHosts[canonicalHost] = mappedPair
     }
     
-    public class func removeProtocolHostMappedPair(canonicalHost:String) {
+    open class func removeProtocolHostMappedPair(_ canonicalHost:String) {
         EndpointMapper.sharedInstance.mappedHosts[canonicalHost] = nil
     }
     
-    public class func mappedPairForCanonicalHost(canonicalHost:String) -> (ProtocolHostPair?) {
+    open class func mappedPairForCanonicalHost(_ canonicalHost:String) -> (ProtocolHostPair?) {
         return EndpointMapper.sharedInstance.mappedHosts[canonicalHost]
     }
     
 }
 
-public class HostMap {
-    public let canonicalProtocolHost:ProtocolHostPair
+open class HostMap {
+    open let canonicalProtocolHost:ProtocolHostPair
     
-    public var releaseKey = ""
-    public var prereleaseKey = ""
-    public var mappedPairs = [String: ProtocolHostPair]()
-    public var sortedKeys = [String]()
-    public var editableKeys = [String]()
+    open var releaseKey = ""
+    open var prereleaseKey = ""
+    open var mappedPairs = [String: ProtocolHostPair]()
+    open var sortedKeys = [String]()
+    open var editableKeys = [String]()
 
-    public var canonicalHost:String {
+    open var canonicalHost:String {
         if let host = canonicalProtocolHost.host {
             return host
         }
@@ -85,32 +85,32 @@ public class HostMap {
         self.canonicalProtocolHost = canonicalProtocolHostPair
     }
     
-    public func pairWithKey(key:String) -> ProtocolHostPair? {
+    open func pairWithKey(_ key:String) -> ProtocolHostPair? {
         return mappedPairs[key]
     }
 
-    public func isEditable(key:String) -> Bool {
+    open func isEditable(_ key:String) -> Bool {
         return editableKeys.contains(key)
     }
 }
 
-public class HostMapManager {
-    public var hostMaps = [HostMap]()
+open class HostMapManager {
+    open var hostMaps = [HostMap]()
 
-    private var hostMapCache:HostMapCache!
+    fileprivate var hostMapCache:HostMapCache!
     
     required public init(cacheStore:HostMapCacheStorable?) {
         self.hostMapCache = HostMapCache(cacheStore: cacheStore)
     }
     
 
-    public func loadConfigurationMapFromResourceFile(fileName:String) -> Bool {
+    open func loadConfigurationMapFromResourceFile(_ fileName:String) -> Bool {
         let result = HostConfigurationsLoader.loadConfigurationsFromResourceFile(fileName, manager: self)
         self.restoreFromCache()
         return result
     }
 
-    public func setReleaseConfigurations() {
+    open func setReleaseConfigurations() {
         for hostMap in self.hostMaps {
             if let releasePair = hostMap.pairWithKey(hostMap.releaseKey) {
                 EndpointMapper.addProtocolHostMappedPair(releasePair, canonicalHost: hostMap.canonicalHost)
@@ -118,7 +118,7 @@ public class HostMapManager {
         }
     }
 
-    public func setPrereleaseConfigurations() {
+    open func setPrereleaseConfigurations() {
         for hostMap in self.hostMaps {
             if let preReleasePair = hostMap.pairWithKey(hostMap.prereleaseKey) {
                 EndpointMapper.addProtocolHostMappedPair(preReleasePair, canonicalHost: hostMap.canonicalHost)
@@ -126,7 +126,7 @@ public class HostMapManager {
         }
     }
 
-    public func setConfigurationForCanonicalHost(configurationKey:String, mappedHost:String?, canonicalHost:String, withCaching:Bool = true) {
+    open func setConfigurationForCanonicalHost(_ configurationKey:String, mappedHost:String?, canonicalHost:String, withCaching:Bool = true) {
         for hostMap in self.hostMaps {
             if hostMap.canonicalProtocolHost.host == canonicalHost {
                 var runtimePair = hostMap.pairWithKey(configurationKey)
@@ -157,7 +157,7 @@ public class HostMapManager {
     }
 
 
-    private func restoreFromCache() {
+    fileprivate func restoreFromCache() {
         for hostMap in self.hostMaps {
             if let (key, host) = self.hostMapCache.retreiveCachedKeyAndHostForCanonicalHost(hostMap.canonicalHost) {
                 self.setConfigurationForCanonicalHost(key, mappedHost:host, canonicalHost: hostMap.canonicalHost, withCaching: false)
@@ -165,18 +165,18 @@ public class HostMapManager {
         }
     }
 
-    private class HostConfigurationsLoader {
+    fileprivate class HostConfigurationsLoader {
     
-        private class func loadConfigurationsFromResourceFile(fileName:String, manager:HostMapManager) -> Bool {
+        fileprivate class func loadConfigurationsFromResourceFile(_ fileName:String, manager:HostMapManager) -> Bool {
             var result = false
             
             if let hostDictionary = NSDictionary.dictionaryFromResourceFile(fileName) {
                 result = true
                 
-                if let configurations:NSArray = hostDictionary.objectForKey("configurations") as? NSArray {
+                if let configurations:NSArray = hostDictionary.object(forKey: "configurations") as? NSArray {
                     
                     for configuration in configurations {
-                        HostConfigurationsLoader.handleConfiguration(configuration, manager: manager)
+                        HostConfigurationsLoader.handleConfiguration(configuration as AnyObject, manager: manager)
                     }
                     
                 }
@@ -186,7 +186,7 @@ public class HostMapManager {
             return result
         }
 
-        private class func handleConfiguration(configuration:AnyObject, manager:HostMapManager) {
+        fileprivate class func handleConfiguration(_ configuration:AnyObject, manager:HostMapManager) {
             if let config:[String: AnyObject] = configuration as? [String: AnyObject] {
                 let canonicalHost:String? = config[HostConfigurationKey.CanonicalHost.rawValue] as? String
                 let canonicalProtocol:String? = config[HostConfigurationKey.CanonicalProtocol.rawValue] as? String
@@ -244,7 +244,7 @@ private class NilMarker :NSObject {
 
 extension Dictionary {
     
-    private subscript(key:HostConfigurationKey) -> NSObject {
+    fileprivate subscript(key:HostConfigurationKey) -> NSObject {
         for k in self.keys {
             if let kstring = k as? String {
                 if kstring == key.rawValue {
@@ -269,7 +269,7 @@ private class HostMapCache {
         self.cacheStore = cacheStore
     }
 
-    func cacheKeyAndHost(key:String, mappedHost:String, forCanonicalHost canonicalHost:String) {
+    func cacheKeyAndHost(_ key:String, mappedHost:String, forCanonicalHost canonicalHost:String) {
         var mutableCache:[String: AnyObject]?
         if let cache:[String: AnyObject] = cacheStore?.getEntry(squidKitHostMapCacheKey) {
             mutableCache = cache
@@ -287,7 +287,7 @@ private class HostMapCache {
     }
 
     
-    func retreiveCachedKeyAndHostForCanonicalHost(canonicalHost:String) -> (String, String)? {
+    func retreiveCachedKeyAndHostForCanonicalHost(_ canonicalHost:String) -> (String, String)? {
         var result:(String, String)?
         if let cache:[String: AnyObject] = cacheStore?.getEntry(squidKitHostMapCacheKey) {
             if let hostDict:[String: String] = cache[canonicalHost] as? [String: String] {
@@ -297,10 +297,10 @@ private class HostMapCache {
         return result
     }
 
-    func removeCachedKeyForCanonicalHost(canonicalHost:String) {
+    func removeCachedKeyForCanonicalHost(_ canonicalHost:String) {
         if let cache:[String: AnyObject] = cacheStore?.getEntry(squidKitHostMapCacheKey) {
             var mutableCache = cache
-            mutableCache.removeValueForKey(canonicalHost)
+            mutableCache.removeValue(forKey: canonicalHost)
             cacheStore?.setEntry(mutableCache, key: squidKitHostMapCacheKey)
         }
     }

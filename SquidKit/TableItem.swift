@@ -9,58 +9,58 @@
 import Foundation
 
 @objc public protocol TableActions {
-    func deselect(indexPath:NSIndexPath)
+    func deselect(_ indexPath:IndexPath)
     func reload()
-    func pushViewController(storyboardName:String, storyboardID:String)
-    func presentViewController(storyboardName:String, storyboardID:String)
+    func pushViewController(_ storyboardName:String, storyboardID:String)
+    func presentViewController(_ storyboardName:String, storyboardID:String)
 }
 
-public class TableItem {
+open class TableItem {
     
-    public class Tag {
+    open class Tag {
         let value:Int
         public init(value:Int) {
             self.value = value
         }
     }
     
-    public var title:String?
-    public var detailTitle:String?
-    public var imageName:String?
-    public var image:UIImage?
+    open var title:String?
+    open var detailTitle:String?
+    open var imageName:String?
+    open var image:UIImage?
     
-    public var rowHeight:Float? {
+    open var rowHeight:Float? {
         return nil
     }
-    public var reuseIdentifier:String?
-    public var tag:Tag?
-    public var selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () = {(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in}
+    open var reuseIdentifier:String?
+    open var tag:Tag?
+    open var selectBlock:(_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableActions?) -> () = {(item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in}
     
-    public var valueBlock:(item:TableItem) -> AnyObject? = {(item:TableItem) -> AnyObject? in
+    open var valueBlock:(_ item:TableItem) -> AnyObject? = {(item:TableItem) -> AnyObject? in
         return nil
     }
     
-    public var setValueBlock:(item:TableItem, value:AnyObject?) -> () = {(item:TableItem, value:AnyObject?) -> () in}
+    open var setValueBlock:(_ item:TableItem, _ value:AnyObject?) -> () = {(item:TableItem, value:AnyObject?) -> () in}
     
-    public var enabledBlock:(item:TableItem) -> Bool = {(item:TableItem) -> Bool in
+    open var enabledBlock:(_ item:TableItem) -> Bool = {(item:TableItem) -> Bool in
         return true
     }
     
-    public convenience init(_ title:String, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
+    public convenience init(_ title:String, selectBlock:@escaping (_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableActions?) -> ()) {
         self.init(title, reuseIdentifier:nil, selectBlock:selectBlock)
     }
     
-    public convenience init(_ title:String, reuseIdentifier:String?, selectBlock:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> ()) {
+    public convenience init(_ title:String, reuseIdentifier:String?, selectBlock:@escaping (_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableActions?) -> ()) {
         self.init(title, reuseIdentifier:reuseIdentifier)
         self.selectBlock = selectBlock
     }
     
-    public convenience init(_ title:String, reuseIdentifier:String?, valueBlock:(item:TableItem) -> AnyObject?) {
+    public convenience init(_ title:String, reuseIdentifier:String?, valueBlock:@escaping (_ item:TableItem) -> AnyObject?) {
         self.init(title, reuseIdentifier:reuseIdentifier)
         self.valueBlock = valueBlock
     }
     
-    public convenience init(_ title:String, reuseIdentifier:String?, valueBlock:(item:TableItem) -> AnyObject?, setValueBlock:(item:TableItem, value:AnyObject?) -> ()) {
+    public convenience init(_ title:String, reuseIdentifier:String?, valueBlock:@escaping (_ item:TableItem) -> AnyObject?, setValueBlock:@escaping (_ item:TableItem, _ value:AnyObject?) -> ()) {
         self.init(title, reuseIdentifier:reuseIdentifier, valueBlock:valueBlock)
         self.setValueBlock = setValueBlock
     }
@@ -74,17 +74,17 @@ public class TableItem {
         self.reuseIdentifier = reuseIdentifier
     }
     
-    public func titleForIndexPath(indexPath:NSIndexPath) -> String? {
+    open func titleForIndexPath(_ indexPath:IndexPath) -> String? {
         return nil
     }
     
-    public func value() -> AnyObject? {
-        let blockValue:AnyObject? = self.valueBlock(item: self)
+    open func value() -> AnyObject? {
+        let blockValue:AnyObject? = self.valueBlock(self)
         return blockValue
     }
     
-    public func setValue(value:AnyObject?) {
-        self.setValueBlock(item: self, value: value)
+    open func setValue(_ value:AnyObject?) {
+        self.setValueBlock(self, value)
     }
 }
 
@@ -101,15 +101,15 @@ extension TableItem: CustomStringConvertible, CustomDebugStringConvertible {
     }
 }
 
-public class TableSection {
-    public var items = [TableItem]()
-    public var title:String?
+open class TableSection {
+    open var items = [TableItem]()
+    open var title:String?
     
-    public var count:Int {
+    open var count:Int {
         return items.count
     }
     
-    public var height:Float? {
+    open var height:Float? {
         return title == nil ? 0 : nil
     }
     
@@ -121,11 +121,11 @@ public class TableSection {
         self.title = title
     }
     
-    public func append(item:TableItem) {
+    open func append(_ item:TableItem) {
         self.items.append(item)
     }
     
-    public subscript(index:Int) -> TableItem? {
+    open subscript(index:Int) -> TableItem? {
         if (index < items.count) {
             return items[index]
         }
@@ -133,9 +133,9 @@ public class TableSection {
         return nil
     }
     
-    public subscript(tag:TableItem.Tag) -> TableItem? {
+    open subscript(tag:TableItem.Tag) -> TableItem? {
         for item in items {
-            if let itemTag = item.tag where itemTag.value == tag.value {
+            if let itemTag = item.tag , itemTag.value == tag.value {
                 return item
             }
         }

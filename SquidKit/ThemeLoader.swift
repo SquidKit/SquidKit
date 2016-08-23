@@ -11,9 +11,9 @@
 
 import UIKit
 
-public class ThemeLoader {
+open class ThemeLoader {
     
-    public class func loadThemesFromResourceFile(fileName:String) -> Bool {
+    open class func loadThemesFromResourceFile(_ fileName:String) -> Bool {
         var result = false
         
         let json = JSONEntity(resourceFilename: fileName)
@@ -40,7 +40,7 @@ public class ThemeLoader {
                 if theme.name != nil && themeDictionary.count > 0 {
                     var swDictionary = [String: AnyObject]()
                     
-                    themeDictionary.enumerateKeysAndObjectsUsingBlock({ (key:AnyObject!, value:AnyObject!, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
+                    themeDictionary.enumerateKeysAndObjects({ (key:AnyObject!, value:AnyObject!, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
                         swDictionary[key as! String] = value!
                     })
                     
@@ -58,10 +58,10 @@ public class ThemeLoader {
         return result
     }
     
-    class func attributeFromAttributeEntity(entity:JSONEntity) -> (String, AnyObject?) {
+    class func attributeFromAttributeEntity(_ entity:JSONEntity) -> (String, AnyObject?) {
         
         if let dictionary = entity.dictionary() {
-            if let _ = dictionary.objectForKey("color") as? String {
+            if let _ = dictionary.object(forKey: "color") as? String {
                 return (entity.key, ThemeLoader.colorFromAttributeDictionary(dictionary))
             }
         }
@@ -69,11 +69,11 @@ public class ThemeLoader {
         return (entity.key, entity.realValue)
     }
     
-    class func colorFromAttributeDictionary(attributeDictionary:NSDictionary) -> UIColor? {
+    class func colorFromAttributeDictionary(_ attributeDictionary:NSDictionary) -> UIColor? {
         var color:UIColor?
         
-        if let hexColor:String = attributeDictionary.objectForKey("color") as? String {
-            let alpha:NSNumber? = attributeDictionary.objectForKey("alpha") as? NSNumber
+        if let hexColor:String = attributeDictionary.object(forKey: "color") as? String {
+            let alpha:NSNumber? = attributeDictionary.object(forKey: "alpha") as? NSNumber
             color = UIColor.colorWithHexString(hexColor, alpha: alpha != nil ? Float(alpha!.floatValue) : 1)
         }
         

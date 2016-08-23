@@ -8,98 +8,98 @@
 
 import UIKit
 
-public class TableItemBackedTableViewController: UITableViewController {
+open class TableItemBackedTableViewController: UITableViewController {
 
-    public var model = Model()
+    open var model = Model()
     
     
     // MARK: - Table View
     
-    public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let height = self.model[indexPath]?.rowHeight {
             return CGFloat(height)
         }
         return tableView.rowHeight
     }
     
-    public override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    open override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if let height = self.model[section]?.height {
             return CGFloat(height)
         }
         return tableView.sectionHeaderHeight
     }
     
-    public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    open override func numberOfSections(in tableView: UITableView) -> Int {
         return self.model.sections.count
     }
     
-    public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.model[section]!.count
     }
     
-    public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let item = self.model[indexPath] {
-            item.selectBlock(item:item, indexPath:indexPath, actionsTarget:self)
+            item.selectBlock(item, indexPath as NSIndexPath, self)
         }
     }
     
-    public override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    open override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.model[section]!.title
     }
     
     // MARK: - Model
     
-    public class Model {
-        private var sections = [TableSection]()
+    open class Model {
+        fileprivate var sections = [TableSection]()
         
-        private init() {
+        fileprivate init() {
             
         }
         
-        public func append(section:TableSection) {
+        open func append(_ section:TableSection) {
             sections.append(section)
         }
         
-        public func insert(section:TableSection, atIndex:Int) {
-            sections.insert(section, atIndex: atIndex)
+        open func insert(_ section:TableSection, atIndex:Int) {
+            sections.insert(section, at: atIndex)
         }
         
-        public func remove(section:TableSection) {
-            if let index = sections.indexOf ({$0 === section}) {
-                sections.removeAtIndex(index)
+        open func remove(_ section:TableSection) {
+            if let index = sections.index (where: {$0 === section}) {
+                sections.remove(at: index)
             }
         }
         
-        public func reset() {
+        open func reset() {
             sections = [TableSection]()
         }
         
-        public func indexForSection(section:TableSection) -> Int? {
-            return sections.indexOf{$0 === section}
+        open func indexForSection(_ section:TableSection) -> Int? {
+            return sections.index{$0 === section}
         }
         
-        public func indexPathForItem(item:TableItem) -> NSIndexPath? {
-            for (count, element) in sections.enumerate() {
-                if let itemIndex = element.items.indexOf({$0 === item}) {
-                    return NSIndexPath(forRow: itemIndex, inSection: count)
+        open func indexPathForItem(_ item:TableItem) -> IndexPath? {
+            for (count, element) in sections.enumerated() {
+                if let itemIndex = element.items.index(where: {$0 === item}) {
+                    return IndexPath(row: itemIndex, section: count)
                 }
             }
             
             return nil
         }
         
-        public subscript(indexPath:NSIndexPath) -> TableItem? {
-            return self[indexPath.section, indexPath.row]
+        open subscript(indexPath:IndexPath) -> TableItem? {
+            return self[(indexPath as NSIndexPath).section, (indexPath as NSIndexPath).row]
         }
         
-        public subscript(section:Int, row:Int) -> TableItem? {
+        open subscript(section:Int, row:Int) -> TableItem? {
             if sections.count > section && sections[section].count > row {
                 return sections[section][row]
             }
             return nil
         }
         
-        public subscript(tag:TableItem.Tag) -> TableItem? {
+        open subscript(tag:TableItem.Tag) -> TableItem? {
             for section in sections {
                 if let item:TableItem = section[tag] {
                     return item
@@ -108,7 +108,7 @@ public class TableItemBackedTableViewController: UITableViewController {
             return nil
         }
         
-        public subscript(section:Int) -> TableSection? {
+        open subscript(section:Int) -> TableSection? {
             if sections.count > section {
                 return sections[section]
             }
@@ -121,24 +121,24 @@ public class TableItemBackedTableViewController: UITableViewController {
 
 extension TableItemBackedTableViewController: TableActions {
 
-    public func deselect(indexPath:NSIndexPath) {
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    public func deselect(_ indexPath:IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
     }
 
     public func reload() {
         self.tableView.reloadData()
     }
     
-    public func pushViewController(storyboardName:String, storyboardID:String) {
+    public func pushViewController(_ storyboardName:String, storyboardID:String) {
         if let navigationController = self.navigationController {
-            let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) 
+            let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewController(withIdentifier: storyboardID) 
             navigationController.pushViewController(viewController, animated: true)
         }
     }
     
-    public func presentViewController(storyboardName:String, storyboardID:String) {
-        let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewControllerWithIdentifier(storyboardID) 
-        self.presentViewController(viewController, animated: true, completion: nil)
+    public func presentViewController(_ storyboardName:String, storyboardID:String) {
+        let viewController:UIViewController = UIStoryboard(name:storyboardName, bundle:nil).instantiateViewController(withIdentifier: storyboardID) 
+        self.present(viewController, animated: true, completion: nil)
     }
 
 }

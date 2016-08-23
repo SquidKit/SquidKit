@@ -8,20 +8,20 @@
 
 import UIKit
 
-public class ThemeView: UIView {
+open class ThemeView: UIView {
     
-    @IBInspectable public var backgroundColorName:String? = "defaultBackgroundColor" {
+    @IBInspectable open var backgroundColorName:String? = "defaultBackgroundColor" {
         didSet {
             self.updateBackgroundColor()
         }
     }
     
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         super.awakeFromNib()
         self.updateBackgroundColor()
     }
     
-    private func updateBackgroundColor() {
+    fileprivate func updateBackgroundColor() {
         if (self.backgroundColorName != nil) {
             if let color = Theme.activeTheme()?.colorForKey(self.backgroundColorName!, defaultValue: self.backgroundColor) {
                 self.backgroundColor = color

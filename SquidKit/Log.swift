@@ -10,21 +10,21 @@ import Foundation
 import UIKit
 
 public enum LogStatus {
-    case Always
-    case Simulator
-    case Never
+    case always
+    case simulator
+    case never
 }
 
 private let _SquidKitLogSharedInstance = Log()
 
-private func stdSwiftPrint(message:Any) {
+private func stdSwiftPrint(_ message:Any) {
     print(message)
 }
 
-public class Log {
+open class Log {
     
-    private var logStatus:LogStatus = .Simulator
-    private var isSimulator:Bool {
+    fileprivate var logStatus:LogStatus = .simulator
+    fileprivate var isSimulator:Bool {
         #if arch(i386) || arch(x86_64)
             return true
         #else
@@ -32,32 +32,32 @@ public class Log {
         #endif
     }
     
-    public var loggingEnabled:Bool {
+    open var loggingEnabled:Bool {
         switch self.logStatus {
-        case .Always:
+        case .always:
             return true
-        case .Simulator:
+        case .simulator:
             return self.isSimulator
-        case .Never:
+        case .never:
             return false
         }
     }
     
-    private init() {
+    fileprivate init() {
         
     }
     
-    public class var sharedLogger:Log {
+    open class var sharedLogger:Log {
         get {
             return _SquidKitLogSharedInstance
         }
     }
     
-    public class func setLogStatus(status:LogStatus) {
+    open class func setLogStatus(_ status:LogStatus) {
         _SquidKitLogSharedInstance.logStatus = status
     }
     
-    public class func print<T>(@autoclosure output:() -> T?) {
+    open class func print<T>(_ output:@autoclosure () -> T?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
             if let object = output() {
                 stdSwiftPrint(object)
@@ -65,7 +65,7 @@ public class Log {
         }
     }
         
-    public class func message(@autoclosure output: () -> String?) {
+    open class func message(_ output: @autoclosure () -> String?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
             if let message = output() {
                 NSLog(message)
@@ -73,17 +73,17 @@ public class Log {
         }
     }
     
-    public class func simulatorAppBundleURL() {
+    open class func simulatorAppBundleURL() {
         #if arch(i386) || arch(x86_64)
-            Log.message("Simulator app bundle URL: \(NSBundle.mainBundle().bundleURL)")
+            Log.message("Simulator app bundle URL: \(Bundle.main.bundleURL)")
         #endif
     }
     
-    public class func rect(rect:CGRect, message:String = "") {
+    open class func rect(_ rect:CGRect, message:String = "") {
         Log.message(message + "rect -> x: \(rect.origin.x); y: \(rect.origin.y); width: \(rect.size.width); height: \(rect.size.height)");
     }
     
-    public class func point(point:CGPoint, message:String = "") {
+    open class func point(_ point:CGPoint, message:String = "") {
         Log.message(message + "point -> x: \(point.x); y: \(point.y)");
     }
 }

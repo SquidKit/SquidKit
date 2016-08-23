@@ -10,7 +10,7 @@ import UIKit
 
 public extension UIView {
     
-    public func centerInView(containingView:UIView) {
+    public func centerInView(_ containingView:UIView) {
         var rect = self.frame
         rect.origin.x = floor(containingView.bounds.origin.x + (containingView.bounds.size.width - rect.size.width) / 2)
         rect.origin.y = floor(containingView.bounds.origin.y + (containingView.bounds.size.height - rect.size.height) / 2)

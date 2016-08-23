@@ -11,24 +11,24 @@ import Foundation
 // Facility to help with implementing KVO in Swift code. This isn't a KVO substitute, rather it relies on Objective-C KVO, thus participants must be
 // NSObject-derived classes.
 
-public typealias KVObservingBlock = (keyPath: String, object: AnyObject, change: [NSObject: AnyObject]) -> Void
+public typealias KVObservingBlock = (_ keyPath: String, _ object: AnyObject, _ change: [NSObject: AnyObject]) -> Void
 
 @objc public protocol KVObserving {
     
-    func observableObject(kvoHelper kvoHelper:KVOHelper) -> NSObject?
+    func observableObject(kvoHelper:KVOHelper) -> NSObject?
     
-    optional func observeValueForKeyPath(kvoHelper kvoHelper:KVOHelper, keyPath: String, ofObject object: AnyObject, change: [NSObject: AnyObject])
+    @objc optional func observeValueForKeyPath(kvoHelper:KVOHelper, keyPath: String, ofObject object: AnyObject, change: [NSObject: AnyObject])
     
 }
 
-public class KVOHelper : NSObject {
+open class KVOHelper : NSObject {
     
-    static private var observerContext = 0
+    static fileprivate var observerContext = 0
     
-    private var keys = [String]()
-    private var blockMap = [String: KVObservingBlock]()
-    private unowned let observer:NSObject
-    private unowned var observed:NSObject
+    fileprivate var keys = [String]()
+    fileprivate var blockMap = [String: KVObservingBlock]()
+    fileprivate unowned let observer:NSObject
+    fileprivate unowned var observed:NSObject
     
     public init(observerObject:NSObject) {
         
@@ -37,7 +37,7 @@ public class KVOHelper : NSObject {
         
         super.init()
         
-        if let observing:KVObserving = self.observer as? KVObserving where observing.observableObject(kvoHelper:self) != nil {
+        if let observing:KVObserving = self.observer as? KVObserving , observing.observableObject(kvoHelper:self) != nil {
             observed = observing.observableObject(kvoHelper:self)!
         }        
         
@@ -50,55 +50,56 @@ public class KVOHelper : NSObject {
     }
     
     // register to observe a key path. callback will happen via the KVObserving protocol's observeValueForKeyPath method
-    public func observe(keyPath keyPath:String) {
+    open func observe(keyPath:String) {
             if !keys.contains(keyPath) {
-                observed.addObserver(self, forKeyPath: keyPath, options: .New, context: &KVOHelper.observerContext)
+                observed.addObserver(self, forKeyPath: keyPath, options: .new, context: &KVOHelper.observerContext)
                 keys.append(keyPath)
             }
     }
     
     // register to observe a key path, with specified callback block (KVObserving protocol not involved)
-    public func observe(keyPath keyPath:String, block:KVObservingBlock) {
+    open func observe(keyPath:String, block:KVObservingBlock) {
         if !keys.contains(keyPath) {
-            observed.addObserver(self, forKeyPath: keyPath, options: .New, context: &KVOHelper.observerContext)
+            observed.addObserver(self, forKeyPath: keyPath, options: .new, context: &KVOHelper.observerContext)
             keys.append(keyPath)
             blockMap[keyPath] = block
         }
     }
     
     // register to observe multiple key paths, with single specified callback block (KVObserving protocol not involved)
-    public func observe(keyPaths keyPaths:[String], block:KVObservingBlock) {
+    open func observe(keyPaths:[String], block:KVObservingBlock) {
         for keyPath in keyPaths {
             self.observe(keyPath: keyPath, block: block)
         }
     }
     
     // unobserve a key path
-    public func unobserve(keyPath:String) {
+    open func unobserve(_ keyPath:String) {
             if keys.contains(keyPath) {
                 observed.removeObserver(self, forKeyPath: keyPath, context: &KVOHelper.observerContext)
-                keys.removeAtIndex(keys.indexOf(keyPath)!)
-                blockMap.removeValueForKey(keyPath)
+                keys.remove(at: keys.index(of: keyPath)!)
+                blockMap.removeValue(forKey: keyPath)
             }
     }
     
-    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    
+    open override func  observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        guard let aKeyPath = keyPath, anObject = object, aChange = change else {
+        guard let aKeyPath = keyPath, let anObject = object, let aChange = change else {
             return
         }
         if context == &KVOHelper.observerContext {
             if let observing:KVObserving = self.observer as? KVObserving {
                 if let block = blockMap[aKeyPath] {
-                    block(keyPath: aKeyPath, object: anObject, change: aChange)
+                    block(aKeyPath, anObject as AnyObject, aChange as [NSObject : AnyObject])
                 }
                 else {
-                    observing.observeValueForKeyPath?(kvoHelper:self, keyPath: aKeyPath, ofObject: anObject, change: aChange)
+                    observing.observeValueForKeyPath?(kvoHelper:self, keyPath: aKeyPath, ofObject: anObject as AnyObject, change: aChange as [NSObject : AnyObject])
                 }
             }
         }
         else {
-            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
     

@@ -19,15 +19,15 @@ private class CacheEntry {
     init(identifier:String) {
         self.identifier = identifier
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CacheEntry.handleLowMemory(_:)), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CacheEntry.handleLowMemory(_:)), name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
         clear()
     }
     
-    @objc func handleLowMemory(notification:NSNotification?) {
+    @objc func handleLowMemory(_ notification:Notification?) {
         clear()
     }
     
@@ -36,15 +36,15 @@ private class CacheEntry {
     }
 }
 
-public class Cache<T:NSObject> {
+open class Cache<T:NSObject> {
     
-    private var cacheEntry:CacheEntry?
+    fileprivate var cacheEntry:CacheEntry?
     
     public init () {
         
         let cacheIdentifier = cacheIdentifierPrefix + NSStringFromClass(T.self)
         for cache in caches {
-            if cacheIdentifier == cache.identifier {
+            if cacheIdentifier == cache.identifier as String {
                 self.cacheEntry = cache
             }
         }
@@ -55,34 +55,34 @@ public class Cache<T:NSObject> {
         }
     }
     
-    public func insert(object:T, key:AnyObject) {
+    open func insert(_ object:T, key:AnyObject) {
         self.cacheEntry!.cache.setObject(object, forKey: key)
     }
     
-    public func get(key:AnyObject) -> T? {
-        return self.cacheEntry!.cache.objectForKey(key) as? T
+    open func get(_ key:AnyObject) -> T? {
+        return self.cacheEntry!.cache.object(forKey: key) as? T
     }
     
-    public func get(request:NSURLRequest) -> T? {
+    open func get(_ request:URLRequest) -> T? {
         switch request.cachePolicy {
-            case .ReloadIgnoringLocalCacheData, .ReloadIgnoringLocalAndRemoteCacheData:
+            case .reloadIgnoringLocalCacheData, .reloadIgnoringLocalAndRemoteCacheData:
                 return nil
             default:
                 break;
         }
         
-        return self.get(request.URL!)
+        return self.get(request.url!)
     }
     
-    public subscript(key:AnyObject) -> T? {
+    open subscript(key:AnyObject) -> T? {
         return self.get(key)
     }
     
-    public subscript(request:NSURLRequest) -> T? {
+    open subscript(request:URLRequest) -> T? {
         return self.get(request)
     }
     
-    public func clear () -> Void {
+    open func clear () -> Void {
         self.cacheEntry?.clear()
     }
     

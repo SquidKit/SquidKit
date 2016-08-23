@@ -10,8 +10,8 @@ import Foundation
 
 public struct StyledString {
     
-    private let editingString:NSMutableAttributedString!
-    private var editingAttributes:[String : AnyObject]!
+    fileprivate let editingString:NSMutableAttributedString!
+    fileprivate var editingAttributes:[String : AnyObject]!
     
     var attributedString:NSAttributedString {
         return self.editingString.copy() as! NSAttributedString
@@ -27,28 +27,28 @@ public struct StyledString {
         editingAttributes = copyFrom.editingAttributes
     }
     
-    public func pushString(string:String) -> StyledString {
+    public func pushString(_ string:String) -> StyledString {
         let attString = NSMutableAttributedString(string: string, attributes: editingAttributes)
-        editingString.appendAttributedString(attString)
+        editingString.append(attString)
         return self
     }
     
-    public mutating func pushAttributes(attributes:[String : AnyObject]) -> StyledString {
+    public mutating func pushAttributes(_ attributes:[String : AnyObject]) -> StyledString {
         editingAttributes.unionInPlace(attributes)
         return self
     }
     
-    public mutating func popAttributes(attributes:[String]) -> StyledString {
-        let _ = attributes.map {editingAttributes.removeValueForKey($0)}
+    public mutating func popAttributes(_ attributes:[String]) -> StyledString {
+        let _ = attributes.map {editingAttributes.removeValue(forKey: $0)}
         return self
     }
     
-    public mutating func pushColor(color:UIColor) -> StyledString {
+    public mutating func pushColor(_ color:UIColor) -> StyledString {
         self.pushAttributes([NSForegroundColorAttributeName : color])
         return self
     }
     
-    public mutating func pushFont(font:UIFont) -> StyledString {
+    public mutating func pushFont(_ font:UIFont) -> StyledString {
         self.pushAttributes([NSFontAttributeName : font])
         return self
     }
@@ -89,7 +89,7 @@ public func - (left:StyledString, right:[String]) -> StyledString {
 }
 
 private extension Dictionary {
-    mutating func unionInPlace(dictionary: Dictionary) {
+    mutating func unionInPlace(_ dictionary: Dictionary) {
         dictionary.forEach { self.updateValue($1, forKey: $0) }
     }
 }

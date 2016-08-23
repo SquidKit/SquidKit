@@ -15,10 +15,10 @@ import UIKit
 private let _ThemeManagerSharedInstance = ThemeManager()
 
 public protocol ThemeManagerLoggable {
-    func log<T>(@autoclosure output:() -> T?)
+    func log<T>(_ output:@autoclosure () -> T?)
 }
 
-public class ThemeManager {
+open class ThemeManager {
     
     var themes = [String: Theme]()
     
@@ -30,7 +30,7 @@ public class ThemeManager {
         }
     }
     
-    public class var sharedInstance: ThemeManager {
+    open class var sharedInstance: ThemeManager {
         return _ThemeManagerSharedInstance
     }
     
@@ -38,7 +38,7 @@ public class ThemeManager {
         
     }
     
-    public func setActiveThemeByName(name:String) {
+    open func setActiveThemeByName(_ name:String) {
         
         if let foundTheme = themes[name] {
             self.activeTheme = foundTheme
@@ -48,15 +48,15 @@ public class ThemeManager {
         }
     }
     
-    public func setDefaultTheme() {
+    open func setDefaultTheme() {
         if themes.count > 0 {
             var arrayOfKeys:[String] = Array(themes.keys)
-            arrayOfKeys = arrayOfKeys.sort()
+            arrayOfKeys = arrayOfKeys.sorted()
             self.activeTheme = themes[arrayOfKeys[0]]
         }
     }
     
-    public func updateThemedSubviewsOfView(view:UIView, recursive:Bool = true) {
+    open func updateThemedSubviewsOfView(_ view:UIView, recursive:Bool = true) {
         for aView in view.subviews {
             aView.setNeedsDisplay()
             if (recursive) {
@@ -67,17 +67,17 @@ public class ThemeManager {
 
 }
 
-public class Theme {
+open class Theme {
 
-    public var name:String?
+    open var name:String?
     
     var dictionary:[String: AnyObject]?
     
-    public class func activeTheme() -> Theme? {
+    open class func activeTheme() -> Theme? {
         return ThemeManager.sharedInstance.activeTheme
     }
     
-    public class func anyTheme() -> Theme {
+    open class func anyTheme() -> Theme {
         if let activeTheme = ThemeManager.sharedInstance.activeTheme {
             return activeTheme
         }
@@ -88,30 +88,30 @@ public class Theme {
         
     }
     
-    func objectForKey(key:String) -> AnyObject? {
+    func objectForKey(_ key:String) -> AnyObject? {
         let object:AnyObject? = self.dictionary![key]
         return object;
     }
     
-    internal func setKeyAndObject(key:String, object:AnyObject) {
+    internal func setKeyAndObject(_ key:String, object:AnyObject) {
         self.dictionary = [key: object]
     }
     
-    public func colorForKey(key:String, defaultValue:UIColor?) -> UIColor? {
+    open func colorForKey(_ key:String, defaultValue:UIColor?) -> UIColor? {
         if let someColor = self.objectForKey(key) as? UIColor {
             return someColor
         }
         return defaultValue
     }
     
-    public func stringForKey(key:String, defaultValue:String? = nil) -> String? {
+    open func stringForKey(_ key:String, defaultValue:String? = nil) -> String? {
         if let someString = self.objectForKey(key) as? String {
             return someString
         }
         return defaultValue
     }
     
-    public func numberForKey(key:String, defaultValue:NSNumber? = nil) -> NSNumber? {
+    open func numberForKey(_ key:String, defaultValue:NSNumber? = nil) -> NSNumber? {
         if let someNumber = self.objectForKey(key) as? NSNumber {
             return someNumber
         }
@@ -119,7 +119,7 @@ public class Theme {
         return defaultValue
     }
     
-    public func boolForKey(key:String, defaultValue:Bool = false) -> Bool {
+    open func boolForKey(_ key:String, defaultValue:Bool = false) -> Bool {
         if let someNumber = self.numberForKey(key) {
             return someNumber.boolValue
         }
@@ -127,7 +127,7 @@ public class Theme {
         return defaultValue
     }
     
-    public func floatForKey(key:String, defaultValue:Float = 0) -> Float {
+    open func floatForKey(_ key:String, defaultValue:Float = 0) -> Float {
         if let someNumber = self.numberForKey(key) {
             return someNumber.floatValue
         }
@@ -135,9 +135,9 @@ public class Theme {
         return defaultValue
     }
     
-    public func intForKey(key:String, defaultValue:Int = 0) -> Int {
+    open func intForKey(_ key:String, defaultValue:Int = 0) -> Int {
         if let someNumber = self.numberForKey(key) {
-            return someNumber.integerValue
+            return someNumber.intValue
         }
         
         return defaultValue

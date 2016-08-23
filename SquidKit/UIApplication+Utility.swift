@@ -11,11 +11,11 @@ import UIKit
 public extension UIApplication {
     
     public func displayName() -> String {
-        if let name:String = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as? String where name.characters.count > 0 {
+        if let name:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String , name.characters.count > 0 {
             return name
         }
         
-        return NSBundle.mainBundle().objectForInfoDictionaryKey(kCFBundleNameKey as String) as! String
+        return Bundle.main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as! String
     }
     
 }

@@ -10,7 +10,7 @@ import UIKit
 
 public extension String {
     
-    public static func nonNilString(string:String?, stringForNil:String = "") -> String {
+    public static func nonNilString(_ string:String?, stringForNil:String = "") -> String {
         if let nonNilString = string {
             return nonNilString
         }
@@ -19,26 +19,26 @@ public extension String {
     }
 
     public static func guid() -> String {
-        let uuid:CFUUIDRef = CFUUIDCreate(kCFAllocatorDefault)
+        let uuid:CFUUID = CFUUIDCreate(kCFAllocatorDefault)
 
         let guid = CFUUIDCreateString(kCFAllocatorDefault, uuid) as NSString
         return guid as String
     }
     
-    public static func deserializeJSON(jsonObject:AnyObject, pretty:Bool) -> String? {
+    public static func deserializeJSON(_ jsonObject:AnyObject, pretty:Bool) -> String? {
         
         var result:String?
         
-        if NSJSONSerialization.isValidJSONObject(jsonObject) {
-            let outputStream:NSOutputStream = NSOutputStream.outputStreamToMemory()
+        if JSONSerialization.isValidJSONObject(jsonObject) {
+            let outputStream:OutputStream = OutputStream.toMemory()
             outputStream.open()
             var error:NSError?
-            let bytesWritten:Int = NSJSONSerialization.writeJSONObject(jsonObject, toStream: outputStream, options: pretty ? NSJSONWritingOptions.PrettyPrinted : NSJSONWritingOptions(rawValue: 0), error: &error)
+            let bytesWritten:Int = JSONSerialization.writeJSONObject(jsonObject, to: outputStream, options: pretty ? JSONSerialization.WritingOptions.prettyPrinted : JSONSerialization.WritingOptions(rawValue: 0), error: &error)
             outputStream.close()
             
             if bytesWritten > 0 {
-                if let data:NSData = outputStream.propertyForKey(NSStreamDataWrittenToMemoryStreamKey) as? NSData {
-                    result = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+                if let data:Data = outputStream.property(forKey: Stream.PropertyKey.dataWrittenToMemoryStreamKey) as? Data {
+                    result = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
                 }
             }
         }
@@ -47,35 +47,35 @@ public extension String {
     }
 
     public func stringByTrimmingLeadingWhitespace() -> String {
-        if let range = self.rangeOfString("^\\s*", options:.RegularExpressionSearch) {
-            let result = self.stringByReplacingCharactersInRange(range, withString: "")
+        if let range = self.range(of: "^\\s*", options:.regularExpression) {
+            let result = self.replacingCharacters(in: range, with: "")
             return result
         }
         return self
     }
 
     public func stringByTrimmingTrailingWhitespace() -> String {
-        if let range = self.rangeOfString("\\s*$", options:.RegularExpressionSearch) {
-            let result = self.stringByReplacingCharactersInRange(range, withString: "")
+        if let range = self.range(of: "\\s*$", options:.regularExpression) {
+            let result = self.replacingCharacters(in: range, with: "")
             return result
         }
         return self
     }
 
     public func phoneDigitsString() -> String {
-        let characterSet = NSCharacterSet(charactersInString: "()- ")
-        let components:NSArray = self.componentsSeparatedByCharactersInSet(characterSet)
-        return components.componentsJoinedByString("")
+        let characterSet = CharacterSet(charactersIn: "()- ")
+        let components:NSArray = self.components(separatedBy: characterSet)
+        return components.componentsJoined(by: "")
     }
 
-    public func phoneURL() -> NSURL {
-        return NSURL(string: "tel://\(self.phoneDigitsString())")!
+    public func phoneURL() -> URL {
+        return URL(string: "tel://\(self.phoneDigitsString())")!
     }
 
     public func validEmail() -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         let predicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return predicate.evaluateWithObject(self)
+        return predicate.evaluate(with: self)
     }
     
     

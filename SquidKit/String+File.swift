@@ -11,39 +11,39 @@ import Foundation
 public extension String {
     
     public static func stringWithPathToResourceDirectory() -> String {
-        return NSBundle.mainBundle().resourcePath!
+        return Bundle.main.resourcePath!
     }
     
-    public static func stringWithPathToResourceFile(fileName:String) -> String {
+    public static func stringWithPathToResourceFile(_ fileName:String) -> String {
         let path = String.stringWithPathToResourceDirectory()
-        var url = NSURL(fileURLWithPath: path)
-        url = url.URLByAppendingPathComponent(fileName)
-        return url.path!
+        var url = URL(fileURLWithPath: path)
+        url = url.appendingPathComponent(fileName)
+        return url.path
     }
     
-    public static func stringWithContentsOfResourceFile(fileName:String) -> String? {
+    public static func stringWithContentsOfResourceFile(_ fileName:String) -> String? {
         let filePath = String.stringWithPathToResourceFile(fileName)
-        if let data = NSFileManager.defaultManager().contentsAtPath(filePath) {
-            return NSString(data:data, encoding:NSUTF8StringEncoding) as? String
+        if let data = FileManager.default.contents(atPath: filePath) {
+            return NSString(data:data, encoding:String.Encoding.utf8.rawValue) as? String
         }
         
         return nil
     }
     
-    public static func stringWithPathToDocumentsFile(fileName:String) -> String? {
+    public static func stringWithPathToDocumentsFile(_ fileName:String) -> String? {
         if let path = String.pathToDocumentsDirectory() {
-            var url = NSURL(fileURLWithPath: path)
-            url = url.URLByAppendingPathComponent(fileName)
+            var url = URL(fileURLWithPath: path)
+            url = url.appendingPathComponent(fileName)
             return url.path
         }
         
         return nil
     }
     
-    public static func stringWithContentsOfDocumentsFile(fileName:String) -> String? {
+    public static func stringWithContentsOfDocumentsFile(_ fileName:String) -> String? {
         if let filePath = String.stringWithPathToDocumentsFile(fileName) {
-            if let data = NSFileManager.defaultManager().contentsAtPath(filePath) {
-                return NSString(data:data, encoding:NSUTF8StringEncoding) as? String
+            if let data = FileManager.default.contents(atPath: filePath) {
+                return NSString(data:data, encoding:String.Encoding.utf8.rawValue) as? String
             }
         }
         
@@ -51,22 +51,22 @@ public extension String {
     }
     
     public static func pathToApplicationBundle() -> String {
-        return NSBundle.mainBundle().bundlePath
+        return Bundle.main.bundlePath
     }
     
     public static func pathToDocumentsDirectory() -> String? {
         
-        return String.pathToUserDirectory(NSSearchPathDirectory.DocumentDirectory)
+        return String.pathToUserDirectory(FileManager.SearchPathDirectory.documentDirectory)
     }
     
     public static func pathToCacheDirectory() -> String? {
         
-        return String.pathToUserDirectory(NSSearchPathDirectory.CachesDirectory)
+        return String.pathToUserDirectory(FileManager.SearchPathDirectory.cachesDirectory)
     }
     
-    public static func pathToUserDirectory(directory: NSSearchPathDirectory) -> String? {
+    public static func pathToUserDirectory(_ directory: FileManager.SearchPathDirectory) -> String? {
         
-        if let directories:[String] = NSSearchPathForDirectoriesInDomains(directory, NSSearchPathDomainMask.UserDomainMask, true) {
+        if let directories:[String] = NSSearchPathForDirectoriesInDomains(directory, FileManager.SearchPathDomainMask.userDomainMask, true) {
             return directories.last!
         }
         return nil
