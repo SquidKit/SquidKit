@@ -33,17 +33,8 @@ open class Endpoint {
         case unknownError(NSError?)
     }
     
-    var request:Request?
     
     
-// MARK: - Server Trust Policy
-    
-    // OVERRIDE
-    open var serverTrustPolicy:[String: ServerTrustPolicy] {
-        get {
-            return Dictionary<String, ServerTrustPolicy>()
-        }
-    }
     
 // MARK: - Methods
     
@@ -66,15 +57,6 @@ open class Endpoint {
         return ""
     }
     
-    // OVERRIDE: retrun either the body or URL params, along with the http method (i.e. .GET, .POST, etc)
-    open func params() -> ([String: AnyObject]?, Method) {
-        return (nil, .GET)
-    }
-    
-    // OVERRIDE: return desired parameter encoding; default will be URL for GETs and JSON for POSTs
-    open func encoding() -> ParameterEncoding? {
-        return nil
-    }
     
     // OVERRIDE: return additional HTTP headers
     open func additionalHeaders() -> [NSObject : AnyObject]? {
@@ -86,9 +68,6 @@ open class Endpoint {
         return (nil, nil)
     }
     
-    open func cancel() {
-        self.request?.cancel()
-    }
     
     open func url() -> String {
         var aProtocol = self.hostProtocol()
@@ -116,11 +95,11 @@ open class Endpoint {
     func formatError(_ response:HTTPURLResponse?, error:NSError?) -> ResponseStatus {
         if (response != nil) {
             var errorMessage:String?
-            if let message:AnyObject = response!.allHeaderFields["Error"] {
-                errorMessage = message as? String
+            if let message = response!.allHeaderFields["Error"] as? String  {
+                errorMessage = message
             }
-            else if let message:AnyObject = response!.allHeaderFields["Status"] {
-                errorMessage = message as? String
+            else if let message = response!.allHeaderFields["Status"] as? String {
+                errorMessage = message
             }
             let statusCode = response!.statusCode
             
