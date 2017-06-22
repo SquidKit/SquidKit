@@ -11,6 +11,7 @@ SquidKit is a collection of classes and related code that would often be useful 
 ## Versions
 Release  | Supported OS    | Notes
 -------- | -------------   | ------
+3.0		 | iOOS 9.0 and up | Updated to Swift 3. Removed Alamofire subproject, and various networking utilities that depended on Alamofire
 2.0      | iOS 9.0 and up  | Updated to work with Alamofire 3.0<br>Updated to Swift 2.2
 1.2      | iOS 8.0 and up  | Cache\<T\> now clears in response to UIApplicationDidReceiveMemoryWarningNotification<br><br>Added clear method to Cache\<T\> <br><br>Removed support for iOS 7.x.
 1.1      | iOS 7.1 and up  | added image downloading, URLImageView, and caching<br>removed built frameworks - don't see that it added any real benefit
@@ -18,59 +19,6 @@ Release  | Supported OS    | Notes
 
 ## Major functional components
 
-### Networking
-SquidKit networking is built on top of the excellent [Alamofire][1] networking library written by Mattt Thompson. SquidKit takes networking abstraction a bit further by building upon the idea that most apps communicate with a set of endpoints, each with their own set of query or post parameters, and which return data as JSON. Thus, SquidKit introduces the Endpoint class, which is designed to be overridden by various endpoint configurations. SquidKit provides one such overriding class - JSONResponseEndpoint - which is an Endpoint that expects a JSON response format. Defining an endpoint is typically as simple as overriding 3 methods:
-* override func host() -> String
-* override func path() -> String
-* override func params() -> ([String: AnyObject]?, SquidKit.Method)
-
-*Example*
-```swift
-class TestEndpoint: JSONResponseEndpoint {
-    
-    override func host() -> String {
-        return "httpbin.org"
-    }
-    
-    override func path() -> String {
-        return "get"
-    }
-        
-    override func params() -> ([String: AnyObject]?, SquidKit.Method) {
-        return (["foo": "bar"], .GET)
-    }
-   
-}
-```
-
-Connecting to an endpoint is as simple as calling a connect function with a completion handler in the form of a closure. The JSONResponseEndpoint's connect function looks like this:
-
-```swift
-public func connect(completionHandler: ([String: AnyObject]?, ResponseStatus) -> Void)
-```
-
-*Example*
-```swift
-MyEndpoint.connect {(JSON, status) -> Void in
-    switch status {
-    case .OK:
-        Log.print("JSON: \(JSON)")
-    case .HTTPError(let code, let message):
-        Log.print("\(code): \(message)")
-    case .NotConnectedError:
-        Log.message("maybe turn on the internets")
-    case .HostConnectionError:
-        Log.message("can't find that host")
-    case .ResourceUnavailableError:
-        Log.message("can't find what you're looking for")
-    case .UnknownError(let error):
-        Log.print(error)
-    default:
-        break
-    }
-```
-
-In the SquidKitExample project that is included with SquidKit, take a look at TestEndpoint.swift and EndpointTestTableViewController.swift for further examples of working with SquidKit networking.
 
 ### Network host environments
 Typically in a development project, one is working with a variety of service environments for a collection of endpoints - production, QA and dev are common examples. SquidKit offers an elegant and complete solution for putting environment switching capabilities into your iOS application *(note: it is often useful to leave such capabilities in your production app as well, especially if you want to test your production app against planned service modifications. We'll leave it to you as to how you might wish to hide the service configuration UI from your users)*. In SquidKit, providing an environment switcher is as easy as providing a JSON file that describes your various environments, and including SquidKit's HostConfigurationTableViewController that provides the UI for switching among the environments described in your JSON file.
@@ -153,67 +101,6 @@ HostMapManager.sharedInstance.hostMapCache = nil
 ```
   
   
-In the SquidKitExample project, see EndpointExampleViewController.swift, TestEndpoint.swift and HostMap.json for examples of all of the above.
-
-### Remote Image Handling
-SquidKit offers and extension of the Alamofire Request class that provides for image (jpeg and png) serialization. Image serialization supports background thread decompression, using a port of AFNetworking's _AFInflatedImageFromResponseWithDataAtScale_ method (as ported by Martin Conte Mac Donell). SquidKit also offers optional local caching of images downloaded through the Request extension. For more on caching, see the Caching section below.
-
-Image requests are serviced by the responseImageCacheable and responseImage methods (the former does caching, the latter does not). Typical usage would like like this:
-```swift
-let url = NSURL(string: "http://static1.squarespace.com/static/52eea758e4b0fff11bf07129/52eeeda0e4b0fff11bf09db9/52eeee57e4b0cfc36d9583d1/1391390297091/DSCF0984.jpg")
-                        
-SquidKit.request(.GET, url!).responseImageCacheable {
-    (_, _, image:UIImage?) -> Void in
-    if image != nil {
-        // do something with it
-    }
-}
-```
-See Alamofire+Image.swift for the responseImage and related functions. See RemoteImageViewController.swift in the SquidKitExample project for usage examples.
-
-##### URLImageView
-SquidKit also offers a UIImageView subclass which handles the details of fetching and displaying remote images. URLImageView has a simple _load_ and _cancel_ interface. It can optionally display an activity indicator by setting it's _activityIndicatorType_ member to the appropriate value:
-```swift
-public enum URLImageViewActivityIndicatorType {
-    case None
-    case Dark
-    case Light
-    case LightLarge
-}
-
-public var activityIndicatorType:URLImageViewActivityIndicatorType = .None
-```
-
-URLImageView has a set of simple appearance animation options - none, fade, and fade if not cached (URLImageView caches images by default):
-```swift
-public enum URLImageViewImageAppearanceType {
-    case None
-    case Fade(NSTimeInterval, Float, Float)
-    case FadeIfNotCached(NSTimeInterval, Float, Float)
-}
-
-public var imageAppearanceType:URLImageViewImageAppearanceType = .None
-```
-The parameters to the two fade options are fade animation duration, initial alpha value and final alpha value, respectively.
-
-Example usage:
-```swift
-// within a UIViewController...
-
-@IBOutlet var imageView:URLImageView?
-    
-var urlString = "http://static1.squarespace.com/static/52eea758e4b0fff11bf07129/52eeeda0e4b0fff11bf09db9/52eeee41e4b0b43e3bb4e615/1391390276529/DSC_3729.jpg"
-
-override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-    
-	self.imageView?.imageAppearanceType = .FadeIfNotCached(0.5, 0.0, 1.0)
-    self.imageView?.urlString = urlString
-    self.imageView?.activityIndicatorType = .Dark
-    self.imageView?.load()
-}
-```
-See URLImageViewController.swift in the SquidKitExample project for more details.
 
 ### JSON parsing
 While not quite a full on parser, SquidKit offers a utility for working with JSON response data that abstracts away some of the ugliness of directly dealing with Dictionary objects and extracting values therein. SquidKit handles JSON data with one public class: JSONEntity. JSONEntity is effectively a wrapper for a JSON element's key and value. Unlike walking through a Dictionary checking to see if particular keys exist, a JSONEntity is guaranteed to be non-nil, thus always directly inspectable without checking for nil optional values.
