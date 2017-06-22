@@ -11,7 +11,7 @@ import Foundation
 public struct StyledString {
     
     fileprivate let editingString:NSMutableAttributedString!
-    fileprivate var editingAttributes:[String : AnyObject]!
+    fileprivate var editingAttributes:[NSAttributedStringKey : Any]!
     
     var attributedString:NSAttributedString {
         return self.editingString.copy() as! NSAttributedString
@@ -19,7 +19,7 @@ public struct StyledString {
     
     public init() {
         editingString = NSMutableAttributedString()
-        editingAttributes = [String : AnyObject]()
+        editingAttributes = [NSAttributedStringKey : Any]()
     }
     
     public init(copyFrom:StyledString) {
@@ -35,23 +35,23 @@ public struct StyledString {
     }
     
     @discardableResult
-    public mutating func pushAttributes(_ attributes:[String : AnyObject]) -> StyledString {
+    public mutating func pushAttributes(_ attributes:[NSAttributedStringKey : Any]) -> StyledString {
         editingAttributes.unionInPlace(attributes)
         return self
     }
     
-    public mutating func popAttributes(_ attributes:[String]) -> StyledString {
+    public mutating func popAttributes(_ attributes:[NSAttributedStringKey]) -> StyledString {
         let _ = attributes.map {editingAttributes.removeValue(forKey: $0)}
         return self
     }
     
     public mutating func pushColor(_ color:UIColor) -> StyledString {
-        self.pushAttributes([NSForegroundColorAttributeName : color])
+        self.pushAttributes([NSAttributedStringKey.foregroundColor : color])
         return self
     }
     
     public mutating func pushFont(_ font:UIFont) -> StyledString {
-        self.pushAttributes([NSFontAttributeName : font])
+        self.pushAttributes([NSAttributedStringKey.font : font])
         return self
     }
     
@@ -65,7 +65,7 @@ public func + (left:StyledString, right:String) -> StyledString {
     return styled
 }
 
-public func + (left:StyledString, right:[String : AnyObject]) -> StyledString {
+public func + (left:StyledString, right:[NSAttributedStringKey: Any]) -> StyledString {
     var styled = StyledString(copyFrom: left)
     styled = styled.pushAttributes(right)
     return styled
@@ -84,7 +84,7 @@ public func + (left:StyledString, right:UIFont) -> StyledString {
 }
 
 
-public func - (left:StyledString, right:[String]) -> StyledString {
+public func - (left:StyledString, right:[NSAttributedStringKey]) -> StyledString {
     var styled = StyledString(copyFrom: left)
     styled = styled.popAttributes(right)
     return styled
@@ -92,6 +92,6 @@ public func - (left:StyledString, right:[String]) -> StyledString {
 
 private extension Dictionary {
     mutating func unionInPlace(_ dictionary: Dictionary) {
-        dictionary.forEach { self.updateValue($1, forKey: $0) }
+        dictionary.forEach { self.updateValue($0.1, forKey: $0.0) }
     }
 }
