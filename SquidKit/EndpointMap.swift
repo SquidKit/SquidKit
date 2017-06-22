@@ -26,7 +26,7 @@ public struct ProtocolHostPair: CustomStringConvertible, CustomDebugStringConver
     }
     
     public var description: String {
-        return "ProtocolHostPair: protocol = \(hostProtocol); host = \(host)"
+        return "ProtocolHostPair: protocol = \(String(describing: hostProtocol)); host = \(String(describing: host))"
     }
 
     public var debugDescription: String {
@@ -281,7 +281,7 @@ private class HostMapCache {
         var dictionaryItem = [String: String]()
         dictionaryItem["key"] = key
         dictionaryItem["host"] = mappedHost
-        mutableCache![canonicalHost] = dictionaryItem
+        mutableCache![canonicalHost] = dictionaryItem as AnyObject?
         
         cacheStore?.setEntry(mutableCache!, key: squidKitHostMapCacheKey)
     }

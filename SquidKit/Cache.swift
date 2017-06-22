@@ -13,8 +13,8 @@ private var caches = [CacheEntry]()
 private var cacheIdentifierPrefix = "com.squidkit.cache.type."
 
 private class CacheEntry {
-    var cache = NSCache()
-    var identifier:NSString
+    var cache = Cache()
+    var identifier:String
     
     init(identifier:String) {
         self.identifier = identifier
@@ -32,7 +32,7 @@ private class CacheEntry {
     }
     
     func clear () {
-        self.cache.removeAllObjects()
+        cache.clear()
     }
 }
 
@@ -56,11 +56,15 @@ open class Cache<T:NSObject> {
     }
     
     open func insert(_ object:T, key:AnyObject) {
-        self.cacheEntry!.cache.setObject(object, forKey: key)
+        self.cacheEntry!.cache.insert(object, key: key)
     }
     
     open func get(_ key:AnyObject) -> T? {
-        return self.cacheEntry!.cache.object(forKey: key) as? T
+        return self.cacheEntry!.cache.get(key) as? T
+    }
+    
+    open func get(_ key:String) -> T? {
+        return self.cacheEntry!.cache.get(key) as? T
     }
     
     open func get(_ request:URLRequest) -> T? {
@@ -71,7 +75,11 @@ open class Cache<T:NSObject> {
                 break;
         }
         
-        return self.get(request.url!)
+        guard let url = request.url else {
+            return nil
+        }
+        
+        return self.get(url.absoluteString)
     }
     
     open subscript(key:AnyObject) -> T? {

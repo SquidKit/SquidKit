@@ -16,8 +16,8 @@ class TallTableItem : TableItem {
 }
 
 class RepeatingTableItem : TableItem {
-    override func titleForIndexPath(indexPath:NSIndexPath) -> String? {
-        return "Section \(indexPath.section+1), Row \(indexPath.row+1)"
+    override func titleForIndexPath(_ indexPath:IndexPath) -> String? {
+        return "Section \((indexPath as NSIndexPath).section+1), Row \((indexPath as NSIndexPath).row+1)"
     }
 }
 
@@ -26,14 +26,14 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Log.setLogStatus(.Simulator)
+        Log.setLogStatus(.simulator)
                 
         // TableSections and TableItems are the model for our table view. Below, we create 3 sections, each with a single item.
         
         // navigator is the callback that we will use for the first 3 TableItems.
-        let navigator:(item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () = { (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
+        let navigator:(_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableActions?) -> () = { (item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in
             Log.message(item.title)
-            let detailVC:DetailViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewControllerWithIdentifier("detailVC") as! DetailViewController
+            let detailVC:DetailViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "detailVC") as! DetailViewController
             detailVC.detailItem = item
             self.navigationController!.pushViewController(detailVC, animated: true)
         }
@@ -66,19 +66,19 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
 
     // MARK: - Segues
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             let indexPath = self.tableView.indexPathForSelectedRow
             if let item = self.model[indexPath!] {
-                (segue.destinationViewController as! DetailViewController).detailItem = item
+                (segue.destination as! DetailViewController).detailItem = item
             }
         }
     }
 
     // MARK: - Table View
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         if let item = self.model[indexPath] {
             if let title = item.titleForIndexPath(indexPath) {

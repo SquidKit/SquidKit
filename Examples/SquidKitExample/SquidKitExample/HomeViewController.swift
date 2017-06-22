@@ -14,34 +14,34 @@ class HomeViewController: TableItemBackedTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tableItemExampleItem = NavigatingTableItem("Table Items Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"tableItemsExampleVC"))
+        let tableItemExampleItem = NavigatingTableItem("Table Items Example", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"tableItemsExampleVC"))
         
-        let themeExampleItem = NavigatingTableItem("Theme Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"themedVC"))
+        let themeExampleItem = NavigatingTableItem("Theme Example", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"themedVC"))
         
-        let endpointExampleItem = NavigatingTableItem("Network Endpoint Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"endpointTestVC"))
+        //let endpointExampleItem = NavigatingTableItem("Network Endpoint Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"endpointTestVC"))
         
-        let jsonExampleItem = NavigatingTableItem("JSON Entity Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"jsonEntityExampleVC"))
+        //let jsonExampleItem = NavigatingTableItem("JSON Entity Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"jsonEntityExampleVC"))
         
-        let remoteImageItem = NavigatingTableItem("Remote Image Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"remoteImageVC"))
+        //let remoteImageItem = NavigatingTableItem("Remote Image Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"remoteImageVC"))
         
-        let urlImageItem = NavigatingTableItem("URLImageView Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"urlImageVC"))
+        //let urlImageItem = NavigatingTableItem("URLImageView Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"urlImageVC"))
         
         
         let section = TableSection()
         section.append(tableItemExampleItem)
         section.append(themeExampleItem)
-        section.append(endpointExampleItem)
-        section.append(jsonExampleItem)
-        section.append(remoteImageItem)
-        section.append(urlImageItem)
+        //section.append(endpointExampleItem)
+        //section.append(jsonExampleItem)
+        //section.append(remoteImageItem)
+        //section.append(urlImageItem)
         self.model.append(section)
     }
 
     // MARK: - Table View
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = self.model[indexPath]!
-        let cell = tableView.dequeueReusableCellWithIdentifier(item.reuseIdentifier!, forIndexPath: indexPath) 
+        let cell = tableView.dequeueReusableCell(withIdentifier: item.reuseIdentifier!, for: indexPath) 
         cell.textLabel!.text = item.title
         return cell
     }

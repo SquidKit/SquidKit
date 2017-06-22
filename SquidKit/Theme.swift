@@ -25,7 +25,7 @@ open class ThemeManager {
     var activeTheme:Theme? {
         didSet {
             if let loaggable = self as? ThemeManagerLoggable {
-                loaggable.log("Active theme is now: \(activeTheme?.name)")
+                loaggable.log("Active theme is now: \(String(describing: activeTheme?.name))")
             }
         }
     }

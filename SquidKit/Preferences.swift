@@ -70,7 +70,7 @@ open class Preferences {
     }
     
     open func preference(_ key:String) -> AnyObject? {
-        return self.userDefaults.object(forKey: key)
+        return self.userDefaults.object(forKey: key) as AnyObject?
     }
     
     open func boolValue(_ key:String, defaultValue:Bool) -> Bool {

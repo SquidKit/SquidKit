@@ -39,7 +39,7 @@ open class TableItemBackedTableViewController: UITableViewController {
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let item = self.model[indexPath] {
-            item.selectBlock(item, indexPath as NSIndexPath, self)
+            item.selectBlock(item, indexPath, self)
         }
     }
     

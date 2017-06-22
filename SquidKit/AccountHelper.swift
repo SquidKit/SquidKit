@@ -11,12 +11,12 @@ import Accounts
 
 
 public protocol AccountHelperLoggable {
-    func log<T>(@autoclosure _ output:() -> T?)
+    func log<T>( _ output:@autoclosure () -> T?)
 }
 
 open class AccountHelper {
     
-    let acAccountTypeIdentifier:NSString!
+    let acAccountTypeIdentifier:String!
     
     open var accountUserFullName:String?
     open var accountUsername:String?
@@ -27,11 +27,11 @@ open class AccountHelper {
     open var facebookPermissions:[String]?
     
     
-    public init(accountIdentifier:NSString) {
+    public init(accountIdentifier:String) {
         self.acAccountTypeIdentifier = accountIdentifier
     }
     
-    open func authenticateWithCompletion(_ completion:(Bool) -> Void) {
+    open func authenticateWithCompletion(_ completion:@escaping (Bool) -> Void) {
         
         if (self.acAccountTypeIdentifier == ACAccountTypeIdentifierTwitter) {
             self.authenticateTwitter(completion)
@@ -42,17 +42,20 @@ open class AccountHelper {
         
     }
     
-    fileprivate func authenticateTwitter(_ completion:(Bool) -> Void) {
+    open func authenticateTwitter(_ completion:@escaping (Bool) -> Void) {
         let accountStore = ACAccountStore()
-        let acAccountTypeTwitter = accountStore.accountType(withAccountTypeIdentifier: ACAccountTypeIdentifierTwitter)
-        accountStore.requestAccessToAccounts(with: acAccountTypeTwitter, options: nil, completion: {[weak self] (success:Bool, error:NSError!) -> Void in
+        guard let acAccountTypeTwitter = accountStore.accountType(withAccountTypeIdentifier: ACAccountTypeIdentifierTwitter) else {
+            completion(false)
+            return
+        }
+        accountStore.requestAccessToAccounts(with: acAccountTypeTwitter, options: nil, completion: {[weak self] (success:Bool, error:Error?) -> Void in
             if success {
                 guard let strongSelf = self else {
                     completion(false)
                     return
                 }
                 if let twitterAccount = self?.firstAccount(accountStore, accountType: acAccountTypeTwitter) {
-                    strongSelf.logAccountAccessResult("Twitter: ", userFullName: String.nonNilString(twitterAccount.userFullName, stringForNil:"<nil>"), userName: twitterAccount.username, userIdentifier: twitterAccount.identifier)
+                    strongSelf.logAccountAccessResult("Twitter: ", userFullName: String.nonNilString(twitterAccount.userFullName, stringForNil:"<nil>"), userName: twitterAccount.username, userIdentifier: twitterAccount.identifier as String?)
                 }
             }
             
@@ -60,17 +63,20 @@ open class AccountHelper {
         })
     }
     
-    fileprivate func authenticateFacebook(_ completion:(Bool) -> Void) {
+    open func authenticateFacebook(_ completion:@escaping (Bool) -> Void) {
         let accountStore = ACAccountStore()
-        let acAccountTypeFacebook = accountStore.accountType(withAccountTypeIdentifier: ACAccountTypeIdentifierFacebook)
-        accountStore.requestAccessToAccounts(with: acAccountTypeFacebook, options: self.makeFacebookOptions(), completion: {[weak self] (success:Bool, error:NSError!) -> Void in
+        guard let acAccountTypeFacebook = accountStore.accountType(withAccountTypeIdentifier: ACAccountTypeIdentifierFacebook) else {
+            completion(false)
+            return
+        }
+        accountStore.requestAccessToAccounts(with: acAccountTypeFacebook, options: self.makeFacebookOptions(), completion: {[weak self] (success:Bool, error:Error?) -> Void in
             if success {
                 guard let strongSelf = self else {
                     completion(false)
                     return
                 }
                 if let facebookAccount = self?.firstAccount(accountStore, accountType: acAccountTypeFacebook) {
-                    strongSelf.logAccountAccessResult("Facebook: ", userFullName: String.nonNilString(facebookAccount.userFullName, stringForNil:"<nil>"), userName: facebookAccount.username, userIdentifier: facebookAccount.identifier)
+                    strongSelf.logAccountAccessResult("Facebook: ", userFullName: String.nonNilString(facebookAccount.userFullName, stringForNil:"<nil>"), userName: facebookAccount.username, userIdentifier: facebookAccount.identifier as String?)
                 }
             }
             
@@ -84,14 +90,14 @@ open class AccountHelper {
             loaggable.log   (
                                 accountPrefix + "\(userFullName)" + "\n" +
                                 accountPrefix + "\(userName)" + "\n" +
-                                accountPrefix + "\(userIdentifier)"
+                                accountPrefix + "\(String(describing: userIdentifier))"
                             )
         }
         
     }
     
-    fileprivate func makeFacebookOptions() -> [NSObject: AnyObject] {
-        var options = [NSObject: AnyObject]()
+    fileprivate func makeFacebookOptions() -> [AnyHashable : Any] {
+        var options = [AnyHashable: Any]()
         
         if let appId = self.facebookAppId {
             options[ACFacebookAppIdKey] = appId

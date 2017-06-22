@@ -38,7 +38,7 @@ public extension String {
             
             if bytesWritten > 0 {
                 if let data:Data = outputStream.property(forKey: Stream.PropertyKey.dataWrittenToMemoryStreamKey) as? Data {
-                    result = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as? String
+                    result = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as String?
                 }
             }
         }
@@ -64,8 +64,8 @@ public extension String {
 
     public func phoneDigitsString() -> String {
         let characterSet = CharacterSet(charactersIn: "()- ")
-        let components:NSArray = self.components(separatedBy: characterSet)
-        return components.componentsJoined(by: "")
+        let components = self.components(separatedBy: characterSet)
+        return components.joined(separator: "")
     }
 
     public func phoneURL() -> URL {

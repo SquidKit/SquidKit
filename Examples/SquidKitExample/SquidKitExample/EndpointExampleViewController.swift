@@ -43,7 +43,7 @@ class EnpointTableItem: TableItem {
         }
     }
     
-    override func titleForIndexPath(indexPath: NSIndexPath) -> String? {
+    override func titleForIndexPath(_ indexPath: IndexPath) -> String? {
         return self.endpoint.url()
     }
 }
@@ -85,7 +85,7 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         // Here we build the table view model. Using the "TableItem" model in this case isn't optimal, since we already have a real model
         // (i.e. the HostMaps that are in the HostMapManager). However, this simplifies getting the table view controller up and running...
         let configurationSection = TableSection("Configuration")
-        let configurationItem = TableItem("Configure", reuseIdentifier:"configCellIdentifier", selectBlock: {[weak self] (item:TableItem, indexPath:NSIndexPath, actionsTarget:TableActions?) -> () in
+        let configurationItem = TableItem("Configure", reuseIdentifier:"configCellIdentifier", selectBlock: {[weak self] (item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in
             let configurationViewController:HostConfigurationTableViewController = HostConfigurationTableViewController(style: .Grouped)
             if let strongSelf = self {
                 configurationViewController.hostMapManager = strongSelf.hostMapManager
@@ -104,12 +104,12 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
         self.model.append(endpointsSection)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell {
         
         let tableItem = self.model[indexPath]!
         
@@ -127,7 +127,7 @@ class EndpointExampleViewController: TableItemBackedTableViewController {
 }
 
 extension Endpoint : EndpointLoggable {
-    public func log<T>(@autoclosure output:() -> T?) {
+    public func log<T>(_ output:@autoclosure () -> T?) {
         Log.print(output)
     }
     
@@ -145,15 +145,15 @@ extension Endpoint : EndpointLoggable {
 }
 
 extension Preferences : HostMapCacheStorable {
-    public func setEntry(entry:[String: AnyObject], key:String) {
+    public func setEntry(_ entry:[String: AnyObject], key:String) {
         self.setPreference(entry, key: key)
     }
     
-    public func getEntry(key:String) -> [String: AnyObject]? {
+    public func getEntry(_ key:String) -> [String: AnyObject]? {
         return self.preference(key) as? [String: AnyObject]
     }
     
-    public func remove(key:String) {
+    public func remove(_ key:String) {
         self.remove(key)
     }
 }

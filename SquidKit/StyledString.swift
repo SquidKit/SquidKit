@@ -27,12 +27,14 @@ public struct StyledString {
         editingAttributes = copyFrom.editingAttributes
     }
     
+    @discardableResult
     public func pushString(_ string:String) -> StyledString {
         let attString = NSMutableAttributedString(string: string, attributes: editingAttributes)
         editingString.append(attString)
         return self
     }
     
+    @discardableResult
     public mutating func pushAttributes(_ attributes:[String : AnyObject]) -> StyledString {
         editingAttributes.unionInPlace(attributes)
         return self

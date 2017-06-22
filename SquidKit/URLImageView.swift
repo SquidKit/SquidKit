@@ -61,7 +61,7 @@ open class URLImageView: UIImageView {
             
             startActivity()
             
-            self.imageRequest = request(.GET, url!)
+            self.imageRequest = request(.GET, method: url!)
                 .responseImageCacheable {[unowned self] response in
                 
                 self.stopActivity()

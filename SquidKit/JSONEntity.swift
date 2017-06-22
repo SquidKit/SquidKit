@@ -150,7 +150,7 @@ open class JSONEntity: Sequence {
     
     open subscript(key:String) -> JSONEntity {
         if let e:NSDictionary = entity.value as? NSDictionary {
-            if let object:AnyObject = e.object(forKey: key) {
+            if let object:AnyObject = e.object(forKey: key) as AnyObject? {
                 return JSONEntity(key, object)
             }
         }

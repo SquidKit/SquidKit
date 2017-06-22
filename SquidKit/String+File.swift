@@ -24,7 +24,7 @@ public extension String {
     public static func stringWithContentsOfResourceFile(_ fileName:String) -> String? {
         let filePath = String.stringWithPathToResourceFile(fileName)
         if let data = FileManager.default.contents(atPath: filePath) {
-            return NSString(data:data, encoding:String.Encoding.utf8.rawValue) as? String
+            return NSString(data:data, encoding:String.Encoding.utf8.rawValue) as String?
         }
         
         return nil
@@ -43,7 +43,7 @@ public extension String {
     public static func stringWithContentsOfDocumentsFile(_ fileName:String) -> String? {
         if let filePath = String.stringWithPathToDocumentsFile(fileName) {
             if let data = FileManager.default.contents(atPath: filePath) {
-                return NSString(data:data, encoding:String.Encoding.utf8.rawValue) as? String
+                return NSString(data:data, encoding:String.Encoding.utf8.rawValue) as String?
             }
         }
         
@@ -66,9 +66,11 @@ public extension String {
     
     public static func pathToUserDirectory(_ directory: FileManager.SearchPathDirectory) -> String? {
         
-        if let directories:[String] = NSSearchPathForDirectoriesInDomains(directory, FileManager.SearchPathDomainMask.userDomainMask, true) {
+        let directories:[String] = NSSearchPathForDirectoriesInDomains(directory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        if directories.count > 0 {
             return directories.last!
         }
-        return nil
+
+            return nil
     }
 }

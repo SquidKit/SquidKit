@@ -58,7 +58,7 @@ open class KVOHelper : NSObject {
     }
     
     // register to observe a key path, with specified callback block (KVObserving protocol not involved)
-    open func observe(keyPath:String, block:KVObservingBlock) {
+    open func observe(keyPath:String, block:@escaping KVObservingBlock) {
         if !keys.contains(keyPath) {
             observed.addObserver(self, forKeyPath: keyPath, options: .new, context: &KVOHelper.observerContext)
             keys.append(keyPath)
@@ -67,7 +67,7 @@ open class KVOHelper : NSObject {
     }
     
     // register to observe multiple key paths, with single specified callback block (KVObserving protocol not involved)
-    open func observe(keyPaths:[String], block:KVObservingBlock) {
+    open func observe(keyPaths:[String], block:@escaping KVObservingBlock) {
         for keyPath in keyPaths {
             self.observe(keyPath: keyPath, block: block)
         }

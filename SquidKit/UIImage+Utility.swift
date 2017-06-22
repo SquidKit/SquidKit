@@ -23,7 +23,7 @@ public extension UIImage {
         let imageRect = CGRect(x: rect.origin.x, y: rect.origin.y, width: rect.size.width * scale, height: rect.size.height * scale)
         let imageRef = (viewImage?.cgImage)?.cropping(to: imageRect)
         
-        let resultImage = UIImage(CGImage: imageRef!)
+        let resultImage = UIImage(cgImage: imageRef!)
         
         return resultImage
     }

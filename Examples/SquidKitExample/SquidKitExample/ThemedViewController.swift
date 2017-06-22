@@ -14,7 +14,7 @@ class ThemedViewController: UIViewController {
     @IBOutlet weak var label:ThemeLabel?
 
     override func awakeFromNib() {
-        ThemeLoader.loadThemesFromResourceFile("ExampleTheme.json")
+        let _ = ThemeLoader.loadThemesFromResourceFile("ExampleTheme.json")
         ThemeManager.sharedInstance.setDefaultTheme()
     }
     
@@ -31,7 +31,7 @@ class ThemedViewController: UIViewController {
 }
 
 extension ThemeManager : ThemeManagerLoggable {
-    public func log<T>(@autoclosure output:() -> T?) {
+    public func log<T>(_ output:@autoclosure () -> T?) {
         Log.print(output)
     }
 }

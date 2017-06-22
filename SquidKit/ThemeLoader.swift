@@ -33,15 +33,15 @@ open class ThemeLoader {
                 for attribute in attributes {
                     let (key, value) = ThemeLoader.attributeFromAttributeEntity(attribute)
                     if value != nil {
-                        themeDictionary.setObject(value!, forKey: key)
+                        themeDictionary.setObject(value!, forKey: key as NSString)
                     }
                 }
                 
                 if theme.name != nil && themeDictionary.count > 0 {
                     var swDictionary = [String: AnyObject]()
                     
-                    themeDictionary.enumerateKeysAndObjects({ (key:AnyObject!, value:AnyObject!, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
-                        swDictionary[key as! String] = value!
+                    themeDictionary.enumerateKeysAndObjects({ (key:Any!, value:Any!, stop:UnsafeMutablePointer<ObjCBool>) -> Void in
+                        swDictionary[key as! String] = value as AnyObject
                     })
                     
                     theme.dictionary = swDictionary
