@@ -116,21 +116,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1C0C600E19BBB04D003E300C /* 3rdparty */ = {
-			isa = PBXGroup;
-			children = (
-				1C0C600F19BBB05E003E300C /* Alamofire */,
-			);
-			name = 3rdparty;
-			sourceTree = "<group>";
-		};
-		1C0C600F19BBB05E003E300C /* Alamofire */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Alamofire;
-			sourceTree = "<group>";
-		};
 		1C0C601319BBB0E6003E300C /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,7 +157,6 @@
 		1C8220D519A4F7E700A17B56 /* SquidKit */ = {
 			isa = PBXGroup;
 			children = (
-				1C0C600E19BBB04D003E300C /* 3rdparty */,
 				1C8220EF19A4F8EE00A17B56 /* Class Extensions */,
 				1C8220F019A4F8F500A17B56 /* Controller */,
 				1C8220EE19A4F8E800A17B56 /* JSON */,
@@ -184,7 +168,6 @@
 				1C57DAF219BD1982009226AD /* TableItem */,
 				1C8220F119A4F8FC00A17B56 /* Theme */,
 				1C8220F219A4F90B00A17B56 /* Utility */,
-				1CEE10621A81807F001ABD72 /* View */,
 			);
 			path = SquidKit;
 			sourceTree = "<group>";
@@ -283,13 +266,6 @@
 				1C8220D819A4F7E700A17B56 /* SquidKit.h */,
 			);
 			name = "Public Headers";
-			sourceTree = "<group>";
-		};
-		1CEE10621A81807F001ABD72 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = View;
 			sourceTree = "<group>";
 		};
 		1CF9389A1CC95E9500E2F94E /* Styled String */ = {
