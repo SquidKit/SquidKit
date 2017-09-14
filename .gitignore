@@ -17,6 +17,7 @@
 *.xcworkspace
 !default.xcworkspace
 xcuserdata
+*.xcuserdatad
 profile
 
 # Build products

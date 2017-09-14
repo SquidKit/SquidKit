@@ -18,6 +18,7 @@ class HomeViewController: TableItemBackedTableViewController {
         
         let themeExampleItem = NavigatingTableItem("Theme Example", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"themedVC"))
         
+        // removed for Swift 4
         //let endpointExampleItem = NavigatingTableItem("Network Endpoint Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"endpointTestVC"))
         
         //let jsonExampleItem = NavigatingTableItem("JSON Entity Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"jsonEntityExampleVC"))
