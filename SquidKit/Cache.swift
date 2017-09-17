@@ -6,20 +6,21 @@
 //  Copyright (c) 2015 SquidKit. All rights reserved.
 //
 
-import UIKit
+import Foundation
+
+fileprivate struct CacheManager {
+    static var caches = [Any]()
+}
 
 
-private var caches = [Any]()
-private var cacheIdentifierPrefix = "com.squidkit.cache.type."
-
-private class CacheEntry<KeyType:AnyObject, ObjectType:AnyObject> {
+fileprivate class CacheType<KeyType:AnyObject, ObjectType:AnyObject> {
     var cache = NSCache<KeyType, ObjectType>()
     var identifier:String
     
     init(identifier:String) {
         self.identifier = identifier
         
-        NotificationCenter.default.addObserver(self, selector: #selector(CacheEntry.handleLowMemory(_:)), name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CacheType.handleLowMemory(_:)), name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
     }
     
     deinit {
@@ -50,38 +51,37 @@ private class CacheEntry<KeyType:AnyObject, ObjectType:AnyObject> {
 
 open class Cache<KeyType:AnyObject, ObjectType:AnyObject> {
     
-    fileprivate var cacheEntry:CacheEntry<KeyType, ObjectType>?
-    
+    fileprivate var cacheType:CacheType<KeyType, ObjectType>?
     
     public init () {
         
-        let cacheIdentifier = cacheIdentifierPrefix + String(describing: KeyType.self) + "." + String(describing: ObjectType.self)
+        let cacheIdentifier = "com.squidkit.cache.type" + String(describing: KeyType.self) + "." + String(describing: ObjectType.self)
 
-        for cache in caches {
-            guard let entry = cache as? CacheEntry<KeyType, ObjectType> else {continue}
-            cacheEntry = entry
+        for cache in CacheManager.caches {
+            guard let entry = cache as? CacheType<KeyType, ObjectType> else {continue}
+            cacheType = entry
         }
         
-        if cacheEntry == nil {
-            cacheEntry = CacheEntry<KeyType, ObjectType>(identifier: cacheIdentifier)
-            caches.append(cacheEntry!)
+        if cacheType == nil {
+            cacheType = CacheType<KeyType, ObjectType>(identifier: cacheIdentifier)
+            CacheManager.caches.append(cacheType!)
         }
     }
     
     open func insert(_ object:ObjectType, key:KeyType) {
-        self.cacheEntry!.cache.setObject(object, forKey: key)
-        cacheEntry?.insert(object: object, key: key)
+        cacheType!.cache.setObject(object, forKey: key)
+        cacheType?.insert(object: object, key: key)
     }
     
     open func get(_ key:KeyType) -> ObjectType? {
-        return cacheEntry?.get(key)
+        return cacheType?.get(key)
     }
     
     open func get(_ key:String) -> ObjectType? {
         guard let keyString = key as? KeyType else {
             return nil
         }
-        return cacheEntry?.get(keyString)
+        return cacheType?.get(keyString)
     }
     
     open func get(_ request:URLRequest) -> ObjectType? {
@@ -96,23 +96,23 @@ open class Cache<KeyType:AnyObject, ObjectType:AnyObject> {
             return nil
         }
         
-        return self.get(url.absoluteString)
+        return get(url.absoluteString)
     }
     
     open func remove(forKey:KeyType) {
-        cacheEntry?.remove(forKey: forKey)
+        cacheType?.remove(forKey: forKey)
     }
     
     open subscript(key:KeyType) -> ObjectType? {
-        return self.get(key)
+        return get(key)
     }
     
     open subscript(request:URLRequest) -> ObjectType? {
-        return self.get(request)
+        return get(request)
     }
     
     open func clear () -> Void {
-        self.cacheEntry?.clear()
+        cacheType?.clear()
     }
     
 }
