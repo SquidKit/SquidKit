@@ -9,11 +9,11 @@
 import UIKit
 
 
-private var caches = [CacheEntry]()
+private var caches = [Any]()
 private var cacheIdentifierPrefix = "com.squidkit.cache.type."
 
-private class CacheEntry {
-    var cache = Cache()
+private class CacheEntry<KeyType:AnyObject, ObjectType:AnyObject> {
+    var cache = NSCache<KeyType, ObjectType>()
     var identifier:String
     
     init(identifier:String) {
@@ -32,42 +32,59 @@ private class CacheEntry {
     }
     
     func clear () {
-        cache.clear()
+        cache.removeAllObjects()
+    }
+    
+    func insert(object:ObjectType, key:KeyType) {
+        cache.setObject(object, forKey: key)
+    }
+    
+    func remove(forKey:KeyType) {
+        cache.removeObject(forKey: forKey)
+    }
+    
+    func get(_ key:KeyType) -> ObjectType? {
+        return cache.object(forKey: key)
     }
 }
 
-open class Cache<T:NSObject> {
+open class Cache<KeyType:AnyObject, ObjectType:AnyObject> {
     
-    fileprivate var cacheEntry:CacheEntry?
+    fileprivate var cacheEntry:CacheEntry<KeyType, ObjectType>?
+    
     
     public init () {
         
-        let cacheIdentifier = cacheIdentifierPrefix + NSStringFromClass(T.self)
+        let cacheIdentifier = cacheIdentifierPrefix + String(describing: KeyType.self) + "." + String(describing: ObjectType.self)
+
         for cache in caches {
-            if cacheIdentifier == cache.identifier as String {
-                self.cacheEntry = cache
-            }
+            guard let entry = cache as? CacheEntry<KeyType, ObjectType> else {continue}
+            cacheEntry = entry
         }
         
-        if self.cacheEntry == nil {
-            self.cacheEntry = CacheEntry(identifier:cacheIdentifier)
-            caches.append(self.cacheEntry!)
+        if cacheEntry == nil {
+            cacheEntry = CacheEntry<KeyType, ObjectType>(identifier: cacheIdentifier)
+            caches.append(cacheEntry!)
         }
     }
     
-    open func insert(_ object:T, key:AnyObject) {
-        self.cacheEntry!.cache.insert(object, key: key)
+    open func insert(_ object:ObjectType, key:KeyType) {
+        self.cacheEntry!.cache.setObject(object, forKey: key)
+        cacheEntry?.insert(object: object, key: key)
     }
     
-    open func get(_ key:AnyObject) -> T? {
-        return self.cacheEntry!.cache.get(key) as? T
+    open func get(_ key:KeyType) -> ObjectType? {
+        return cacheEntry?.get(key)
     }
     
-    open func get(_ key:String) -> T? {
-        return self.cacheEntry!.cache.get(key) as? T
+    open func get(_ key:String) -> ObjectType? {
+        guard let keyString = key as? KeyType else {
+            return nil
+        }
+        return cacheEntry?.get(keyString)
     }
     
-    open func get(_ request:URLRequest) -> T? {
+    open func get(_ request:URLRequest) -> ObjectType? {
         switch request.cachePolicy {
             case .reloadIgnoringLocalCacheData, .reloadIgnoringLocalAndRemoteCacheData:
                 return nil
@@ -82,11 +99,15 @@ open class Cache<T:NSObject> {
         return self.get(url.absoluteString)
     }
     
-    open subscript(key:AnyObject) -> T? {
+    open func remove(forKey:KeyType) {
+        cacheEntry?.remove(forKey: forKey)
+    }
+    
+    open subscript(key:KeyType) -> ObjectType? {
         return self.get(key)
     }
     
-    open subscript(request:URLRequest) -> T? {
+    open subscript(request:URLRequest) -> ObjectType? {
         return self.get(request)
     }
     
