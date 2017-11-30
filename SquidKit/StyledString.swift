@@ -13,7 +13,7 @@ public struct StyledString {
     fileprivate let editingString:NSMutableAttributedString!
     fileprivate var editingAttributes:[NSAttributedStringKey : Any]!
     
-    var attributedString:NSAttributedString {
+    public var attributedString:NSAttributedString {
         return self.editingString.copy() as! NSAttributedString
     }
     
