@@ -8,9 +8,9 @@
 
 import UIKit
 
-public typealias ImageDownloadCompletion = (UIImage?,Bool?) -> Void
-public protocol ImageDownloadService {
-    func download(url: URL, completion:@escaping ImageDownloadCompletion)
+public typealias URLImageDownloadingCompletion = (UIImage?,Bool?) -> Void
+public protocol URLImageDownloading {
+    func download(url: URL, completion:@escaping URLImageDownloadingCompletion)
     func cancel(url: URL)
 }
 
@@ -54,7 +54,7 @@ open class URLImageView: UIImageView {
         }
     }
     
-    open var downloadService:ImageDownloadService?
+    open var downloadService:URLImageDownloading?
     
     deinit {
         cancel()
@@ -68,20 +68,22 @@ open class URLImageView: UIImageView {
         startActivity()
         
         service.download(url: imageURL, completion: { [weak self] (image, wasCached) in
-            self?.stopActivity()
-            let cached = wasCached ?? false
-            guard let strongSelf = self else {return}
-            if let resultImage = image {
-                switch strongSelf.imageAppearanceType {
-                case .fade(let duration, let beginAlpha, let endAlpha):
-                    strongSelf.animateFade(resultImage, duration: duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
-                    
-                case .fadeIfNotCached(let duration, let beginAlpha, let endAlpha):
-                    strongSelf.animateFade(resultImage, duration: cached ? 0 : duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
-                    
-                default:
-                    strongSelf.image = resultImage
-                    strongSelf.setNeedsDisplay()
+            DispatchQueue.main.async {
+                self?.stopActivity()
+                let cached = wasCached ?? false
+                guard let strongSelf = self else {return}
+                if let resultImage = image {
+                    switch strongSelf.imageAppearanceType {
+                    case .fade(let duration, let beginAlpha, let endAlpha):
+                        strongSelf.animateFade(resultImage, duration: duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
+                        
+                    case .fadeIfNotCached(let duration, let beginAlpha, let endAlpha):
+                        strongSelf.animateFade(resultImage, duration: cached ? 0 : duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
+                        
+                    default:
+                        strongSelf.image = resultImage
+                        strongSelf.setNeedsDisplay()
+                    }
                 }
             }
         })

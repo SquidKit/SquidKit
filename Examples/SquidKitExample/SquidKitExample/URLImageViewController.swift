@@ -32,11 +32,11 @@ class URLImageViewController: UIViewController {
     }
 }
 
-class ImageDownloader: ImageDownloadService {
+class ImageDownloader: URLImageDownloading {
     
     var task: URLSessionDownloadTask?
     
-    func download(url: URL, completion: @escaping ImageDownloadCompletion) {
+    func download(url: URL, completion: @escaping URLImageDownloadingCompletion) {
         task = URLSession.shared.downloadTask(with: url, completionHandler: { (location, response, error) in
             guard let locationData = location else {
                 completion(nil, nil)
