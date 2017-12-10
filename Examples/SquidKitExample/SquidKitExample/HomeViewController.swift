@@ -18,6 +18,8 @@ class HomeViewController: TableItemBackedTableViewController {
         
         let themeExampleItem = NavigatingTableItem("Theme Example", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"themedVC"))
         
+        let urlImageItem = NavigatingTableItem("URLImageView Example", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"urlImageVC"))
+        
         // removed for Swift 4
         //let endpointExampleItem = NavigatingTableItem("Network Endpoint Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"endpointTestVC"))
         
@@ -25,16 +27,17 @@ class HomeViewController: TableItemBackedTableViewController {
         
         //let remoteImageItem = NavigatingTableItem("Remote Image Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"remoteImageVC"))
         
-        //let urlImageItem = NavigatingTableItem("URLImageView Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"urlImageVC"))
+        
         
         
         let section = TableSection()
         section.append(tableItemExampleItem)
         section.append(themeExampleItem)
+        section.append(urlImageItem)
         //section.append(endpointExampleItem)
         //section.append(jsonExampleItem)
         //section.append(remoteImageItem)
-        //section.append(urlImageItem)
+        
         self.model.append(section)
     }
 

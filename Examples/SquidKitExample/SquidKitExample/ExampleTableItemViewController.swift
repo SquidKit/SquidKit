@@ -61,7 +61,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
         repeatingItemSection.append(item4)
         repeatingItemSection.append(item4)
         self.model.append(repeatingItemSection)
-        
+                
     }
 
     // MARK: - Segues

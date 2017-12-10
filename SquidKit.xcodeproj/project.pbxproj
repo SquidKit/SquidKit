@@ -17,6 +17,8 @@
 		1C2B1CBD1D0222D70044B56D /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2B1CBC1D0222D70044B56D /* Dispatch.swift */; };
 		1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
 		1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
+		1C4C278A1FDCAD1C00ADF450 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4C27891FDCAD1B00ADF450 /* URLImageView.swift */; };
+		1C4C278B1FDCAD1C00ADF450 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4C27891FDCAD1B00ADF450 /* URLImageView.swift */; };
 		1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
 		1C57DAF119BCE3A7009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
 		1C6B73FF1AFC6CCA0060678A /* KVObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */; };
@@ -69,6 +71,7 @@
 		1C15BB511CB19B1400B894F0 /* UIApplication+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Utility.swift"; sourceTree = "<group>"; };
 		1C2B1CBC1D0222D70044B56D /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		1C4C27891FDCAD1B00ADF450 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
 		1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObserving.swift; sourceTree = "<group>"; };
 		1C81EF061EFC54B400A1AA0D /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		1C8220D319A4F7E700A17B56 /* SquidKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SquidKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +129,14 @@
 			name = Networking;
 			sourceTree = "<group>";
 		};
+		1C4C27881FDCACCF00ADF450 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1C4C27891FDCAD1B00ADF450 /* URLImageView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		1C57DAF219BD1982009226AD /* TableItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +179,7 @@
 				1C57DAF219BD1982009226AD /* TableItem */,
 				1C8220F119A4F8FC00A17B56 /* Theme */,
 				1C8220F219A4F90B00A17B56 /* Utility */,
+				1C4C27881FDCACCF00ADF450 /* View */,
 			);
 			path = SquidKit;
 			sourceTree = "<group>";
@@ -406,6 +418,7 @@
 				1C15BB521CB19B1400B894F0 /* UIApplication+Utility.swift in Sources */,
 				1C82210A19A4F94300A17B56 /* String+Utility.swift in Sources */,
 				1C82210619A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
+				1C4C278A1FDCAD1C00ADF450 /* URLImageView.swift in Sources */,
 				1C82211019A4F94300A17B56 /* ThemeLabel.swift in Sources */,
 				1C82212919A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211619A4F94300A17B56 /* UIColor+Hex.swift in Sources */,
@@ -434,6 +447,7 @@
 				1CD2E42B1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */,
 				1CEE10681A81912D001ABD72 /* UIView+Utility.swift in Sources */,
 				1C0C601D19BBB123003E300C /* HostConfigurationTableViewController.swift in Sources */,
+				1C4C278B1FDCAD1C00ADF450 /* URLImageView.swift in Sources */,
 				1C82210B19A4F94300A17B56 /* String+Utility.swift in Sources */,
 				1C82211719A4F94300A17B56 /* UIColor+Hex.swift in Sources */,
 				1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,

@@ -8,6 +8,12 @@
 
 import UIKit
 
+public typealias ImageDownloadCompletion = (UIImage?,Bool?) -> Void
+public protocol ImageDownloadService {
+    func download(url: URL, completion:@escaping ImageDownloadCompletion)
+    func cancel(url: URL)
+}
+
 open class URLImageView: UIImageView {
     
     public enum URLImageViewActivityIndicatorType {
@@ -26,16 +32,11 @@ open class URLImageView: UIImageView {
     open var activityIndicatorType:URLImageViewActivityIndicatorType = .none
     open var imageAppearanceType:URLImageViewImageAppearanceType = .none
     
-    open var urlString:String? {
-        didSet {
-            cancel()
-        }
-    }
     
     fileprivate var activityView:UIActivityIndicatorView?
     
     fileprivate var activityIndicatorStyle:UIActivityIndicatorViewStyle {
-        switch self.activityIndicatorType {
+        switch activityIndicatorType {
         case .light:
             return .white
         case .lightLarge:
@@ -47,7 +48,13 @@ open class URLImageView: UIImageView {
         }
     }
     
-    fileprivate var imageRequest:Request?
+    open var url: URL? {
+        willSet {
+            cancel()
+        }
+    }
+    
+    open var downloadService:ImageDownloadService?
     
     deinit {
         cancel()
@@ -55,71 +62,65 @@ open class URLImageView: UIImageView {
     
     open func load() {
         cancel()
-        if let urlString = self.urlString {
-            
-            let url = URL(string: urlString)
-            
-            startActivity()
-            
-            self.imageRequest = request(.GET, method: url!)
-                .responseImageCacheable {[unowned self] response in
-                
-                self.stopActivity()
+        guard  let imageURL = url else {return}
+        guard let service = downloadService else {return}
+        
+        startActivity()
+        
+        service.download(url: imageURL, completion: { [weak self] (image, wasCached) in
+            self?.stopActivity()
+            let cached = wasCached ?? false
+            guard let strongSelf = self else {return}
+            if let resultImage = image {
+                switch strongSelf.imageAppearanceType {
+                case .fade(let duration, let beginAlpha, let endAlpha):
+                    strongSelf.animateFade(resultImage, duration: duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
                     
-                    switch response.result {
-                    case .Success(let image):
-                        switch self.imageAppearanceType {
-                        case .Fade(let duration, let beginAlpha, let endAlpha):
-                            self.animateFade(image, duration: duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
-                            
-                        case .FadeIfNotCached(let duration, let beginAlpha, let endAlpha):
-                            self.animateFade(image, duration: response.response == nil ? 0 : duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
-                            
-                        default:
-                            self.image = image
-                            self.setNeedsDisplay()
-                        }
-                    default:
-                        break;
-                    }
+                case .fadeIfNotCached(let duration, let beginAlpha, let endAlpha):
+                    strongSelf.animateFade(resultImage, duration: cached ? 0 : duration, beginAlpha: beginAlpha, endAlpha: endAlpha)
+                    
+                default:
+                    strongSelf.image = resultImage
+                    strongSelf.setNeedsDisplay()
+                }
             }
-        }
+        })
     }
     
     fileprivate func animateFade(_ image:UIImage?, duration:TimeInterval, beginAlpha:Float, endAlpha:Float) {
-        self.alpha = CGFloat(beginAlpha)
+        alpha = CGFloat(beginAlpha)
         self.image = image
         
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationDuration(duration)
-        self.alpha = CGFloat(endAlpha)
+        alpha = CGFloat(endAlpha)
         UIView.commitAnimations()
     }
     
     open func cancel() {
-        if let activeRequest = self.imageRequest {
-            activeRequest.cancel()
+        if let imageURL = url {
+            downloadService?.cancel(url: imageURL)
         }
-        self.stopActivity()
+        stopActivity()
     }
     
     fileprivate func startActivity() {
-        if self.activityIndicatorType != .none {
-            if self.activityView == nil {
-                self.activityView = UIActivityIndicatorView(activityIndicatorStyle: self.activityIndicatorStyle)
-                self.activityView?.centerInView(self)
-                self.addSubview(self.activityView!)
+        if activityIndicatorType != .none {
+            if activityView == nil {
+                activityView = UIActivityIndicatorView(activityIndicatorStyle: activityIndicatorStyle)
+                activityView?.centerInView(self)
+                addSubview(activityView!)
             }
             
-            self.activityView?.startAnimating()
+            activityView?.startAnimating()
         }
     }
     
     fileprivate func stopActivity() {
-        if self.activityView != nil {
-            self.activityView?.stopAnimating()
-            self.activityView?.removeFromSuperview()
-            self.activityView = nil
+        if activityView != nil {
+            activityView?.stopAnimating()
+            activityView?.removeFromSuperview()
+            activityView = nil
         }
     }
 

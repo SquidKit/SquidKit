@@ -11,7 +11,7 @@ import UIKit
 public extension UIApplication {
     
     public func displayName() -> String {
-        if let name:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String , name.characters.count > 0 {
+        if let name:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String , name.count > 0 {
             return name
         }
         
