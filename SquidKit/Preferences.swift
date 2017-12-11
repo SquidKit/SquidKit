@@ -19,8 +19,8 @@ open class Preferences {
         return UserDefaults.standard
     }
     
-    open func setPreference(_ object:NSSecureCoding?, key:String) {
-        if let objectToSet:NSSecureCoding = object {
+    open func setPreference(_ object:Any?, key:String) {
+        if let objectToSet:Any = object {
             self.userDefaults.set(objectToSet, forKey: key)
             self.userDefaults.synchronize()
         }
@@ -69,8 +69,8 @@ open class Preferences {
         }
     }
     
-    open func preference(_ key:String) -> AnyObject? {
-        return self.userDefaults.object(forKey: key) as AnyObject?
+    open func preference(_ key:String) -> Any? {
+        return self.userDefaults.object(forKey: key) as Any?
     }
     
     open func boolValue(_ key:String, defaultValue:Bool) -> Bool {
@@ -107,7 +107,7 @@ open class Preferences {
     }
 }
 
-open class Preference<T:NSSecureCoding> {
+open class Preference<T:Any> {
     
     public init() {
         
