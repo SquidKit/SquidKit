@@ -10,15 +10,29 @@ import UIKit
 import SquidKit
 
 class HomeViewController: TableItemBackedTableViewController {
+    
+    var hostMapManager = HostMapManager(cacheStore: Preferences())
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let hostMapLoaded = hostMapManager.loadConfigurationMapFromResourceFile("HostMap.json")
+        Log.message(hostMapLoaded ? "Loaded host map" : "Error loading host map")
         
         let tableItemExampleItem = NavigatingTableItem("Table Items Example", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"tableItemsExampleVC"))
         
         let themeExampleItem = NavigatingTableItem("Theme Example", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"themedVC"))
         
         let urlImageItem = NavigatingTableItem("URLImageView Example", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"urlImageVC"))
+        
+        let hostConfigurationItem = TableItem("Host Configuration Example", reuseIdentifier: "squidKitHomeCell") { [weak self] (item, indexPath, actions) in
+            let configurationViewController:HostConfigurationTableViewController = HostConfigurationTableViewController(style: .grouped)
+            configurationViewController.hostMapManager = self?.hostMapManager
+            configurationViewController.navigationItem.title = item.title
+            self?.navigationController?.pushViewController(configurationViewController, animated: true)
+        }
+        
+        let keyboardAccessoryItem = NavigatingTableItem("Keyboard Accessory", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"keyboardAccessoryVC"))
         
         // removed for Swift 4
         //let endpointExampleItem = NavigatingTableItem("Network Endpoint Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"endpointTestVC"))
@@ -34,6 +48,8 @@ class HomeViewController: TableItemBackedTableViewController {
         section.append(tableItemExampleItem)
         section.append(themeExampleItem)
         section.append(urlImageItem)
+        section.append(hostConfigurationItem)
+        section.append(keyboardAccessoryItem)
         //section.append(endpointExampleItem)
         //section.append(jsonExampleItem)
         //section.append(remoteImageItem)
@@ -50,3 +66,19 @@ class HomeViewController: TableItemBackedTableViewController {
         return cell
     }
 }
+
+extension Preferences : HostMapCacheStorable {
+    public func setEntry(_ entry:[String: AnyObject], key:String) {
+        setPreference(entry, key: key)
+    }
+    
+    public func getEntry(_ key:String) -> [String: AnyObject]? {
+        return preference(key) as? [String: AnyObject]
+    }
+    
+    public func remove(key:String) {
+        remove(key)
+    }
+}
+
+

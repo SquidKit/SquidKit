@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rS3-R9-Ivy">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -345,6 +345,50 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QeS-RI-dT7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1807" y="2083"/>
+        </scene>
+        <!--Keyboard Accessory View Controller-->
+        <scene sceneID="Kf7-rS-HXj">
+            <objects>
+                <viewController storyboardIdentifier="keyboardAccessoryVC" id="jYH-8O-OKC" customClass="KeyboardAccessoryViewController" customModule="SquidKitExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2Nl-fJ-6VV"/>
+                        <viewControllerLayoutGuide type="bottom" id="0J0-C0-qK5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GSi-YG-Nz3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lMZ-Je-573" customClass="TextFieldEditingChanged" customModule="SquidKit">
+                                <rect key="frame" x="30" y="93" width="315" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Gp-ed-dVU">
+                                <rect key="frame" x="20" y="155" width="335" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="9Gp-ed-dVU" secondAttribute="trailing" constant="20" id="B8M-5O-4er"/>
+                            <constraint firstAttribute="trailing" secondItem="lMZ-Je-573" secondAttribute="trailing" constant="30" id="PmL-85-fcH"/>
+                            <constraint firstItem="lMZ-Je-573" firstAttribute="leading" secondItem="GSi-YG-Nz3" secondAttribute="leading" constant="30" id="S5e-ko-URC"/>
+                            <constraint firstItem="9Gp-ed-dVU" firstAttribute="leading" secondItem="GSi-YG-Nz3" secondAttribute="leading" constant="20" id="ih2-Sr-tKp"/>
+                            <constraint firstItem="lMZ-Je-573" firstAttribute="top" secondItem="2Nl-fJ-6VV" secondAttribute="bottom" constant="73" id="w6C-lY-9HG"/>
+                            <constraint firstItem="9Gp-ed-dVU" firstAttribute="top" secondItem="lMZ-Je-573" secondAttribute="bottom" constant="32" id="xV5-xS-cB9"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="lMZ-Je-573" id="rOP-pw-Z8P"/>
+                        <outlet property="textFieldChangedLabel" destination="9Gp-ed-dVU" id="UZ1-45-FwX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qp6-l3-H3M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1806" y="2747"/>
         </scene>
     </scenes>
 </document>

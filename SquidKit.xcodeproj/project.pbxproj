@@ -53,6 +53,8 @@
 		1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */; };
 		1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
 		1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
+		1C92B9891FE8C29A00DA3896 /* KeyboardAccessoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B9881FE8C29A00DA3896 /* KeyboardAccessoryBar.swift */; };
+		1C92B98E1FE8CDD100DA3896 /* TextFieldEditingChanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B98D1FE8CDD100DA3896 /* TextFieldEditingChanged.swift */; };
 		1CD097EF1B4F0A9F006FD332 /* UIImage+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */; };
 		1CD2E42A1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */; };
 		1CD2E42B1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */; };
@@ -94,6 +96,8 @@
 		1C82212819A5033C00A17B56 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		1C82212D19A50BFA00A17B56 /* ThemeTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTableView.swift; sourceTree = "<group>"; };
 		1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItemBackedTableViewController.swift; sourceTree = "<group>"; };
+		1C92B9881FE8C29A00DA3896 /* KeyboardAccessoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAccessoryBar.swift; sourceTree = "<group>"; };
+		1C92B98D1FE8CDD100DA3896 /* TextFieldEditingChanged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEditingChanged.swift; sourceTree = "<group>"; };
 		1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Utility.swift"; sourceTree = "<group>"; };
 		1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Utility.swift"; sourceTree = "<group>"; };
 		1CEE10661A81912D001ABD72 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 		1C4C27881FDCACCF00ADF450 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1C92B9881FE8C29A00DA3896 /* KeyboardAccessoryBar.swift */,
+				1C92B98D1FE8CDD100DA3896 /* TextFieldEditingChanged.swift */,
 				1C4C27891FDCAD1B00ADF450 /* URLImageView.swift */,
 			);
 			name = View;
@@ -402,6 +408,7 @@
 				1C82211419A4F94300A17B56 /* ThemeView.swift in Sources */,
 				1C6B73FF1AFC6CCA0060678A /* KVObserving.swift in Sources */,
 				1C82210E19A4F94300A17B56 /* Theme.swift in Sources */,
+				1C92B9891FE8C29A00DA3896 /* KeyboardAccessoryBar.swift in Sources */,
 				1C2B1CBD1D0222D70044B56D /* Dispatch.swift in Sources */,
 				1C82212E19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
 				1CEE106D1A829197001ABD72 /* Cache.swift in Sources */,
@@ -411,6 +418,7 @@
 				1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */,
 				1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */,
 				1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
+				1C92B98E1FE8CDD100DA3896 /* TextFieldEditingChanged.swift in Sources */,
 				1C81EF071EFC54B400A1AA0D /* Endpoint.swift in Sources */,
 				1CD2E42A1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */,
 				1C82210C19A4F94300A17B56 /* TableItem.swift in Sources */,
