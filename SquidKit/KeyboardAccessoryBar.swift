@@ -16,6 +16,7 @@ open class KeyboardAccessoryBar: UIToolbar {
     }
     
     open weak var responder: UIResponder?
+    open weak var followOnResponder: UIResponder?
 
     open var height: CGFloat = 35 {
         didSet {
@@ -33,15 +34,23 @@ open class KeyboardAccessoryBar: UIToolbar {
     
     public func addDismisser(title: String, for responder: UIResponder, with alignment: Alignment?) {
         let item = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(self.didTapDismisser(_:)))
-        addDismisserItem(item: item, for: responder, with: alignment)
+        addItem(item: item, with: alignment)
+        self.responder = responder
     }
     
     public func addDismisser(systemItem: UIBarButtonSystemItem, for responder: UIResponder, with alignment: Alignment?) {
         let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.didTapDismisser(_:)))
-        addDismisserItem(item: item, for: responder, with: alignment)
+        addItem(item: item, with: alignment)
+        self.responder = responder
     }
     
-    fileprivate func addDismisserItem(item: UIBarButtonItem, for responder: UIResponder, with alignment: Alignment?) {
+    public func addFollowOn(title: String, for followOnResponder: UIResponder, with alignment: Alignment?) {
+        let item = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(self.didTapFollowOn(_:)))
+        addItem(item: item, with: alignment)
+        self.followOnResponder = followOnResponder
+    }
+    
+    fileprivate func addItem(item: UIBarButtonItem, with alignment: Alignment?) {
         var items = [UIBarButtonItem]()
         
         if let a = alignment {
@@ -59,11 +68,14 @@ open class KeyboardAccessoryBar: UIToolbar {
         }
         
         setItems(items, animated: false)
-        self.responder = responder
     }
     
     @objc func didTapDismisser(_ sender: Any) {
         responder?.resignFirstResponder()
+    }
+    
+    @objc func didTapFollowOn(_ sender: Any) {
+        followOnResponder?.becomeFirstResponder()
     }
     
 }

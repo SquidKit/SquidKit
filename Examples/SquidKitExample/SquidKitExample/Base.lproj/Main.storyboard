@@ -370,18 +370,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6NV-mp-HiX">
+                                <rect key="frame" x="30" y="165" width="315" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="9Gp-ed-dVU" secondAttribute="trailing" constant="20" id="B8M-5O-4er"/>
                             <constraint firstAttribute="trailing" secondItem="lMZ-Je-573" secondAttribute="trailing" constant="30" id="PmL-85-fcH"/>
+                            <constraint firstItem="6NV-mp-HiX" firstAttribute="leading" secondItem="GSi-YG-Nz3" secondAttribute="leading" constant="30" id="RlQ-KW-bYU"/>
                             <constraint firstItem="lMZ-Je-573" firstAttribute="leading" secondItem="GSi-YG-Nz3" secondAttribute="leading" constant="30" id="S5e-ko-URC"/>
+                            <constraint firstAttribute="trailing" secondItem="6NV-mp-HiX" secondAttribute="trailing" constant="30" id="Zg6-oN-tp5"/>
+                            <constraint firstItem="6NV-mp-HiX" firstAttribute="top" secondItem="9Gp-ed-dVU" secondAttribute="bottom" constant="10" id="dFF-42-TD3"/>
                             <constraint firstItem="9Gp-ed-dVU" firstAttribute="leading" secondItem="GSi-YG-Nz3" secondAttribute="leading" constant="20" id="ih2-Sr-tKp"/>
                             <constraint firstItem="lMZ-Je-573" firstAttribute="top" secondItem="2Nl-fJ-6VV" secondAttribute="bottom" constant="73" id="w6C-lY-9HG"/>
                             <constraint firstItem="9Gp-ed-dVU" firstAttribute="top" secondItem="lMZ-Je-573" secondAttribute="bottom" constant="32" id="xV5-xS-cB9"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="nextTextField" destination="6NV-mp-HiX" id="a7a-VE-JkC"/>
                         <outlet property="textField" destination="lMZ-Je-573" id="rOP-pw-Z8P"/>
                         <outlet property="textFieldChangedLabel" destination="9Gp-ed-dVU" id="UZ1-45-FwX"/>
                     </connections>

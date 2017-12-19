@@ -12,13 +12,18 @@ class KeyboardAccessoryViewController: UIViewController {
 
     @IBOutlet weak var textField: TextFieldEditingChanged!
     @IBOutlet weak var textFieldChangedLabel: UILabel!
+    @IBOutlet weak var nextTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let accessoryView = KeyboardAccessoryBar()
-        accessoryView.addDismisser(systemItem: .done, for: textField, with: .left)
-        textField.inputAccessoryView = accessoryView
+        let nextAccessoryView = KeyboardAccessoryBar()
+        nextAccessoryView.addFollowOn(title: "Next", for: nextTextField, with: .right)
+        textField.inputAccessoryView = nextAccessoryView
+        
+        let doneAccessoryView = KeyboardAccessoryBar()
+        doneAccessoryView.addDismisser(systemItem: .done, for: nextTextField, with: .right)
+        nextTextField.inputAccessoryView = doneAccessoryView
         
         textField.editingChangedClosure = { [weak self] text in
             self?.textFieldChangedLabel.text = text
