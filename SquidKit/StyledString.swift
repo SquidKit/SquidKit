@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct StyledString {
+public class StyledString {
     
     fileprivate let editingString:NSMutableAttributedString!
     fileprivate var editingAttributes:[NSAttributedStringKey : Any]!
@@ -35,22 +35,25 @@ public struct StyledString {
     }
     
     @discardableResult
-    public mutating func pushAttributes(_ attributes:[NSAttributedStringKey : Any]) -> StyledString {
+    public func pushAttributes(_ attributes:[NSAttributedStringKey : Any]) -> StyledString {
         editingAttributes.unionInPlace(attributes)
         return self
     }
     
-    public mutating func popAttributes(_ attributes:[NSAttributedStringKey]) -> StyledString {
+    @discardableResult
+    public func popAttributes(_ attributes:[NSAttributedStringKey]) -> StyledString {
         let _ = attributes.map {editingAttributes.removeValue(forKey: $0)}
         return self
     }
     
-    public mutating func pushColor(_ color:UIColor) -> StyledString {
+    @discardableResult
+    public func pushColor(_ color:UIColor) -> StyledString {
         self.pushAttributes([NSAttributedStringKey.foregroundColor : color])
         return self
     }
     
-    public mutating func pushFont(_ font:UIFont) -> StyledString {
+    @discardableResult
+    public func pushFont(_ font:UIFont) -> StyledString {
         self.pushAttributes([NSAttributedStringKey.font : font])
         return self
     }

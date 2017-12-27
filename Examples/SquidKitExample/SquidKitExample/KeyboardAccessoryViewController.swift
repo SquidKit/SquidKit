@@ -16,7 +16,7 @@ class KeyboardAccessoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let nextAccessoryView = KeyboardAccessoryBar()
         nextAccessoryView.addFollowOn(title: "Next", for: nextTextField, with: .right)
         textField.inputAccessoryView = nextAccessoryView
