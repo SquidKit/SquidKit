@@ -32,6 +32,10 @@ open class Log {
         #endif
     }
     
+    fileprivate var tab: String {
+        return useTabs ? "\t" : ""
+    }
+    
     open var loggingEnabled:Bool {
         switch self.logStatus {
         case .always:
@@ -42,6 +46,10 @@ open class Log {
             return false
         }
     }
+    
+    open var prefix: String?
+    open var postfix: String?
+    open var useTabs: Bool = false
     
     fileprivate init() {
         
@@ -68,9 +76,19 @@ open class Log {
     open class func message(_ output: @autoclosure () -> String?) {
         if _SquidKitLogSharedInstance.loggingEnabled {
             if let message = output() {
-                NSLog(message)
+                NSLog(Log.sharedLogger.formatted(message))
             }
         }
+    }
+    
+    open class func function(_ message: String, file: String? = #file, function: String = #function) {
+        var filename = ""
+        if let f = file {
+            filename = (f as NSString).lastPathComponent + ": "
+        }
+        
+        let logMessage = "\(filename)\(function)\n\(Log.sharedLogger.tab)\(message)"
+        Log.message(logMessage)
     }
     
     open class func simulatorAppBundleURL() {
@@ -85,5 +103,10 @@ open class Log {
     
     open class func point(_ point:CGPoint, message:String = "") {
         Log.message(message + "point -> x: \(point.x); y: \(point.y)");
+    }
+    
+    fileprivate func formatted(_ message: String) -> String {
+        let formatted = (prefix ?? "") + tab + message + (postfix ?? "")
+        return formatted
     }
 }

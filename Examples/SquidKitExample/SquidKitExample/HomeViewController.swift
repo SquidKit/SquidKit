@@ -15,7 +15,7 @@ class HomeViewController: TableItemBackedTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         let hostMapLoaded = hostMapManager.loadConfigurationMapFromResourceFile("HostMap.json")
         Log.message(hostMapLoaded ? "Loaded host map" : "Error loading host map")
         
