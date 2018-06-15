@@ -10,9 +10,9 @@ import UIKit
 
 open class ConfigurationItem : TableItem {
     open var protocolHostPair:ProtocolHostPair?
-    open let key:String
-    open let canonicalHost:String
-    open let editable:Bool
+    public let key:String
+    public let canonicalHost:String
+    public let editable:Bool
     let hostMapManager:HostMapManager!
     
     public required init(hostMapManager:HostMapManager, protocolHostPair:ProtocolHostPair?, key:String, canonicalHost:String, editable:Bool) {

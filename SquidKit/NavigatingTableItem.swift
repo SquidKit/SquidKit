@@ -15,7 +15,7 @@ when selected.
 open class NavigatingTableItem: TableItem {
     
     
-    open let navigationType:NavigatingTableItemNavigationType
+    public let navigationType:NavigatingTableItemNavigationType
     
     public init(_ title:String, reuseIdentifier:String?, navigationType:NavigatingTableItemNavigationType) {
         self.navigationType = navigationType

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="rS3-R9-Ivy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rS3-R9-Ivy">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <deployment version="4352" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -73,6 +74,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="0J8-gd-1lF"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="squidKitHomeCell" textLabel="odA-Ek-2Ka" style="IBUITableViewCellStyleDefault" id="bKG-qy-KIh">
                                 <rect key="frame" x="0.0" y="22" width="375" height="44"/>
@@ -151,16 +153,12 @@
         <scene sceneID="Cn3-H9-jdl">
             <objects>
                 <viewController storyboardIdentifier="detailVC" title="Detail" id="Ah7-4n-0Wa" customClass="DetailViewController" customModule="SquidKitExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="cIm-e0-J51"/>
-                        <viewControllerLayoutGuide type="bottom" id="a0L-h9-sNL"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="MMQ-IT-qOo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Detail view content goes here" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Lei-5M-9Gs">
-                                <rect key="frame" x="20" y="325" width="335" height="17"/>
+                                <rect key="frame" x="0.0" y="325" width="375" height="17"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" size="system"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -169,10 +167,11 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Lei-5M-9Gs" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leading" constant="20" symbolic="YES" id="62x-JV-TTJ"/>
+                            <constraint firstItem="Lei-5M-9Gs" firstAttribute="leading" secondItem="HZN-Lr-Q5z" secondAttribute="leading" constant="20" symbolic="YES" id="62x-JV-TTJ"/>
                             <constraint firstItem="Lei-5M-9Gs" firstAttribute="centerY" secondItem="MMQ-IT-qOo" secondAttribute="centerY" id="JzS-HC-Rnl"/>
-                            <constraint firstAttribute="trailing" secondItem="Lei-5M-9Gs" secondAttribute="trailing" constant="20" symbolic="YES" id="pXB-RP-Zz6"/>
+                            <constraint firstItem="HZN-Lr-Q5z" firstAttribute="trailing" secondItem="Lei-5M-9Gs" secondAttribute="trailing" constant="20" symbolic="YES" id="pXB-RP-Zz6"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="HZN-Lr-Q5z"/>
                     </view>
                     <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
                     <connections>
@@ -187,10 +186,6 @@
         <scene sceneID="lIU-Mc-THg">
             <objects>
                 <viewController storyboardIdentifier="themedVC" id="GXz-U8-IGJ" customClass="ThemedViewController" customModule="SquidKitExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UxB-dd-xKX"/>
-                        <viewControllerLayoutGuide type="bottom" id="GxK-Z0-iv6"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gD5-lW-eYg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -215,9 +210,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="fIO-1l-wIL" secondAttribute="centerX" id="MZ9-SV-3hw"/>
+                            <constraint firstItem="pUs-he-oq2" firstAttribute="centerX" secondItem="fIO-1l-wIL" secondAttribute="centerX" id="MZ9-SV-3hw"/>
                             <constraint firstAttribute="centerY" secondItem="fIO-1l-wIL" secondAttribute="centerY" id="lXJ-fP-C6O"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="pUs-he-oq2"/>
                     </view>
                     <connections>
                         <outlet property="label" destination="ocG-CD-PpM" id="k6M-9X-7fG"/>
@@ -286,10 +282,6 @@
         <scene sceneID="DET-XW-lOU">
             <objects>
                 <viewController storyboardIdentifier="remoteImageVC" id="Buo-oD-Xx7" customClass="RemoteImageViewController" customModule="SquidKitExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BU8-kW-XmE"/>
-                        <viewControllerLayoutGuide type="bottom" id="hjr-lx-qvK"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9CW-3N-ubb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -300,11 +292,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="JDL-bB-tb9" secondAttribute="trailing" id="5ae-hu-mGz"/>
+                            <constraint firstItem="i4h-tU-bW9" firstAttribute="trailing" secondItem="JDL-bB-tb9" secondAttribute="trailing" id="5ae-hu-mGz"/>
                             <constraint firstItem="JDL-bB-tb9" firstAttribute="top" secondItem="9CW-3N-ubb" secondAttribute="top" id="94E-7f-EXg"/>
-                            <constraint firstItem="JDL-bB-tb9" firstAttribute="bottom" secondItem="hjr-lx-qvK" secondAttribute="top" id="FmN-zy-zbD"/>
-                            <constraint firstItem="JDL-bB-tb9" firstAttribute="leading" secondItem="9CW-3N-ubb" secondAttribute="leading" id="QlB-sM-9xw"/>
+                            <constraint firstItem="JDL-bB-tb9" firstAttribute="bottom" secondItem="i4h-tU-bW9" secondAttribute="bottom" id="FmN-zy-zbD"/>
+                            <constraint firstItem="JDL-bB-tb9" firstAttribute="leading" secondItem="i4h-tU-bW9" secondAttribute="leading" id="QlB-sM-9xw"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="i4h-tU-bW9"/>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="JDL-bB-tb9" id="5xs-r6-xDW"/>
@@ -318,10 +311,6 @@
         <scene sceneID="u1P-qR-OdZ">
             <objects>
                 <viewController storyboardIdentifier="urlImageVC" id="qZG-8w-ukA" customClass="URLImageViewController" customModule="SquidKitExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="c6S-Kp-xrZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="mAc-gJ-ixJ"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mY0-eA-st9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -333,10 +322,11 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="VFm-Mu-VH2" firstAttribute="top" secondItem="mY0-eA-st9" secondAttribute="top" id="Y1h-Jc-mfb"/>
-                            <constraint firstItem="VFm-Mu-VH2" firstAttribute="bottom" secondItem="mAc-gJ-ixJ" secondAttribute="top" id="jDy-p6-1iV"/>
-                            <constraint firstItem="VFm-Mu-VH2" firstAttribute="leading" secondItem="mY0-eA-st9" secondAttribute="leading" id="lLO-2i-gxH"/>
-                            <constraint firstAttribute="trailing" secondItem="VFm-Mu-VH2" secondAttribute="trailing" id="oQF-AI-wDj"/>
+                            <constraint firstItem="VFm-Mu-VH2" firstAttribute="bottom" secondItem="jLo-YK-Mtc" secondAttribute="bottom" id="jDy-p6-1iV"/>
+                            <constraint firstItem="VFm-Mu-VH2" firstAttribute="leading" secondItem="jLo-YK-Mtc" secondAttribute="leading" id="lLO-2i-gxH"/>
+                            <constraint firstItem="jLo-YK-Mtc" firstAttribute="trailing" secondItem="VFm-Mu-VH2" secondAttribute="trailing" id="oQF-AI-wDj"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="jLo-YK-Mtc"/>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="VFm-Mu-VH2" id="40V-xR-xUY"/>
@@ -350,10 +340,6 @@
         <scene sceneID="Kf7-rS-HXj">
             <objects>
                 <viewController storyboardIdentifier="keyboardAccessoryVC" id="jYH-8O-OKC" customClass="KeyboardAccessoryViewController" customModule="SquidKitExample" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2Nl-fJ-6VV"/>
-                        <viewControllerLayoutGuide type="bottom" id="0J0-C0-qK5"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GSi-YG-Nz3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -379,16 +365,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="9Gp-ed-dVU" secondAttribute="trailing" constant="20" id="B8M-5O-4er"/>
-                            <constraint firstAttribute="trailing" secondItem="lMZ-Je-573" secondAttribute="trailing" constant="30" id="PmL-85-fcH"/>
-                            <constraint firstItem="6NV-mp-HiX" firstAttribute="leading" secondItem="GSi-YG-Nz3" secondAttribute="leading" constant="30" id="RlQ-KW-bYU"/>
-                            <constraint firstItem="lMZ-Je-573" firstAttribute="leading" secondItem="GSi-YG-Nz3" secondAttribute="leading" constant="30" id="S5e-ko-URC"/>
-                            <constraint firstAttribute="trailing" secondItem="6NV-mp-HiX" secondAttribute="trailing" constant="30" id="Zg6-oN-tp5"/>
+                            <constraint firstItem="0Rb-3m-6xo" firstAttribute="trailing" secondItem="9Gp-ed-dVU" secondAttribute="trailing" constant="20" id="B8M-5O-4er"/>
+                            <constraint firstItem="0Rb-3m-6xo" firstAttribute="trailing" secondItem="lMZ-Je-573" secondAttribute="trailing" constant="30" id="PmL-85-fcH"/>
+                            <constraint firstItem="6NV-mp-HiX" firstAttribute="leading" secondItem="0Rb-3m-6xo" secondAttribute="leading" constant="30" id="RlQ-KW-bYU"/>
+                            <constraint firstItem="lMZ-Je-573" firstAttribute="leading" secondItem="0Rb-3m-6xo" secondAttribute="leading" constant="30" id="S5e-ko-URC"/>
+                            <constraint firstItem="0Rb-3m-6xo" firstAttribute="trailing" secondItem="6NV-mp-HiX" secondAttribute="trailing" constant="30" id="Zg6-oN-tp5"/>
                             <constraint firstItem="6NV-mp-HiX" firstAttribute="top" secondItem="9Gp-ed-dVU" secondAttribute="bottom" constant="10" id="dFF-42-TD3"/>
-                            <constraint firstItem="9Gp-ed-dVU" firstAttribute="leading" secondItem="GSi-YG-Nz3" secondAttribute="leading" constant="20" id="ih2-Sr-tKp"/>
-                            <constraint firstItem="lMZ-Je-573" firstAttribute="top" secondItem="2Nl-fJ-6VV" secondAttribute="bottom" constant="73" id="w6C-lY-9HG"/>
+                            <constraint firstItem="9Gp-ed-dVU" firstAttribute="leading" secondItem="0Rb-3m-6xo" secondAttribute="leading" constant="20" id="ih2-Sr-tKp"/>
+                            <constraint firstItem="lMZ-Je-573" firstAttribute="top" secondItem="0Rb-3m-6xo" secondAttribute="top" constant="73" id="w6C-lY-9HG"/>
                             <constraint firstItem="9Gp-ed-dVU" firstAttribute="top" secondItem="lMZ-Je-573" secondAttribute="bottom" constant="32" id="xV5-xS-cB9"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="0Rb-3m-6xo"/>
                     </view>
                     <connections>
                         <outlet property="nextTextField" destination="6NV-mp-HiX" id="a7a-VE-JkC"/>

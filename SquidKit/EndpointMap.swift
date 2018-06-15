@@ -66,7 +66,7 @@ open class EndpointMapper {
 }
 
 open class HostMap {
-    open let canonicalProtocolHost:ProtocolHostPair
+    public let canonicalProtocolHost:ProtocolHostPair
     
     open var releaseKey = ""
     open var prereleaseKey = ""

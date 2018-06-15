@@ -15,7 +15,7 @@ public typealias KVObservingBlock = (_ keyPath: String, _ object: AnyObject, _ c
 
 @objc public protocol KVObserving {
     
-    func observableObject(kvoHelper:KVOHelper) -> NSObject?
+    func observableObject(kvoHelper:KVOHelper) -> NSObject!
     
     @objc optional func observeValueForKeyPath(kvoHelper:KVOHelper, keyPath: String, ofObject object: AnyObject, change: [NSObject: AnyObject])
     
@@ -30,17 +30,14 @@ open class KVOHelper : NSObject {
     fileprivate unowned let observer:NSObject
     fileprivate unowned var observed:NSObject
     
-    public init(observerObject:NSObject) {
-        
+    public init?(observerObject:NSObject) {
         observer = observerObject
-        observed = NSObject()
+        observed = observerObject
+        
+        guard let _ = observer as? KVObserving else {return nil}
         
         super.init()
-        
-        if let observing:KVObserving = self.observer as? KVObserving , observing.observableObject(kvoHelper:self) != nil {
-            observed = observing.observableObject(kvoHelper:self)!
-        }        
-        
+        observed = (observer as! KVObserving).observableObject(kvoHelper: self)
     }
     
     deinit {
