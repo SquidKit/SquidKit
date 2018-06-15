@@ -20,11 +20,11 @@ fileprivate class CacheType<KeyType:AnyObject, ObjectType:AnyObject> {
     init(identifier:String) {
         self.identifier = identifier
         
-        NotificationCenter.default.addObserver(self, selector: #selector(CacheType.handleLowMemory(_:)), name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CacheType.handleLowMemory(_:)), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
         clear()
     }
     

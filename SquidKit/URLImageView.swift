@@ -35,7 +35,7 @@ open class URLImageView: UIImageView {
     
     fileprivate var activityView:UIActivityIndicatorView?
     
-    fileprivate var activityIndicatorStyle:UIActivityIndicatorViewStyle {
+    fileprivate var activityIndicatorStyle:UIActivityIndicatorView.Style {
         switch activityIndicatorType {
         case .light:
             return .white

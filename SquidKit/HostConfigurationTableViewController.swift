@@ -131,7 +131,7 @@ open class CustomHostCell: UITableViewCell, UITextFieldDelegate {
             textField = UITextField(frame:self.contentView.bounds.insetBy(dx: 15, dy: 5))
             self.contentView.addSubview(textField!)
             textField?.placeholder = "Enter custom host (e.g. \"api.host.com\")"
-            textField?.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFontTextStyle.subheadline), size: 13)
+            textField?.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: .subheadline), size: 13)
             textField?.keyboardType = .URL
             textField?.returnKeyType = .done
             textField?.autocorrectionType = .no
