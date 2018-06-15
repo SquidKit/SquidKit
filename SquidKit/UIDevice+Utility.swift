@@ -9,13 +9,13 @@
 import UIKit
 
 public extension UIDevice {
-    public func simulator() -> Bool {
-        var isSimulator = false
+    public var isSimulator: Bool {
+        var isSimulatorEnvironment = false
         
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
-        isSimulator = true
+        #if targetEnvironment(simulator)
+        isSimulatorEnvironment = true
         #endif
         
-        return isSimulator
+        return isSimulatorEnvironment
     }
 }
