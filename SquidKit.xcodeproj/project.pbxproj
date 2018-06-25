@@ -22,7 +22,6 @@
 		1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
 		1C57DAF119BCE3A7009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
 		1C6B73FF1AFC6CCA0060678A /* KVObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */; };
-		1C81EF071EFC54B400A1AA0D /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C81EF061EFC54B400A1AA0D /* Endpoint.swift */; };
 		1C8220D919A4F7E700A17B56 /* SquidKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C8220D819A4F7E700A17B56 /* SquidKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C8220E319A4F7E700A17B56 /* SquidKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220E219A4F7E700A17B56 /* SquidKitTests.swift */; };
 		1C8220F419A4F92F00A17B56 /* AccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8220F319A4F92F00A17B56 /* AccountHelper.swift */; };
@@ -419,7 +418,6 @@
 				1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */,
 				1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C92B98E1FE8CDD100DA3896 /* TextFieldEditingChanged.swift in Sources */,
-				1C81EF071EFC54B400A1AA0D /* Endpoint.swift in Sources */,
 				1CD2E42A1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */,
 				1C82210C19A4F94300A17B56 /* TableItem.swift in Sources */,
 				1C0C5FFF19B7D33A003E300C /* JSONEntity.swift in Sources */,
