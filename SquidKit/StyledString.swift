@@ -12,6 +12,9 @@ public class StyledString {
     
     fileprivate let editingString:NSMutableAttributedString!
     fileprivate var editingAttributes:[NSAttributedStringKey : Any]!
+    public var count: Int {
+        return editingString.length
+    }
     
     public var attributedString:NSAttributedString {
         return self.editingString.copy() as! NSAttributedString
@@ -28,8 +31,12 @@ public class StyledString {
     }
     
     @discardableResult
-    public func pushString(_ string:String) -> StyledString {
+    public func pushString(_ string:String, seperator: String? = nil) -> StyledString {
         let attString = NSMutableAttributedString(string: string, attributes: editingAttributes)
+        if count > 0, let seperator = seperator {
+            let attSeperator = NSMutableAttributedString(string: seperator, attributes: editingAttributes)
+            editingString.append(attSeperator)
+        }
         editingString.append(attString)
         return self
     }
