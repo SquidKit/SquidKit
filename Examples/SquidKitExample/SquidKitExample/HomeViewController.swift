@@ -34,6 +34,16 @@ class HomeViewController: TableItemBackedTableViewController {
         
         let keyboardAccessoryItem = NavigatingTableItem("Keyboard Accessory", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"keyboardAccessoryVC"))
         
+        let appUpdateInfoItem = TableItem("Check for App Updates", reuseIdentifier: "squidKitHomeCell") { [weak self] (item, indexPath, actions) in
+            UIApplication.shared.checkAppStoreVersion(completion: { [weak self] (version, url, error) in
+                let alert = UIAlertController(title: "App Update", message: version.description, preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(ok)
+                self?.present(alert, animated: true)
+            })
+            self?.tableView.deselectRow(at: indexPath, animated: true)
+        }
+        
         // removed for Swift 4
         //let endpointExampleItem = NavigatingTableItem("Network Endpoint Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"endpointTestVC"))
         
@@ -50,6 +60,7 @@ class HomeViewController: TableItemBackedTableViewController {
         section.append(urlImageItem)
         section.append(hostConfigurationItem)
         section.append(keyboardAccessoryItem)
+        section.append(appUpdateInfoItem)
         //section.append(endpointExampleItem)
         //section.append(jsonExampleItem)
         //section.append(remoteImageItem)
