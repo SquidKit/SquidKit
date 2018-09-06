@@ -55,6 +55,7 @@
 		1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */; };
 		1C92B9891FE8C29A00DA3896 /* KeyboardAccessoryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B9881FE8C29A00DA3896 /* KeyboardAccessoryBar.swift */; };
 		1C92B98E1FE8CDD100DA3896 /* TextFieldEditingChanged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C92B98D1FE8CDD100DA3896 /* TextFieldEditingChanged.swift */; };
+		1CAECD6F214183750066F8E6 /* UIViewController+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAECD6E214183750066F8E6 /* UIViewController+Utility.swift */; };
 		1CD097EF1B4F0A9F006FD332 /* UIImage+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */; };
 		1CD2E42A1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */; };
 		1CD2E42B1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */; };
@@ -99,6 +100,7 @@
 		1C8C1B2619A6F977000169F6 /* TableItemBackedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableItemBackedTableViewController.swift; sourceTree = "<group>"; };
 		1C92B9881FE8C29A00DA3896 /* KeyboardAccessoryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAccessoryBar.swift; sourceTree = "<group>"; };
 		1C92B98D1FE8CDD100DA3896 /* TextFieldEditingChanged.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldEditingChanged.swift; sourceTree = "<group>"; };
+		1CAECD6E214183750066F8E6 /* UIViewController+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utility.swift"; sourceTree = "<group>"; };
 		1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Utility.swift"; sourceTree = "<group>"; };
 		1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Utility.swift"; sourceTree = "<group>"; };
 		1CEE10661A81912D001ABD72 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				1CD2E4291B031CB300E08DF5 /* UIDevice+Utility.swift */,
 				1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */,
 				1CEE10661A81912D001ABD72 /* UIView+Utility.swift */,
+				1CAECD6E214183750066F8E6 /* UIViewController+Utility.swift */,
 			);
 			name = "Class Extensions";
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				1C0C5FFF19B7D33A003E300C /* JSONEntity.swift in Sources */,
 				1C15BB521CB19B1400B894F0 /* UIApplication+Utility.swift in Sources */,
 				1C82210A19A4F94300A17B56 /* String+Utility.swift in Sources */,
+				1CAECD6F214183750066F8E6 /* UIViewController+Utility.swift in Sources */,
 				1C82210619A4F94300A17B56 /* NSDictionary+Utility.swift in Sources */,
 				1C4C278A1FDCAD1C00ADF450 /* URLImageView.swift in Sources */,
 				1C82211019A4F94300A17B56 /* ThemeLabel.swift in Sources */,
