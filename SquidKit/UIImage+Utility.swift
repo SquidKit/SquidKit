@@ -38,6 +38,39 @@ public extension UIImage {
         
         return imageWithInsets!
     }
+    
+    func scaledImage(withSize size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height))
+        return UIGraphicsGetImageFromCurrentImageContext()!
+    }
+    
+    func scaleImageToFitSize(size: CGSize) -> UIImage {
+        let aspect = self.size.width / self.size.height
+        if size.width / aspect <= size.height {
+            return scaledImage(withSize: CGSize(width: size.width, height: size.width / aspect))
+        } else {
+            return scaledImage(withSize: CGSize(width: size.height * aspect, height: size.height))
+        }
+    }
+    
+    func colorized(color : UIColor, blendMode: CGBlendMode = .screen) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        guard let context = UIGraphicsGetCurrentContext() else {return self}
+        guard let cgImage = cgImage else {return self}
+        context.setBlendMode(blendMode)
+        context.translateBy(x: 0, y: size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.draw(cgImage, in: rect)
+        context.clip(to: rect, mask: cgImage)
+        context.setFillColor(color.cgColor)
+        context.fill(rect)
+        let colorizedImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return colorizedImage ?? self
+    }
 }
 
 
