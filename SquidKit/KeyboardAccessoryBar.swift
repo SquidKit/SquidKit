@@ -38,7 +38,7 @@ open class KeyboardAccessoryBar: UIToolbar {
         self.responder = responder
     }
     
-    public func addDismisser(systemItem: UIBarButtonSystemItem, for responder: UIResponder, with alignment: Alignment?) {
+    public func addDismisser(systemItem: UIBarButtonItem.SystemItem, for responder: UIResponder, with alignment: Alignment?) {
         let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(self.didTapDismisser(_:)))
         addItem(item: item, with: alignment)
         self.responder = responder

@@ -35,7 +35,7 @@ open class URLImageView: UIImageView {
     
     fileprivate var activityView:UIActivityIndicatorView?
     
-    fileprivate var activityIndicatorStyle:UIActivityIndicatorViewStyle {
+    fileprivate var activityIndicatorStyle:UIActivityIndicatorView.Style {
         switch activityIndicatorType {
         case .light:
             return .white
@@ -109,7 +109,7 @@ open class URLImageView: UIImageView {
     fileprivate func startActivity() {
         if activityIndicatorType != .none {
             if activityView == nil {
-                activityView = UIActivityIndicatorView(activityIndicatorStyle: activityIndicatorStyle)
+                activityView = UIActivityIndicatorView(style: activityIndicatorStyle)
                 activityView?.centerInView(self)
                 addSubview(activityView!)
             }

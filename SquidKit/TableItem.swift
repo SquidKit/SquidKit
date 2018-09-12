@@ -18,7 +18,7 @@ import Foundation
 open class TableItem {
     
     open class Tag {
-        open let value:Int
+        public let value:Int
         public init(value:Int) {
             self.value = value
         }

@@ -11,7 +11,7 @@ import Foundation
 public class StyledString {
     
     fileprivate let editingString:NSMutableAttributedString!
-    fileprivate var editingAttributes:[NSAttributedStringKey : Any]!
+    fileprivate var editingAttributes:[NSAttributedString.Key : Any]!
     public var count: Int {
         return editingString.length
     }
@@ -22,7 +22,7 @@ public class StyledString {
     
     public init() {
         editingString = NSMutableAttributedString()
-        editingAttributes = [NSAttributedStringKey : Any]()
+        editingAttributes = [NSAttributedString.Key : Any]()
     }
     
     public init(copyFrom:StyledString) {
@@ -42,26 +42,26 @@ public class StyledString {
     }
     
     @discardableResult
-    public func pushAttributes(_ attributes:[NSAttributedStringKey : Any]) -> StyledString {
+    public func pushAttributes(_ attributes:[NSAttributedString.Key : Any]) -> StyledString {
         editingAttributes.unionInPlace(attributes)
         return self
     }
     
     @discardableResult
-    public func popAttributes(_ attributes:[NSAttributedStringKey]) -> StyledString {
+    public func popAttributes(_ attributes:[NSAttributedString.Key]) -> StyledString {
         let _ = attributes.map {editingAttributes.removeValue(forKey: $0)}
         return self
     }
     
     @discardableResult
     public func pushColor(_ color:UIColor) -> StyledString {
-        self.pushAttributes([NSAttributedStringKey.foregroundColor : color])
+        self.pushAttributes([NSAttributedString.Key.foregroundColor : color])
         return self
     }
     
     @discardableResult
     public func pushFont(_ font:UIFont) -> StyledString {
-        self.pushAttributes([NSAttributedStringKey.font : font])
+        self.pushAttributes([NSAttributedString.Key.font : font])
         return self
     }
     
@@ -75,7 +75,7 @@ public func + (left:StyledString, right:String) -> StyledString {
     return styled
 }
 
-public func + (left:StyledString, right:[NSAttributedStringKey: Any]) -> StyledString {
+public func + (left:StyledString, right:[NSAttributedString.Key: Any]) -> StyledString {
     var styled = StyledString(copyFrom: left)
     styled = styled.pushAttributes(right)
     return styled
@@ -94,7 +94,7 @@ public func + (left:StyledString, right:UIFont) -> StyledString {
 }
 
 
-public func - (left:StyledString, right:[NSAttributedStringKey]) -> StyledString {
+public func - (left:StyledString, right:[NSAttributedString.Key]) -> StyledString {
     var styled = StyledString(copyFrom: left)
     styled = styled.popAttributes(right)
     return styled

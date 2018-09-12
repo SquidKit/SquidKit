@@ -10,9 +10,9 @@ import UIKit
 
 open class ConfigurationItem : TableItem {
     open var protocolHostPair:ProtocolHostPair?
-    open let key:String
-    open let canonicalHost:String
-    open let editable:Bool
+    public let key:String
+    public let canonicalHost:String
+    public let editable:Bool
     let hostMapManager:HostMapManager!
     
     public required init(hostMapManager:HostMapManager, protocolHostPair:ProtocolHostPair?, key:String, canonicalHost:String, editable:Bool) {
@@ -131,7 +131,7 @@ open class CustomHostCell: UITableViewCell, UITextFieldDelegate {
             textField = UITextField(frame:self.contentView.bounds.insetBy(dx: 15, dy: 5))
             self.contentView.addSubview(textField!)
             textField?.placeholder = "Enter custom host (e.g. \"api.host.com\")"
-            textField?.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFontTextStyle.subheadline), size: 13)
+            textField?.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.subheadline), size: 13)
             textField?.keyboardType = .URL
             textField?.returnKeyType = .done
             textField?.autocorrectionType = .no

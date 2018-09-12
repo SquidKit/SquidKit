@@ -27,13 +27,14 @@ open class KVOHelper : NSObject {
     
     fileprivate var keys = [String]()
     fileprivate var blockMap = [String: KVObservingBlock]()
-    fileprivate unowned let observer:NSObject
-    fileprivate unowned var observed:NSObject
+    fileprivate unowned let observer: NSObject
+    fileprivate unowned var observed: NSObject
+    private var unclaimed = NSObject()
     
     public init(observerObject:NSObject) {
         
         observer = observerObject
-        observed = NSObject()
+        observed = unclaimed
         
         super.init()
         
