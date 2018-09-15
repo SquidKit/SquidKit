@@ -64,6 +64,7 @@
 		1CEE106D1A829197001ABD72 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE106C1A829197001ABD72 /* Cache.swift */; };
 		1CEE106E1A829197001ABD72 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CEE106C1A829197001ABD72 /* Cache.swift */; };
 		1CF9389C1CC95EBC00E2F94E /* StyledString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CF9389B1CC95EBC00E2F94E /* StyledString.swift */; };
+		1CFABFC1214D990F0094D2C1 /* DateFormatter+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CFABFC0214D990F0094D2C1 /* DateFormatter+Utility.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +107,7 @@
 		1CEE10661A81912D001ABD72 /* UIView+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Utility.swift"; sourceTree = "<group>"; };
 		1CEE106C1A829197001ABD72 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		1CF9389B1CC95EBC00E2F94E /* StyledString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyledString.swift; sourceTree = "<group>"; };
+		1CFABFC0214D990F0094D2C1 /* DateFormatter+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Utility.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +249,7 @@
 				1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */,
 				1CEE10661A81912D001ABD72 /* UIView+Utility.swift */,
 				1CAECD6E214183750066F8E6 /* UIViewController+Utility.swift */,
+				1CFABFC0214D990F0094D2C1 /* DateFormatter+Utility.swift */,
 			);
 			name = "Class Extensions";
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				1C82211019A4F94300A17B56 /* ThemeLabel.swift in Sources */,
 				1C82212919A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211619A4F94300A17B56 /* UIColor+Hex.swift in Sources */,
+				1CFABFC1214D990F0094D2C1 /* DateFormatter+Utility.swift in Sources */,
 				1CF9389C1CC95EBC00E2F94E /* StyledString.swift in Sources */,
 				1C82211219A4F94300A17B56 /* ThemeLoader.swift in Sources */,
 				1C1EFA602130777000C41B81 /* UIApplication+Update.swift in Sources */,
