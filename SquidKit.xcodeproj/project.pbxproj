@@ -20,6 +20,8 @@
 		1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
 		1C4C278A1FDCAD1C00ADF450 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4C27891FDCAD1B00ADF450 /* URLImageView.swift */; };
 		1C4C278B1FDCAD1C00ADF450 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4C27891FDCAD1B00ADF450 /* URLImageView.swift */; };
+		1C5054EB214DB42600DCB1BE /* DispatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5054EA214DB42600DCB1BE /* DispatchTimer.swift */; };
+		1C5054EC214DB42600DCB1BE /* DispatchTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5054EA214DB42600DCB1BE /* DispatchTimer.swift */; };
 		1C57DAF019BCE3A6009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
 		1C57DAF119BCE3A7009226AD /* NavigatingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0C602A19BCD8B7003E300C /* NavigatingTableItem.swift */; };
 		1C6B73FF1AFC6CCA0060678A /* KVObserving.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */; };
@@ -77,6 +79,7 @@
 		1C2B1CBC1D0222D70044B56D /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
 		1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		1C4C27891FDCAD1B00ADF450 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
+		1C5054EA214DB42600DCB1BE /* DispatchTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimer.swift; sourceTree = "<group>"; };
 		1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObserving.swift; sourceTree = "<group>"; };
 		1C81EF061EFC54B400A1AA0D /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		1C8220D319A4F7E700A17B56 /* SquidKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SquidKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,6 +242,7 @@
 		1C8220EF19A4F8EE00A17B56 /* Class Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1CFABFC0214D990F0094D2C1 /* DateFormatter+Utility.swift */,
 				1C8220F819A4F94300A17B56 /* NSDictionary+Utility.swift */,
 				1C8220F919A4F94300A17B56 /* String+File.swift */,
 				1C8220FA19A4F94300A17B56 /* String+Utility.swift */,
@@ -249,7 +253,6 @@
 				1CD097EE1B4F0A9F006FD332 /* UIImage+Utility.swift */,
 				1CEE10661A81912D001ABD72 /* UIView+Utility.swift */,
 				1CAECD6E214183750066F8E6 /* UIViewController+Utility.swift */,
-				1CFABFC0214D990F0094D2C1 /* DateFormatter+Utility.swift */,
 			);
 			name = "Class Extensions";
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			children = (
 				1CEE106C1A829197001ABD72 /* Cache.swift */,
 				1C2B1CBC1D0222D70044B56D /* Dispatch.swift */,
+				1C5054EA214DB42600DCB1BE /* DispatchTimer.swift */,
 				1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */,
 				1C82212819A5033C00A17B56 /* Log.swift */,
 				1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */,
@@ -428,6 +432,7 @@
 				1C8C1B2719A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C92B98E1FE8CDD100DA3896 /* TextFieldEditingChanged.swift in Sources */,
 				1CD2E42A1B031CB300E08DF5 /* UIDevice+Utility.swift in Sources */,
+				1C5054EB214DB42600DCB1BE /* DispatchTimer.swift in Sources */,
 				1C82210C19A4F94300A17B56 /* TableItem.swift in Sources */,
 				1C0C5FFF19B7D33A003E300C /* JSONEntity.swift in Sources */,
 				1C15BB521CB19B1400B894F0 /* UIApplication+Utility.swift in Sources */,
@@ -471,6 +476,7 @@
 				1C82212F19A50BFA00A17B56 /* ThemeTableView.swift in Sources */,
 				1C8C1B2819A6F977000169F6 /* TableItemBackedTableViewController.swift in Sources */,
 				1C57DAF119BCE3A7009226AD /* NavigatingTableItem.swift in Sources */,
+				1C5054EC214DB42600DCB1BE /* DispatchTimer.swift in Sources */,
 				1C82212A19A5033C00A17B56 /* Log.swift in Sources */,
 				1C82211319A4F94300A17B56 /* ThemeLoader.swift in Sources */,
 				1C0C600019B7D33A003E300C /* JSONEntity.swift in Sources */,
