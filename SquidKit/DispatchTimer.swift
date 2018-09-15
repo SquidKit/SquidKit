@@ -10,8 +10,8 @@ import Foundation
 
 // callback parameters: TimeInterval - the current relative playback time;
 // Bool - completed flag - true if a duration has been set by the caller, and the duration has been reached.
-typealias DispatchTimerFiredCallback = (TimeInterval, Bool) -> Void
-class DispatchTimer {
+public typealias DispatchTimerFiredCallback = (TimeInterval, Bool) -> Void
+public class DispatchTimer {
     
     private enum State {
         case idle
@@ -31,12 +31,12 @@ class DispatchTimer {
         return repeatInterval != nil
     }
     
-    var timeOffset: TimeInterval = 0
-    var duration: TimeInterval?
-    var isRunning: Bool {
+    public var timeOffset: TimeInterval = 0
+    public var duration: TimeInterval?
+    public var isRunning: Bool {
         return state == .running
     }
-    var isIdle: Bool {
+    public var isIdle: Bool {
         return state == .idle
     }
     
@@ -48,7 +48,7 @@ class DispatchTimer {
         }
     }
         
-    init(_ deadline: TimeInterval, repeatInterval: TimeInterval?, duration: TimeInterval?, callback: @escaping DispatchTimerFiredCallback) {
+    public init(_ deadline: TimeInterval, repeatInterval: TimeInterval?, duration: TimeInterval?, callback: @escaping DispatchTimerFiredCallback) {
         self.repeatInterval = repeatInterval
         self.duration = duration
         self.deadline = deadline
@@ -57,7 +57,7 @@ class DispatchTimer {
         configure()
     }
     
-    func configure() {
+    public func configure() {
         guard state == .idle else {return}
         deadlineReached = false
         
@@ -80,7 +80,7 @@ class DispatchTimer {
         }
     }
     
-    func start() {
+    public func start() {
         switch state {
         case .idle:
             let dispatchDeadline: DispatchTime = DispatchTime.now() + DispatchTimeInterval.milliseconds(Int(deadline * 1000))
@@ -100,13 +100,13 @@ class DispatchTimer {
         state = .running
     }
     
-    func pause() {
+    public func pause() {
         guard state == .running else {return}
         timer.suspend()
         state = .paused
     }
     
-    func stop() {
+    public func stop() {
         switch state {
         case .idle, .paused:
             break
