@@ -17,5 +17,4 @@ public extension UIApplication {
         
         return Bundle.main.object(forInfoDictionaryKey: kCFBundleNameKey as String) as! String
     }
-    
 }
