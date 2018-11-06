@@ -42,6 +42,15 @@ public class StyledString {
     }
     
     @discardableResult
+    public func pushAttributedString(_ string: NSAttributedString, seperator: NSAttributedString? = nil) -> StyledString {
+        if count > 0, let seperator = seperator {
+            editingString.append(seperator)
+        }
+        editingString.append(string)
+        return self
+    }
+    
+    @discardableResult
     public func pushAttributes(_ attributes:[NSAttributedString.Key : Any]) -> StyledString {
         editingAttributes.unionInPlace(attributes)
         return self
