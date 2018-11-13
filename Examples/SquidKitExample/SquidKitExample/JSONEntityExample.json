@@ -2,8 +2,8 @@
 	"entities_array":
 	[
 		{
-			"float_item": 9.864,
-            "float_item_as_string": "100.7",
+			"double_item": 9.864,
+            "double_item_as_string": "100.7",
 			"int_item": 7,
             "int_item_as_float": 42.3,
             "int_item_as_string": "88",

@@ -11,7 +11,7 @@ import Foundation
 
 open class JSONEntity: Sequence {
     
-    enum JSONEntityError:Error {
+    enum JSONEntityError: Error {
         case invalidKey
         case invalidValue
         case invalidFormat
@@ -19,21 +19,21 @@ open class JSONEntity: Sequence {
     }
     
     fileprivate struct Entity {
-        var key:String
-        var value:AnyObject
+        var key: String
+        var value: AnyObject
         
-        init(_ key:String, _ value:AnyObject) {
+        init(_ key: String, _ value: AnyObject) {
             self.key = key
             self.value = value
         }
     }
     
-    fileprivate var entity:Entity
+    fileprivate var entity: Entity
     
     fileprivate class NilValue {
     }
     
-    open var count:Int {
+    open var count: Int {
         if let array = self.array() {
             return array.count
         }
@@ -43,18 +43,18 @@ open class JSONEntity: Sequence {
         return 0
     }
     
-    open var isValid:Bool {
+    open var isValid: Bool {
         if let _ = self.entity.value as? NilValue {
             return false
         }
         return true
     }
     
-    open var key:String {
+    open var key: String {
         return self.entity.key
     }
     
-    open var realValue:AnyObject? {
+    open var realValue: AnyObject? {
         if let _ = self.entity.value as? NilValue {
             return nil
         }
@@ -65,20 +65,20 @@ open class JSONEntity: Sequence {
         self.entity = Entity("", NilValue())
     }
     
-    public init(_ key:String, _ value:AnyObject) {
+    public init(_ key: String, _ value: AnyObject) {
         self.entity = Entity(key, value)
     }
     
-    public init(resourceFilename:String) {
+    public init(resourceFilename: String) {
         let jsonEntity = JSONEntity.entityFromResourceFile(resourceFilename)
         self.entity = jsonEntity.entity;
     }
     
-    public init(jsonDictionary:NSDictionary) {
+    public init(jsonDictionary: NSDictionary) {
         self.entity = Entity("", jsonDictionary)
     }
     
-    public init(jsonArray:NSArray) {
+    public init(jsonArray: NSArray) {
         self.entity = Entity("", jsonArray)
     }
     
@@ -98,27 +98,27 @@ open class JSONEntity: Sequence {
         return self.intWithDefault(nil)
     }
     
-    open func float() -> Float? {
-        return self.floatWithDefault(nil)
+    open func double() -> Double? {
+        return self.doubleWithDefault(nil)
     }
     
     open func bool() -> Bool? {
         return self.boolWithDefault(nil)
     }
     
-    open func stringWithDefault(_ defaultValue:String?) -> String? {
+    open func stringWithDefault(_ defaultValue: String?) -> String? {
         return EntityConverter<String>().get(entity.value, defaultValue)
     }
     
-    open func arrayWithDefault(_ defaultValue:NSArray?) -> NSArray? {
+    open func arrayWithDefault(_ defaultValue: NSArray?) -> NSArray? {
         return EntityConverter<NSArray>().get(entity.value, defaultValue)
     }
     
-    open func dictionaryWithDefault(_ defaultValue:NSDictionary?) -> NSDictionary? {
+    open func dictionaryWithDefault(_ defaultValue: NSDictionary?) -> NSDictionary? {
         return EntityConverter<NSDictionary>().get(entity.value, defaultValue)
     }
     
-    open func intWithDefault(_ defaultValue:Int?) -> Int? {
+    open func intWithDefault(_ defaultValue: Int?) -> Int? {
         if let int = EntityConverter<Int>().get(entity.value, nil) {
             return int
         }
@@ -128,17 +128,17 @@ open class JSONEntity: Sequence {
         return defaultValue
     }
     
-    open func floatWithDefault(_ defaultValue:Float?) -> Float? {
-        if let float = EntityConverter<Float>().get(entity.value, nil) {
-            return float
+    open func doubleWithDefault(_ defaultValue: Double?) -> Double? {
+        if let double = EntityConverter<Double>().get(entity.value, nil) {
+            return double
         }
-        else if let floatString = EntityConverter<String>().get(entity.value, nil) {
-            return (floatString as NSString).floatValue
+        else if let doubleString = EntityConverter<String>().get(entity.value, nil) {
+            return (doubleString as NSString).doubleValue
         }
         return defaultValue
     }
     
-    open func boolWithDefault(_ defaultValue:Bool?) -> Bool? {
+    open func boolWithDefault(_ defaultValue: Bool?) -> Bool? {
         if let bool = EntityConverter<Bool>().get(entity.value, nil) {
             return bool
         }
@@ -148,17 +148,17 @@ open class JSONEntity: Sequence {
         return defaultValue
     }
     
-    open subscript(key:String) -> JSONEntity {
-        if let e:NSDictionary = entity.value as? NSDictionary {
-            if let object:AnyObject = e.object(forKey: key) as AnyObject? {
+    open subscript(key: String) -> JSONEntity {
+        if let e: NSDictionary = entity.value as? NSDictionary {
+            if let object: AnyObject = e.object(forKey: key) as AnyObject? {
                 return JSONEntity(key, object)
             }
         }
         return JSONEntity(key, NilValue())
     }
     
-    open subscript(index:Int) -> JSONEntity? {
-        if let array:NSArray = entity.value as? NSArray {
+    open subscript(index: Int) -> JSONEntity? {
+        if let array: NSArray = entity.value as? NSArray {
             return JSONEntity(self.entity.key, array[index] as AnyObject)
         }
         return nil
@@ -174,13 +174,13 @@ open class JSONEntity: Sequence {
 
 public extension JSONEntity {
     
-    public class func entityFromResourceFile(_ fileName:String) -> JSONEntity {
-        var result:JSONEntity?
+    public class func entityFromResourceFile(_ fileName: String) -> JSONEntity {
+        var result: JSONEntity?
         
-        if let inputStream = InputStream(fileAtPath:String.stringWithPathToResourceFile(fileName)) {
+        if let inputStream = InputStream(fileAtPath: String.stringWithPathToResourceFile(fileName)) {
             inputStream.open()
             do {
-                let serialized = try JSONSerialization.jsonObject(with: inputStream, options:JSONSerialization.ReadingOptions(rawValue: 0))
+                let serialized = try JSONSerialization.jsonObject(with: inputStream, options: JSONSerialization.ReadingOptions(rawValue: 0))
                 
                 if let serializedASDictionary = serialized as? NSDictionary {
                     result = JSONEntity(jsonDictionary: serializedASDictionary)
@@ -213,7 +213,7 @@ public extension JSONEntity {
     public func entityWithoutNullValues() throws -> JSONEntity {
         if let array = self.array() {
             let mutableArray = NSMutableArray(array: array)
-            return JSONEntity(jsonArray:mutableArray)
+            return JSONEntity(jsonArray: mutableArray)
         }
         else if let dictionary = self.dictionary() {
             let mutableDictionary = NSMutableDictionary(dictionary: dictionary)
@@ -223,7 +223,7 @@ public extension JSONEntity {
         throw JSONEntityError.invalidJSON
     }
     
-    func removeNull(_ dictionary:NSMutableDictionary) {
+    func removeNull(_ dictionary: NSMutableDictionary) {
         for key in dictionary.allKeys {
             let key = key as! String
             if let _ = dictionary[key] as? NSNull {
@@ -242,7 +242,7 @@ public extension JSONEntity {
         }
     }
     
-    func removeNull(_ array:NSMutableArray) {
+    func removeNull(_ array: NSMutableArray) {
         for element in array {
             if let dictionary = element as? NSDictionary {
                 let mutableDictionary = NSMutableDictionary(dictionary: dictionary)
@@ -255,7 +255,7 @@ public extension JSONEntity {
 
 public extension JSONEntity {
     
-    func convertIfDate(_ datekeys:[String], formatter:DateFormatter) throws -> JSONEntity {
+    func convertIfDate(_ datekeys: [String], formatter: DateFormatter) throws -> JSONEntity {
         if datekeys.contains(self.entity.key) {
             guard let value = self.entity.value as? String else {throw JSONEntityError.invalidValue}
             guard let date = formatter.date(from: value) else {throw JSONEntityError.invalidFormat}
@@ -266,13 +266,13 @@ public extension JSONEntity {
     }
 }
 
-public struct JSONEntityGenerator:IteratorProtocol {
+public struct JSONEntityGenerator: IteratorProtocol {
     public typealias Element = JSONEntity
     
-    let entity:JSONEntity
+    let entity: JSONEntity
     var sequenceIndex = 0
     
-    public init(_ entity:JSONEntity) {
+    public init(_ entity: JSONEntity) {
         self.entity = entity
     }
     
@@ -307,8 +307,8 @@ private class EntityConverter<T> {
     init() {
     }
     
-    func get(_ entity:AnyObject, _ defaultValue:T? = nil) -> T? {
-        if let someEntity:T = entity as? T {
+    func get(_ entity: AnyObject, _ defaultValue: T? = nil) -> T? {
+        if let someEntity: T = entity as? T {
             return someEntity
         }
         return defaultValue

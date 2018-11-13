@@ -31,11 +31,11 @@ class JSONEntityExampleViewController: TableItemBackedTableViewController {
         let json = JSONEntity(resourceFilename: "JSONEntityExample.json")
         let entities = json["entities_array"]
         for entity in entities {
-            let float = entity["float_item"].float()
-            tableSection.append(JSONEntityItem(key: "float_item", value:"\(String(describing: float))"))
+            let double = entity["double_item"].double()
+            tableSection.append(JSONEntityItem(key: "double_item", value:"\(String(describing: double))"))
             
-            let float2 = entity["float_item_as_string"].float()
-            tableSection.append(JSONEntityItem(key: "float_item_as_string", value:"\(String(describing: float2))"))
+            let double2 = entity["double_item_as_string"].double()
+            tableSection.append(JSONEntityItem(key: "double_item_as_string", value:"\(String(describing: double2))"))
             
             let integer = entity["int_item"].int()
             tableSection.append(JSONEntityItem(key: "int_item", value:"\(String(describing: integer))"))

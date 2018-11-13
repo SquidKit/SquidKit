@@ -47,7 +47,7 @@ class HomeViewController: TableItemBackedTableViewController {
         // removed for Swift 4
         //let endpointExampleItem = NavigatingTableItem("Network Endpoint Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"endpointTestVC"))
         
-        //let jsonExampleItem = NavigatingTableItem("JSON Entity Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"jsonEntityExampleVC"))
+        let jsonExampleItem = NavigatingTableItem("JSON Entity Example", reuseIdentifier:"squidKitHomeCell", navigationType:.push(storyboardName:"Main", storyboardID:"jsonEntityExampleVC"))
         
         //let remoteImageItem = NavigatingTableItem("Remote Image Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"remoteImageVC"))
         
@@ -62,7 +62,7 @@ class HomeViewController: TableItemBackedTableViewController {
         section.append(keyboardAccessoryItem)
         section.append(appUpdateInfoItem)
         //section.append(endpointExampleItem)
-        //section.append(jsonExampleItem)
+        section.append(jsonExampleItem)
         //section.append(remoteImageItem)
         
         self.model.append(section)
