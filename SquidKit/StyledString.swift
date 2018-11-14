@@ -74,6 +74,51 @@ public class StyledString {
         return self
     }
     
+    @discardableResult
+    public func pushDefaultParagraphStyle() -> StyledString {
+        pushAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key: NSParagraphStyle.default])
+        return self
+    }
+    
+    @discardableResult
+    public func pushParagraphIndent(firstLineHeadIndent: CGFloat, headIndent: CGFloat) -> StyledString {
+        let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        
+        paragraphStyle.firstLineHeadIndent = firstLineHeadIndent
+        paragraphStyle.headIndent = headIndent
+        
+        pushAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key: paragraphStyle])
+        return self
+    }
+    
+    @discardableResult
+    public func pushParagraphAlignment(_ alignment: NSTextAlignment) -> StyledString {
+        let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        
+        paragraphStyle.alignment = alignment
+        
+        pushAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key: paragraphStyle])
+        return self
+    }
+    
+    @discardableResult
+    public func popParagraphStyle() -> StyledString {
+        popAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key])
+        return self
+    }
+    
+    @discardableResult
+    public func pushStrikethrough() -> StyledString {
+        pushAttributes([NSAttributedString.Key.strikethroughStyle: NSNumber(value: NSUnderlineStyle.single.rawValue)])
+        return self
+    }
+    
+    @discardableResult
+    public func popStrikethrough() -> StyledString {
+        popAttributes([NSAttributedString.Key.strikethroughStyle])
+        return self
+    }
+    
 }
 
 

@@ -176,7 +176,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
                     <connections>
-                        <outlet property="detailDescriptionLabel" destination="Lei-5M-9Gs" id="sCT-F7-F6f"/>
+                        <outlet property="detailDescriptionLabel" destination="Lei-5M-9Gs" id="wZ6-1r-w9C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
@@ -226,6 +226,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVq-Pw-UBU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1677" y="410"/>
+        </scene>
+        <!--Styled String View Controller-->
+        <scene sceneID="d5u-hE-v1u">
+            <objects>
+                <viewController storyboardIdentifier="styledStringVC" id="lc1-DL-I9v" customClass="StyledStringViewController" customModule="SquidKitExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2os-a8-3yT"/>
+                        <viewControllerLayoutGuide type="bottom" id="R9f-rd-mKG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="g7B-Va-OVX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uoe-pc-E46">
+                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uoe-pc-E46" firstAttribute="leading" secondItem="g7B-Va-OVX" secondAttribute="leadingMargin" id="7Ks-GJ-2x8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uoe-pc-E46" secondAttribute="trailing" id="JAM-M4-Xg4"/>
+                            <constraint firstItem="uoe-pc-E46" firstAttribute="top" secondItem="2os-a8-3yT" secondAttribute="bottom" id="oai-jR-PaB"/>
+                            <constraint firstItem="R9f-rd-mKG" firstAttribute="top" secondItem="uoe-pc-E46" secondAttribute="bottom" id="zyG-3C-F8y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="uoe-pc-E46" id="wGQ-0f-gjF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dnk-PC-SEK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2402" y="413"/>
         </scene>
         <!--Endpoint Example View Controller-->
         <scene sceneID="HTW-Fj-gKV">

@@ -44,6 +44,12 @@ class HomeViewController: TableItemBackedTableViewController {
             self?.tableView.deselectRow(at: indexPath, animated: true)
         }
         
+        let styledStringItem = TableItem("Styled String Example", reuseIdentifier: "squidKitHomeCell") { [weak self] (item, indexPath, actions) in
+            guard let styledViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "styledStringVC") as? StyledStringViewController else {return}
+            styledViewController.navigationItem.title = item.title
+            self?.navigationController?.pushViewController(styledViewController, animated: true)
+        }
+        
         // removed for Swift 4
         //let endpointExampleItem = NavigatingTableItem("Network Endpoint Example", reuseIdentifier:"squidKitHomeCell", navigationType:.Push(storyboardName:"Main", storyboardID:"endpointTestVC"))
         
@@ -61,6 +67,7 @@ class HomeViewController: TableItemBackedTableViewController {
         section.append(hostConfigurationItem)
         section.append(keyboardAccessoryItem)
         section.append(appUpdateInfoItem)
+        section.append(styledStringItem)
         //section.append(endpointExampleItem)
         section.append(jsonExampleItem)
         //section.append(remoteImageItem)
