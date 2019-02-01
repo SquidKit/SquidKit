@@ -10,6 +10,11 @@ import UIKit
 
 public extension UIApplication {
     
+    public var isTestFlight: Bool {
+        guard let appStoreReceiptURL = Bundle.main.appStoreReceiptURL else {return false}
+        return appStoreReceiptURL.lastPathComponent == "sandboxReceipt"
+    }
+    
     public func displayName() -> String {
         if let name:String = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String , name.count > 0 {
             return name
