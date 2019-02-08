@@ -69,8 +69,13 @@ public class StyledString {
     }
     
     @discardableResult
-    public func pushFont(_ font:UIFont) -> StyledString {
-        self.pushAttributes([NSAttributedString.Key.font : font])
+    public func pushFont(_ font:UIFont, baselineOffset: Double? = nil) -> StyledString {
+        if let baseline = baselineOffset {
+            self.pushAttributes([NSAttributedString.Key.font : font, NSAttributedString.Key.baselineOffset: NSNumber(value: baseline)])
+        }
+        else {
+            self.pushAttributes([NSAttributedString.Key.font : font])
+        }
         return self
     }
     
