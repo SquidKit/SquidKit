@@ -3,7 +3,7 @@
 //  SquidKit
 //
 //  Created by Mike Leavy on 2/22/19.
-//  Copyright © 2019 Squid Store. All rights reserved.
+//  Copyright © 2019 Squid Store, LLC. All rights reserved.
 //
 
 import UIKit

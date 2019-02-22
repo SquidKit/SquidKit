@@ -3,7 +3,7 @@
 //  SquidKit
 //
 //  Created by Mike Leavy on 8/15/14.
-//  Copyright (c) 2014 SquidKit. All rights reserved.
+//  Copyright © 2014-2019 Squid Store, LLC. All rights reserved.
 //
 //  Acknowledgments to Brent Simmons and the DB5 theme model (https://github.com/quartermaster/DB5),
 //  after which this SquidKit themes are modeled. SquidKit eschews Plists in favor of a more portable
