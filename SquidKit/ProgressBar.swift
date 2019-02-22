@@ -8,22 +8,22 @@
 
 import UIKit
 
-class ProgressBar: UIView {
+open class ProgressBar: UIView {
 
-    enum Style: Int {
+    public enum Style: Int {
         case round
         case flat
     }
     
-    enum Direction: Int {
+    public enum Direction: Int {
         case horizontal
         case vertical
     }
     
-    var style: Style = .round
-    var direction: Direction = .horizontal
+    open var style: Style = .round
+    open var direction: Direction = .horizontal
     
-    @IBInspectable var styleAdapter: Int {
+    @IBInspectable open var styleAdapter: Int {
         get {
             return style.rawValue
         }
@@ -32,7 +32,7 @@ class ProgressBar: UIView {
         }
     }
     
-    @IBInspectable var directionAdapter: Int {
+    @IBInspectable open var directionAdapter: Int {
         get {
             return direction.rawValue
         }
@@ -41,27 +41,27 @@ class ProgressBar: UIView {
         }
     }
     
-    @IBInspectable var startColor: UIColor = .blue {
+    @IBInspectable open var startColor: UIColor = .blue {
         didSet {
             updateLayout()
         }
     }
-    @IBInspectable var endColor: UIColor = .red {
+    @IBInspectable open var endColor: UIColor = .red {
         didSet {
             updateLayout()
         }
     }
-    @IBInspectable var borderColor: UIColor? {
+    @IBInspectable open var borderColor: UIColor? {
         didSet {
             updateLayout()
         }
     }
-    @IBInspectable var borderWidth: CGFloat = 0 {
+    @IBInspectable open var borderWidth: CGFloat = 0 {
         didSet {
             updateLayout()
         }
     }
-    @IBInspectable var value: CGFloat = 0 {
+    @IBInspectable open var value: CGFloat = 0 {
         didSet {
             value = max(0, value)
             value = min(value, 1)
@@ -71,11 +71,11 @@ class ProgressBar: UIView {
     
     private var gradientLayer: CAGradientLayer?
     
-    override func awakeFromNib() {
+    open override func awakeFromNib() {
         updateLayout()
     }
     
-    override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         updateLayout()
     }
