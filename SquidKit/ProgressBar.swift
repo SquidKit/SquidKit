@@ -86,7 +86,8 @@ open class ProgressBar: UIView {
             layer.cornerRadius = direction == .horizontal ? bounds.height / 2 : bounds.width / 2
             layer.masksToBounds = true
         case .flat:
-            break
+            layer.cornerRadius = 0
+            layer.masksToBounds = true
         }
         layer.borderColor = borderColor?.cgColor
         layer.borderWidth = borderWidth
