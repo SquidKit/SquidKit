@@ -107,6 +107,21 @@ public class StyledString {
     }
     
     @discardableResult
+    public func pushParagraphSpacing(_ spacing: CGFloat, isBefore: Bool = false) -> StyledString {
+        let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        
+        if isBefore {
+            paragraphStyle.paragraphSpacingBefore = spacing
+        }
+        else {
+            paragraphStyle.paragraphSpacing = spacing
+        }
+        
+        pushAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key: paragraphStyle])
+        return self
+    }
+    
+    @discardableResult
     public func popParagraphStyle() -> StyledString {
         popAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key])
         return self
