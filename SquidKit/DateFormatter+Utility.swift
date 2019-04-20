@@ -9,7 +9,7 @@
 import Foundation
 
 public extension DateFormatter {
-    public convenience init(format: String) {
+    convenience init(format: String) {
         self.init()
         dateFormat = format
         formatterBehavior = .default

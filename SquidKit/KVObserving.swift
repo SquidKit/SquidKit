@@ -78,7 +78,7 @@ open class KVOHelper : NSObject {
     open func unobserve(_ keyPath:String) {
             if keys.contains(keyPath) {
                 observed.removeObserver(self, forKeyPath: keyPath, context: &KVOHelper.observerContext)
-                keys.remove(at: keys.index(of: keyPath)!)
+                keys.remove(at: keys.firstIndex(of: keyPath)!)
                 blockMap.removeValue(forKey: keyPath)
             }
     }

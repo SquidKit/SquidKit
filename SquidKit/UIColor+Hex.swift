@@ -11,14 +11,14 @@ import UIKit
 
 public extension UIColor {
     
-    public class func colorWithHex(_ hex:UInt32, alpha:Float = 1) -> UIColor {
+    class func colorWithHex(_ hex:UInt32, alpha:Float = 1) -> UIColor {
         return UIColor(red:((CGFloat)((hex & 0xFF0000) >> 16))/255.0,
             green: ((CGFloat)((hex & 0xFF00) >> 8))/255.0,
             blue: ((CGFloat)(hex & 0xFF))/255.0,
             alpha: (CGFloat)(alpha))
     }
     
-    public class func colorWithHexString(_ hexString:String?, alpha:Float = 1) -> UIColor? {
+    class func colorWithHexString(_ hexString:String?, alpha:Float = 1) -> UIColor? {
         
         if let hex = hexString {
             let s:NSMutableString = NSMutableString(string:hex)

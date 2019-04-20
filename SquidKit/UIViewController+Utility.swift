@@ -11,17 +11,17 @@ import UIKit
 public extension UIViewController {
     
     /// how topMost responds if the top view controller is an UIAlertController
-    public enum TopAlertBehavior {
+    enum TopAlertBehavior {
         case alert          // return the UIAlertController
         case previous       // return the previous view controller in the stack
         case `nil`          // return nil
     }
     
-    public class func topMost(alertBehavior: TopAlertBehavior = .previous) -> UIViewController? {
+    class func topMost(alertBehavior: TopAlertBehavior = .previous) -> UIViewController? {
         return UIApplication.shared.keyWindow?.rootViewController?.top(UIApplication.shared.keyWindow?.rootViewController, alertBehavior: alertBehavior)
     }
     
-    public func top(_ previous: UIViewController?, alertBehavior: TopAlertBehavior = .previous) -> UIViewController? {
+    func top(_ previous: UIViewController?, alertBehavior: TopAlertBehavior = .previous) -> UIViewController? {
         if let navigationController = self as? UINavigationController {
             return navigationController.topViewController?.top(navigationController.topViewController, alertBehavior: alertBehavior)
         }

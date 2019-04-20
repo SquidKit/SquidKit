@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIDevice {
-    public var isSimulator: Bool {
+    var isSimulator: Bool {
         var isSimulatorEnvironment = false
         
         #if targetEnvironment(simulator)

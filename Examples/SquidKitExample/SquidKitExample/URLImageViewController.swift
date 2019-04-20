@@ -42,7 +42,7 @@ class ImageDownloader: URLImageDownloading {
                 completion(nil, nil)
                 return
             }
-            guard let image = try? UIImage(data: Data(contentsOf: locationData)) else {
+            guard let image = ((try? UIImage(data: Data(contentsOf: locationData))) as UIImage??) else {
                 completion(nil, nil)
                 return
             }

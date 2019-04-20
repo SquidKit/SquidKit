@@ -65,7 +65,7 @@ open class TableItemBackedTableViewController: UITableViewController {
         }
         
         open func remove(_ section:TableSection) {
-            if let index = sections.index (where: {$0 === section}) {
+            if let index = sections.firstIndex (where: {$0 === section}) {
                 sections.remove(at: index)
             }
         }
@@ -75,12 +75,12 @@ open class TableItemBackedTableViewController: UITableViewController {
         }
         
         open func indexForSection(_ section:TableSection) -> Int? {
-            return sections.index{$0 === section}
+            return sections.firstIndex{$0 === section}
         }
         
         open func indexPathForItem(_ item:TableItem) -> IndexPath? {
             for (count, element) in sections.enumerated() {
-                if let itemIndex = element.items.index(where: {$0 === item}) {
+                if let itemIndex = element.items.firstIndex(where: {$0 === item}) {
                     return IndexPath(row: itemIndex, section: count)
                 }
             }

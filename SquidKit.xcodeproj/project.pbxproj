@@ -375,7 +375,7 @@
 				TargetAttributes = {
 					1C8220D219A4F7E700A17B56 = {
 						CreatedOnToolsVersion = 6.0;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 					};
 					1C8220DD19A4F7E700A17B56 = {
 						CreatedOnToolsVersion = 6.0;
@@ -384,10 +384,11 @@
 			};
 			buildConfigurationList = 1C8220CD19A4F7E700A17B56 /* Build configuration list for PBXProject "SquidKit" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 1C8220C919A4F7E700A17B56;
 			productRefGroup = 1C8220D419A4F7E700A17B56 /* Products */;
@@ -626,7 +627,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -646,7 +647,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.squidkit.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

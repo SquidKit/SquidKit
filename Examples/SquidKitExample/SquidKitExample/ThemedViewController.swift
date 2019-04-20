@@ -32,6 +32,6 @@ class ThemedViewController: UIViewController {
 
 extension ThemeManager : ThemeManagerLoggable {
     public func log<T>(_ output:@autoclosure () -> T?) {
-        Log.print(output)
+        Log.print(output())
     }
 }

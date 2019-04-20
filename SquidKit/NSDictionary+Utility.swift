@@ -10,7 +10,7 @@ import Foundation
 
 public extension NSDictionary {
     
-    public class func dictionaryFromResourceFile(_ fileName:String) -> NSDictionary? {
+    class func dictionaryFromResourceFile(_ fileName:String) -> NSDictionary? {
         
         if let inputStream = InputStream(fileAtPath:String.stringWithPathToResourceFile(fileName)) {
             inputStream.open()

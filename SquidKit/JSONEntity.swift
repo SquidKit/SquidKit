@@ -174,7 +174,7 @@ open class JSONEntity: Sequence {
 
 public extension JSONEntity {
     
-    public class func entityFromResourceFile(_ fileName: String) -> JSONEntity {
+    class func entityFromResourceFile(_ fileName: String) -> JSONEntity {
         var result: JSONEntity?
         
         if let inputStream = InputStream(fileAtPath: String.stringWithPathToResourceFile(fileName)) {
@@ -210,7 +210,7 @@ public extension JSONEntity {
     
     // this can be useful when deserializing elements directly into something like
     // Realm, which dies if it encounters null values
-    public func entityWithoutNullValues() throws -> JSONEntity {
+    func entityWithoutNullValues() throws -> JSONEntity {
         if let array = self.array() {
             let mutableArray = NSMutableArray(array: array)
             return JSONEntity(jsonArray: mutableArray)
