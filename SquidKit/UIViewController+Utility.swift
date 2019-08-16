@@ -18,9 +18,14 @@ public extension UIViewController {
     }
     
     class func topMost(alertBehavior: TopAlertBehavior = .previous) -> UIViewController? {
-        return UIApplication.shared.keyWindow?.rootViewController?.top(UIApplication.shared.keyWindow?.rootViewController, alertBehavior: alertBehavior)
+        let window = UIApplication.shared.delegate?.window ?? UIApplication.shared.keyWindow
+        return topMost(window: window, alertBehavior: alertBehavior)
     }
     
+    class func topMost(window: UIWindow?, alertBehavior: TopAlertBehavior = .previous) -> UIViewController? {
+        return window?.rootViewController?.top(UIApplication.shared.keyWindow?.rootViewController, alertBehavior: alertBehavior)
+    }
+        
     func top(_ previous: UIViewController?, alertBehavior: TopAlertBehavior = .previous) -> UIViewController? {
         if let navigationController = self as? UINavigationController {
             return navigationController.topViewController?.top(navigationController.topViewController, alertBehavior: alertBehavior)
