@@ -66,6 +66,9 @@ open class EndpointMapper {
 }
 
 open class HostMap {
+    
+    public static let editableHostAlphanumericPlaceholderExpression = "<@>"
+    public static let editableHostNnumericPlaceholderExpression = "<#>"
     public let canonicalProtocolHost:ProtocolHostPair
     
     open var releaseKey = ""
@@ -73,6 +76,7 @@ open class HostMap {
     open var mappedPairs = [String: ProtocolHostPair]()
     open var sortedKeys = [String]()
     open var editableKeys = [String]()
+    open var numericEditableKeys = [String]()
 
     open var canonicalHost:String {
         if let host = canonicalProtocolHost.host {
@@ -91,6 +95,10 @@ open class HostMap {
 
     open func isEditable(_ key:String) -> Bool {
         return editableKeys.contains(key)
+    }
+    
+    open func isNumericallyEditable(_ key:String) -> Bool {
+        return numericEditableKeys.contains(key)
     }
 }
 
@@ -215,6 +223,13 @@ open class HostMapManager {
                                 // if there is no host, consider this item editable
                                 if aHost == nil {
                                     hostMap.editableKeys.append(key)
+                                }
+                                else if aHost!.contains(HostMap.editableHostAlphanumericPlaceholderExpression) {
+                                    hostMap.editableKeys.append(key)
+                                }
+                                else if aHost!.contains(HostMap.editableHostNnumericPlaceholderExpression) {
+                                    hostMap.editableKeys.append(key)
+                                    hostMap.numericEditableKeys.append(key)
                                 }
                             }
                         }

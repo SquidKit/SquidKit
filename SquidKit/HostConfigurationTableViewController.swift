@@ -10,17 +10,19 @@ import UIKit
 
 open class ConfigurationItem : TableItem {
     open var protocolHostPair:ProtocolHostPair?
-    public let key:String
-    public let canonicalHost:String
-    public let editable:Bool
-    let hostMapManager:HostMapManager!
+    public let key: String
+    public let canonicalHost: String
+    public let isEditable: Bool
+    public let isNumericallyEditable: Bool
+    let hostMapManager: HostMapManager!
     
-    public required init(hostMapManager:HostMapManager, protocolHostPair:ProtocolHostPair?, key:String, canonicalHost:String, editable:Bool) {
+    public required init(hostMapManager: HostMapManager, protocolHostPair: ProtocolHostPair?, key: String, canonicalHost: String, editable: Bool, numericallyEditable: Bool) {
         self.hostMapManager = hostMapManager
         self.protocolHostPair = protocolHostPair
         self.key = key
         self.canonicalHost = canonicalHost
-        self.editable = editable
+        self.isEditable = editable
+        self.isNumericallyEditable = numericallyEditable
         super.init(String.nonNilString(protocolHostPair?.host, stringForNil: ""))
         
         self.selectBlock = {[unowned self] (item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in
@@ -47,7 +49,12 @@ open class HostConfigurationTableViewController: TableItemBackedTableViewControl
                 self.model.append(tableSection)
                 for key in hostMap.sortedKeys {
                     let pair = hostMap.pairWithKey(key as String)
-                    let configuration = ConfigurationItem(hostMapManager:manager, protocolHostPair:pair, key:key as String, canonicalHost:hostMap.canonicalHost, editable:hostMap.isEditable(key as String))
+                    let configuration = ConfigurationItem(hostMapManager:manager,
+                                                          protocolHostPair:pair,
+                                                          key:key as String,
+                                                          canonicalHost:hostMap.canonicalHost,
+                                                          editable:hostMap.isEditable(key as String),
+                                                          numericallyEditable: hostMap.isNumericallyEditable(key))
                     tableSection.append(configuration)
                 }
             }
@@ -83,7 +90,7 @@ open class HostConfigurationTableViewController: TableItemBackedTableViewControl
         
         if let configItem = self.model[indexPath]! as? ConfigurationItem {
         
-            if !configItem.editable {
+            if !configItem.isEditable {
                 cell = tableView.dequeueReusableCell(withIdentifier: configItemReuseIdentifier)
                 if cell == nil {
                     cell = UITableViewCell(style: .subtitle, reuseIdentifier: configItemReuseIdentifier)
@@ -93,7 +100,21 @@ open class HostConfigurationTableViewController: TableItemBackedTableViewControl
                 cell?.detailTextLabel!.text = configItem.key
             }
             else {
-                cell = CustomHostCell(style: .default, reuseIdentifier: userItemReuseIdentifier)
+                
+                var isHostPartial = false
+                if let host = configItem.protocolHostPair?.host {
+                    if host.range(of: HostMap.editableHostAlphanumericPlaceholderExpression) != nil ||
+                        host.range(of: HostMap.editableHostNnumericPlaceholderExpression) != nil {
+                        isHostPartial = true
+                    }
+                }
+                if isHostPartial {
+                    cell = CustomPartialHostCell(style: .default, reuseIdentifier: userItemReuseIdentifier)
+                }
+                else {
+                    cell = CustomHostCell(style: .default, reuseIdentifier: userItemReuseIdentifier)
+                }
+                
                 
                 let customCell = cell as! CustomHostCell
                 customCell.configItem = configItem
@@ -121,18 +142,22 @@ protocol CustomHostCellDelegate {
 }
 
 open class CustomHostCell: UITableViewCell, UITextFieldDelegate {
-    var textField:UITextField?
-    var configItem:ConfigurationItem?
-    var delegate:CustomHostCellDelegate?
+    var textField: UITextField?
+    var configItem: ConfigurationItem?
+    var delegate: CustomHostCellDelegate?
     
     open override func layoutSubviews() {
         super.layoutSubviews()
+        makeSubviews()
+    }
+    
+    fileprivate func makeSubviews() {
         if textField == nil {
             textField = UITextField(frame:self.contentView.bounds.insetBy(dx: 15, dy: 5))
             self.contentView.addSubview(textField!)
             textField?.placeholder = "Enter custom host (e.g. \"api.host.com\")"
             textField?.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.subheadline), size: 13)
-            textField?.keyboardType = .URL
+            textField?.keyboardType = configItem!.isNumericallyEditable ? .numberPad : .URL
             textField?.returnKeyType = .done
             textField?.autocorrectionType = .no
             textField?.clearButtonMode = .whileEditing
@@ -149,6 +174,52 @@ open class CustomHostCell: UITableViewCell, UITextFieldDelegate {
     }
     
     open func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.hostTextDidChange(textField.text, configItem: configItem!)
+    }
+}
+
+open class CustomPartialHostCell: CustomHostCell {
+    var label: UILabel?
+    private var hostPrefix = ""
+    private var hostSuffix = ""
+    
+    fileprivate override func makeSubviews() {
+        if textField == nil {
+            textField = UITextField(frame: CGRect.zero)
+            textField?.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.subheadline), size: 15)
+            textField?.keyboardType = configItem!.isNumericallyEditable ? .numberPad : .URL
+            textField?.returnKeyType = .done
+            textField?.autocorrectionType = .no
+            textField?.clearButtonMode = .whileEditing
+            textField?.delegate = self
+            textField?.text = configItem!.protocolHostPair?.host
+            
+            label = UILabel(frame: CGRect.zero)
+            label?.font = UIFont(descriptor: UIFontDescriptor.preferredFontDescriptor(withTextStyle: UIFont.TextStyle.subheadline), size: 13)
+            label?.textColor = .lightGray
+            label?.text = "hello"
+            
+            let stackView = UIStackView(frame: contentView.bounds.insetBy(dx: 15, dy: 5))
+            stackView.axis = .vertical
+            stackView.addArrangedSubview(textField!)
+            stackView.addArrangedSubview(label!)
+            contentView.addSubview(stackView)
+            
+            guard let host = configItem!.protocolHostPair?.host else {return}
+            var placeholder: String?
+            if host.range(of: HostMap.editableHostAlphanumericPlaceholderExpression) != nil {
+                placeholder = HostMap.editableHostAlphanumericPlaceholderExpression
+            }
+            else if host.range(of: HostMap.editableHostNnumericPlaceholderExpression) != nil {
+                placeholder = HostMap.editableHostNnumericPlaceholderExpression
+            }
+            
+            guard placeholder != nil else {return}
+            let components = host.components(separatedBy: placeholder!)
+        }
+    }
+    
+    open override func textFieldDidEndEditing(_ textField: UITextField) {
         delegate?.hostTextDidChange(textField.text, configItem: configItem!)
     }
 }

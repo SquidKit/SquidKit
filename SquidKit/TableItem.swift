@@ -103,7 +103,8 @@ extension TableItem: CustomStringConvertible, CustomDebugStringConvertible {
 
 open class TableSection {
     open var items = [TableItem]()
-    open var title:String?
+    open var title: String?
+    open var footerTitle: String?
     
     open var count:Int {
         return items.count
@@ -117,7 +118,7 @@ open class TableSection {
         
     }
     
-    public init(_ title:String) {
+    public init(_ title: String?) {
         self.title = title
     }
     

@@ -20,6 +20,10 @@
                                   "host": "dev.httpbin.org"
                                   },
                                   {
+                                      "key": "Review",
+                                      "host": "dev.<@>.org"
+                                  },
+                                  {
                                   "key": "localhost",
                                   "host": "localhost"
                                   },

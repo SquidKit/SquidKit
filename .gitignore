@@ -2,29 +2,28 @@
 .DS_Store
 *.moved-aside
 
-# Xcode per-user config
-*.mode1
+## Various settings
+*.pbxuser
+!default.pbxuser
 *.mode1v3
 !default.mode1v3
 *.mode2v3
 !default.mode2v3
-*.perspective
-!default.perspective
 *.perspectivev3
 !default.perspectivev3
-*.pbxuser
-!default.pbxuser
-*.xcworkspace
-!default.xcworkspace
-xcuserdata
-*.xcuserdatad
-profile
+xcuserdata/
 
-# Build products
-build/
-*.o
-*.LinkFileList
+## Other
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+.DS_Store
+
+## Obj-C/Swift specific
 *.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
 
 # Automatic backup files
 *~.nib/

@@ -43,7 +43,8 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
         section1.append(item1)
         self.model.append(section1)
         
-        let section2 = TableSection("Two")
+        let section2 = TableSection(nil)
+        section2.footerTitle = "This is a section footer.\nIt is multi-line."
         // here we create an instance of our subclassed TableItem - TallTableItem
         let item2 = TallTableItem("Tall Two", selectBlock:navigator)
         section2.append(item2)

@@ -16,35 +16,43 @@ open class TableItemBackedTableViewController: UITableViewController {
     // MARK: - Table View
     
     open override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let height = self.model[indexPath]?.rowHeight {
+        if let height = model[indexPath]?.rowHeight {
             return CGFloat(height)
         }
         return tableView.rowHeight
     }
     
     open override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let height = self.model[section]?.height {
+        if let height = model[section]?.height {
             return CGFloat(height)
         }
-        return tableView.sectionHeaderHeight
+        return UITableView.automaticDimension
+    }
+    
+    open override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     open override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.model.sections.count
+        return model.sections.count
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model[section]!.count
+        return model[section]!.count
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let item = self.model[indexPath] {
+        if let item = model[indexPath] {
             item.selectBlock(item, indexPath, self)
         }
     }
     
     open override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.model[section]!.title
+        return model[section]!.title
+    }
+    
+    open override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return model[section]?.footerTitle
     }
     
     // MARK: - Model
