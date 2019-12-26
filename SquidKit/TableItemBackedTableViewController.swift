@@ -127,7 +127,11 @@ open class TableItemBackedTableViewController: UITableViewController {
 
 // MARK: - TableActions
 
-extension TableItemBackedTableViewController: TableActions {
+extension TableItemBackedTableViewController: TableItemAction {
+    
+    public var viewController: UIViewController {
+        return self
+    }
 
     public func deselect(_ indexPath:IndexPath) {
         self.tableView.deselectRow(at: indexPath, animated: true)

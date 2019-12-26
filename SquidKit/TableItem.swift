@@ -8,7 +8,8 @@
 
 import Foundation
 
-@objc public protocol TableActions {
+@objc public protocol TableItemAction {
+    var viewController: UIViewController {get}
     func deselect(_ indexPath:IndexPath)
     func reload()
     func pushViewController(_ storyboardName:String, storyboardID:String)
@@ -34,7 +35,7 @@ open class TableItem {
     }
     open var reuseIdentifier:String?
     open var tag:Tag?
-    open var selectBlock:(_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableActions?) -> () = {(item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in}
+    open var selectBlock:(_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableItemAction?) -> () = {(item:TableItem, indexPath:IndexPath, actionsTarget:TableItemAction?) -> () in}
     
     open var valueBlock:(_ item:TableItem) -> AnyObject? = {(item:TableItem) -> AnyObject? in
         return nil
@@ -46,11 +47,11 @@ open class TableItem {
         return true
     }
     
-    public convenience init(_ title:String, selectBlock:@escaping (_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableActions?) -> ()) {
+    public convenience init(_ title:String, selectBlock:@escaping (_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableItemAction?) -> ()) {
         self.init(title, reuseIdentifier:nil, selectBlock:selectBlock)
     }
     
-    public convenience init(_ title:String, reuseIdentifier:String?, selectBlock:@escaping (_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableActions?) -> ()) {
+    public convenience init(_ title:String, reuseIdentifier:String?, selectBlock:@escaping (_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableItemAction?) -> ()) {
         self.init(title, reuseIdentifier:reuseIdentifier)
         self.selectBlock = selectBlock
     }

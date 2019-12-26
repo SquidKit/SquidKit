@@ -22,7 +22,7 @@ open class NavigatingTableItem: TableItem {
         super.init(title)
         self.reuseIdentifier = reuseIdentifier
         
-        self.selectBlock = {[unowned self] (item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in
+        self.selectBlock = {[unowned self] (item:TableItem, indexPath:IndexPath, actionsTarget:TableItemAction?) -> () in
             
             if let tableAction = actionsTarget {
                 switch self.navigationType {

@@ -31,7 +31,7 @@ class ExampleTableItemViewController: TableItemBackedTableViewController {
         // TableSections and TableItems are the model for our table view. Below, we create 3 sections, each with a single item.
         
         // navigator is the callback that we will use for the first 3 TableItems.
-        let navigator:(_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableActions?) -> () = { (item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in
+        let navigator:(_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableItemAction?) -> () = { (item:TableItem, indexPath:IndexPath, actionsTarget:TableItemAction?) -> () in
             Log.message(item.title)
             let detailVC:DetailViewController = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "detailVC") as! DetailViewController
             detailVC.detailItem = item

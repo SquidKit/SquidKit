@@ -25,7 +25,7 @@ open class ConfigurationItem : TableItem {
         self.isNumericallyEditable = numericallyEditable
         super.init(String.nonNilString(protocolHostPair?.host, stringForNil: ""))
         
-        self.selectBlock = {[unowned self] (item:TableItem, indexPath:IndexPath, actionsTarget:TableActions?) -> () in
+        self.selectBlock = {[unowned self] (item:TableItem, indexPath:IndexPath, actionsTarget:TableItemAction?) -> () in
             self.hostMapManager.setConfigurationForCanonicalHost(self.key, mappedHost:nil, canonicalHost: self.canonicalHost)
             if let aTable = actionsTarget {
                 aTable.deselect(indexPath)
