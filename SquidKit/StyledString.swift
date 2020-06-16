@@ -6,7 +6,7 @@
 //  Copyright © 2016-2019 Squid Store, LLC. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public class StyledString {
     

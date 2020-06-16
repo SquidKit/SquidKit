@@ -6,7 +6,7 @@
 //  Copyright © 2014-2019 Squid Store, LLC. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @objc public protocol TableItemAction {
     var viewController: UIViewController {get}
@@ -123,11 +123,11 @@ open class TableSection {
         self.title = title
     }
     
-    open func append(_ item:TableItem) {
+    open func append(_ item: TableItem) {
         self.items.append(item)
     }
     
-    open subscript(index:Int) -> TableItem? {
+    open subscript(index: Int) -> TableItem? {
         if (index < items.count) {
             return items[index]
         }
@@ -135,7 +135,7 @@ open class TableSection {
         return nil
     }
     
-    open subscript(tag:TableItem.Tag) -> TableItem? {
+    open subscript(tag: TableItem.Tag) -> TableItem? {
         for item in items {
             if let itemTag = item.tag , itemTag.value == tag.value {
                 return item

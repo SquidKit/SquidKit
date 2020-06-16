@@ -6,7 +6,7 @@
 //  Copyright © 2015-2019 Squid Store, LLC. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 fileprivate struct CacheManager {
     static var caches = [Any]()
