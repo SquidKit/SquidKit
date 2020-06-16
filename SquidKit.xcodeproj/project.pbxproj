@@ -85,7 +85,6 @@
 		1C5054EA214DB42600DCB1BE /* DispatchTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchTimer.swift; sourceTree = "<group>"; };
 		1C6899E02183D00300D83313 /* EmbossedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbossedText.swift; sourceTree = "<group>"; };
 		1C6B73FE1AFC6CCA0060678A /* KVObserving.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVObserving.swift; sourceTree = "<group>"; };
-		1C81EF061EFC54B400A1AA0D /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 		1C8220D319A4F7E700A17B56 /* SquidKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SquidKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C8220D719A4F7E700A17B56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C8220D819A4F7E700A17B56 /* SquidKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SquidKit.h; sourceTree = "<group>"; };
@@ -139,7 +138,6 @@
 		1C0C601319BBB0E6003E300C /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				1C81EF061EFC54B400A1AA0D /* Endpoint.swift */,
 				1C0C601519BBB123003E300C /* EndpointMap.swift */,
 				1C0C601619BBB123003E300C /* HostConfigurationTableViewController.swift */,
 			);
