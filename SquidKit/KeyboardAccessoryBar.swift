@@ -85,24 +85,40 @@ open class KeyboardAccessoryBar: UIToolbar {
         setItems(items, animated: false)
     }
     
-    public func set(previousImage: UIImage?, previousResponder: UIResponder?, nextImage: UIImage?, nextResponder: UIResponder?, dismisser: UIBarButtonItem.SystemItem?, dismisserResponder: UIResponder?, enableFlags: (Bool, Bool, Bool)? = nil) {
+    public func set(previousImage: UIImage?, previousResponder: UIResponder?, nextImage: UIImage?, nextResponder: UIResponder?, nextPreviousSpaceCount: Int, dismisser: UIBarButtonItem.SystemItem?, dismisserResponder: UIResponder?, enableFlags: (Bool, Bool, Bool)? = nil) {
         var items = [UIBarButtonItem]()
+        
+        var previousItem: UIBarButtonItem?
+        var nextItem: UIBarButtonItem?
+        
         if let image = previousImage, let responder = previousResponder {
-            let item = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(self.didTapFollowOn2(_:)))
+            previousItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(self.didTapFollowOn2(_:)))
             if let flags = enableFlags, !flags.0 {
-                item.isEnabled = false
+                previousItem?.isEnabled = false
             }
-            items.append(item)
             followOnResponder2 = responder
         }
         
         if let image = nextImage, let responder = nextResponder {
-            let item = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(self.didTapFollowOn(_:)))
+            nextItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(self.didTapFollowOn(_:)))
             if let flags = enableFlags, !flags.1 {
-                item.isEnabled = false
+                nextItem?.isEnabled = false
             }
-            items.append(item)
             self.followOnResponder = responder
+        }
+        
+        if let previous = previousItem {
+            items.append(previous)
+        }
+        
+        if previousItem != nil && nextItem != nil {
+            for _ in 0..<nextPreviousSpaceCount {
+                items.append(UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil))
+            }
+        }
+                
+        if let next = nextItem {
+            items.append(next)
         }
         
         items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
