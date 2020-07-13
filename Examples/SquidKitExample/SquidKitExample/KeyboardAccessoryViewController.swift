@@ -30,6 +30,12 @@ class KeyboardAccessoryViewController: UIViewController {
         doneAccessoryView.setDismisser(systemItem: .done, for: lastTextField, with: .right)
         lastTextField.inputAccessoryView = doneAccessoryView
         
+        let nextImage: UIImage = UIImage(named: "chevron_right_small") ?? UIImage()
+        let previousImage: UIImage = UIImage(named: "chevron_left_small") ?? UIImage()
+        let imagesAccessoryView = KeyboardAccessoryBar()
+        imagesAccessoryView.set(previousImage: previousImage, previousResponder: lastTextField, nextImage: nextImage, nextResponder: lastTextField, nextPreviousSpacing: 10, dismisser: .done, dismisserResponder: lastTextField)
+        lastTextField.inputAccessoryView = imagesAccessoryView
+        
         textField.editingChangedClosure = { [weak self] text in
             self?.textFieldChangedLabel.text = text
         }

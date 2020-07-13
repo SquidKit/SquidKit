@@ -85,7 +85,7 @@ open class KeyboardAccessoryBar: UIToolbar {
         setItems(items, animated: false)
     }
     
-    public func set(previousImage: UIImage?, previousResponder: UIResponder?, nextImage: UIImage?, nextResponder: UIResponder?, nextPreviousSpaceCount: Int, dismisser: UIBarButtonItem.SystemItem?, dismisserResponder: UIResponder?, enableFlags: (Bool, Bool, Bool)? = nil) {
+    public func set(previousImage: UIImage?, previousResponder: UIResponder?, nextImage: UIImage?, nextResponder: UIResponder?, nextPreviousSpacing: CGFloat?, dismisser: UIBarButtonItem.SystemItem?, dismisserResponder: UIResponder?, enableFlags: (Bool, Bool, Bool)? = nil) {
         var items = [UIBarButtonItem]()
         
         var previousItem: UIBarButtonItem?
@@ -111,10 +111,10 @@ open class KeyboardAccessoryBar: UIToolbar {
             items.append(previous)
         }
         
-        if previousItem != nil && nextItem != nil {
-            for _ in 0..<nextPreviousSpaceCount {
-                items.append(UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil))
-            }
+        if previousItem != nil && nextItem != nil, let space = nextPreviousSpacing {
+            let item = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+            item.width = space
+            items.append(item)
         }
                 
         if let next = nextItem {
