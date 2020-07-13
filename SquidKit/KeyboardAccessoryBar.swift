@@ -85,6 +85,40 @@ open class KeyboardAccessoryBar: UIToolbar {
         setItems(items, animated: false)
     }
     
+    public func set(previousImage: UIImage?, previousResponder: UIResponder?, nextImage: UIImage?, nextResponder: UIResponder?, dismisser: UIBarButtonItem.SystemItem?, dismisserResponder: UIResponder?, enableFlags: (Bool, Bool, Bool)? = nil) {
+        var items = [UIBarButtonItem]()
+        if let image = previousImage, let responder = previousResponder {
+            let item = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(self.didTapFollowOn2(_:)))
+            if let flags = enableFlags, !flags.0 {
+                item.isEnabled = false
+            }
+            items.append(item)
+            followOnResponder2 = responder
+        }
+        
+        if let image = nextImage, let responder = nextResponder {
+            let item = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(self.didTapFollowOn(_:)))
+            if let flags = enableFlags, !flags.1 {
+                item.isEnabled = false
+            }
+            items.append(item)
+            self.followOnResponder = responder
+        }
+        
+        items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
+        
+        if let dismisser = dismisser {
+            let item = UIBarButtonItem(barButtonSystemItem: dismisser, target: self, action: #selector(self.didTapDismisser(_:)))
+            if let flags = enableFlags, !flags.2 {
+                item.isEnabled = false
+            }
+            items.append(item)
+            dismissResponder = dismisserResponder
+        }
+        
+        setItems(items, animated: false)
+    }
+    
     fileprivate func addItem(item: UIBarButtonItem, with alignment: Alignment?) {
         var items = [UIBarButtonItem]()
         
