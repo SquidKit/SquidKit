@@ -139,6 +139,17 @@ public class StyledString {
         return self
     }
     
+    @discardableResult
+    public func pushUnderline(_ style: NSUnderlineStyle = .single) -> StyledString {
+        pushAttributes([NSAttributedString.Key.underlineStyle: NSNumber(value: style.rawValue)])
+        return self
+    }
+    
+    @discardableResult
+    public func popUnderline() -> StyledString {
+        popAttributes([NSAttributedString.Key.underlineStyle])
+        return self
+    }
 }
 
 
