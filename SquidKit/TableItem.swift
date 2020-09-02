@@ -34,6 +34,7 @@ open class TableItem {
         return nil
     }
     open var reuseIdentifier:String?
+    open var selectionStyle: UITableViewCell.SelectionStyle = .none
     open var tag:Tag?
     open var selectBlock:(_ item:TableItem, _ indexPath:IndexPath, _ actionsTarget:TableItemAction?) -> () = {(item:TableItem, indexPath:IndexPath, actionsTarget:TableItemAction?) -> () in}
     
