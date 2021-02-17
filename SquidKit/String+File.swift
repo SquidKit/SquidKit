@@ -14,8 +14,8 @@ public extension String {
         return Bundle.main.resourcePath!
     }
     
-    static func stringWithPathToResourceFile(_ fileName:String) -> String {
-        let path = String.stringWithPathToResourceDirectory()
+    static func stringWithPathToResourceFile(_ fileName:String, bundle: Bundle = Bundle.main) -> String {
+        let path = bundle.resourcePath!
         var url = URL(fileURLWithPath: path)
         url = url.appendingPathComponent(fileName)
         return url.path

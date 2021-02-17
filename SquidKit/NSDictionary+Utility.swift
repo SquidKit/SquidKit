@@ -10,9 +10,8 @@ import Foundation
 
 public extension NSDictionary {
     
-    class func dictionaryFromResourceFile(_ fileName:String) -> NSDictionary? {
-        
-        if let inputStream = InputStream(fileAtPath:String.stringWithPathToResourceFile(fileName)) {
+    class func dictionaryFromResourceFile(_ fileName: String, bundle: Bundle) -> NSDictionary? {
+        if let inputStream = InputStream(fileAtPath:String.stringWithPathToResourceFile(fileName, bundle: bundle)) {
             inputStream.open()
             
             let dictionary = try? JSONSerialization.jsonObject(with: inputStream, options:JSONSerialization.ReadingOptions(rawValue: 0))

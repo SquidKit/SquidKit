@@ -112,8 +112,8 @@ open class HostMapManager {
     }
     
 
-    open func loadConfigurationMapFromResourceFile(_ fileName:String) -> Bool {
-        let result = HostConfigurationsLoader.loadConfigurationsFromResourceFile(fileName, manager: self)
+    open func loadConfigurationMapFromResourceFile(_ fileName:String, bundle: Bundle = Bundle.main) -> Bool {
+        let result = HostConfigurationsLoader.loadConfigurationsFromResourceFile(fileName, bundle: bundle, manager: self)
         self.restoreFromCache()
         return result
     }
@@ -175,10 +175,10 @@ open class HostMapManager {
 
     fileprivate class HostConfigurationsLoader {
     
-        fileprivate class func loadConfigurationsFromResourceFile(_ fileName:String, manager:HostMapManager) -> Bool {
+        fileprivate class func loadConfigurationsFromResourceFile(_ fileName: String, bundle: Bundle, manager:HostMapManager) -> Bool {
             var result = false
             
-            if let hostDictionary = NSDictionary.dictionaryFromResourceFile(fileName) {
+            if let hostDictionary = NSDictionary.dictionaryFromResourceFile(fileName, bundle: bundle) {
                 result = true
                 
                 if let configurations:NSArray = hostDictionary.object(forKey: "configurations") as? NSArray {
