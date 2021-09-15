@@ -49,6 +49,16 @@ open class Preferences {
         }
     }
     
+    open func setUInt64(_ object: UInt64?, key:String) {
+        if let intToSet: UInt64 = object {
+            self.userDefaults.set(NSNumber(value: intToSet), forKey: key)
+            self.userDefaults.synchronize()
+        }
+        else {
+            self.remove(key)
+        }
+    }
+    
     open func setFloat(_ object:Float?, key:String) {
         if let floatToSet:Float = object {
             self.userDefaults.set(NSNumber(value: floatToSet), forKey: key)
@@ -83,6 +93,13 @@ open class Preferences {
     open func intValue(_ key:String, defaultValue:Int) -> Int {
         if let result = self.userDefaults.object(forKey: key) as? NSNumber {
             return result.intValue
+        }
+        return defaultValue
+    }
+    
+    open func uint64Value(_ key: String, defaultValue: UInt64) -> UInt64 {
+        if let result = self.userDefaults.object(forKey: key) as? NSNumber {
+            return result.uint64Value
         }
         return defaultValue
     }
