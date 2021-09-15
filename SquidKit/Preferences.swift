@@ -97,7 +97,7 @@ open class Preferences {
         return defaultValue
     }
     
-    open func uint64Value(_ key: String, defaultValue: UInt64) -> UInt64 {
+    open func uint64Value(_ key: String, defaultValue: UInt64?) -> UInt64? {
         if let result = self.userDefaults.object(forKey: key) as? NSNumber {
             return result.uint64Value
         }
