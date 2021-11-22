@@ -23,13 +23,9 @@ private func stdSwiftPrint(_ message:Any) {
 
 open class Log {
     
-    fileprivate var logStatus:LogStatus = .simulator
-    fileprivate var isSimulator:Bool {
-        #if arch(i386) || arch(x86_64)
-            return true
-        #else
-            return false
-        #endif
+    fileprivate var logStatus: LogStatus = .simulator
+    fileprivate var isSimulator: Bool {
+        return UIDevice.current.isSimulator
     }
     
     fileprivate var tab: String {
