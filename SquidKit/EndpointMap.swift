@@ -140,7 +140,7 @@ open class HostMapManager {
                 var runtimePair = hostMap.pairWithKey(configurationKey)
                 if runtimePair != nil {
                     if mappedHost != nil {
-                        runtimePair!.host = mappedHost
+                        runtimePair!.host = runtimePair!.host ?? mappedHost
                         hostMap.mappedPairs[configurationKey] = runtimePair
                     }
                     let empty:Bool = (runtimePair!.host == nil || runtimePair!.host!.isEmpty)
