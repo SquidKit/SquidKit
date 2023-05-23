@@ -10,13 +10,13 @@ import UIKit
 
 public class StyledString {
     
-    fileprivate let editingString:NSMutableAttributedString!
-    fileprivate var editingAttributes:[NSAttributedString.Key : Any]!
+    fileprivate let editingString: NSMutableAttributedString!
+    fileprivate var editingAttributes: [NSAttributedString.Key : Any]!
     public var count: Int {
         return editingString.length
     }
     
-    public var attributedString:NSAttributedString {
+    public var attributedString: NSAttributedString {
         return self.editingString.copy() as! NSAttributedString
     }
     
@@ -25,7 +25,7 @@ public class StyledString {
         editingAttributes = [NSAttributedString.Key : Any]()
     }
     
-    public init(copyFrom:StyledString) {
+    public init(copyFrom: StyledString) {
         editingString = copyFrom.editingString
         editingAttributes = copyFrom.editingAttributes
     }
