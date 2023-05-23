@@ -53,7 +53,7 @@ class StyledStringViewController: UIViewController {
                     strings.append("\(i)")
                 }
                 
-                let list = ListString(listStyle: self == .ordered ? .ordered : .unordered(.custom("😍")), spacing: 12)
+                let list = ListString(listStyle: self == .ordered ? .ordered : .unordered(.custom("😍")))
                 let listString = list.list(strings: strings, font: UIFont.systemFont(ofSize: 17))
                 return listString
             }

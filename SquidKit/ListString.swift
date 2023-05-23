@@ -33,12 +33,14 @@ public class ListString {
     
     private let editingString: NSMutableAttributedString!
     private let listStyle: ListStyle
-    private let spacing: CGFloat
+    private let tabSize: CGFloat
+    private let lineSpacing: CGFloat
     
-    public init(listStyle: ListStyle, spacing: CGFloat = 5) {
+    public init(listStyle: ListStyle, tabSize: CGFloat = 5, lineSpacing: CGFloat = 5) {
         self.listStyle = listStyle
         self.editingString = NSMutableAttributedString()
-        self.spacing = spacing
+        self.tabSize = tabSize
+        self.lineSpacing = lineSpacing
     }
     
     public func list(strings: [String], font: UIFont) -> NSAttributedString {
@@ -63,7 +65,7 @@ public class ListString {
             }
         }
         
-        maxPrefixWidth += spacing
+        maxPrefixWidth += tabSize
                 
         for i in 0..<strings.count {
             
@@ -72,7 +74,10 @@ public class ListString {
             }
             
             let s = prefixes[i] + "\t" + strings[i]
-            let item = NSMutableAttributedString.bulletedAttributedString(s, font: font, prefixWidth: maxPrefixWidth)
+            let item = NSMutableAttributedString.bulletedAttributedString(s,
+                                                                          font: font,
+                                                                          prefixWidth: maxPrefixWidth,
+                                                                          lineSpacing: lineSpacing)
             editingString.append(item)
         }
         
@@ -81,15 +86,18 @@ public class ListString {
 }
 
 private extension NSMutableAttributedString {
-    static func bulletedAttributedString(_ source: String, font: UIFont, prefixWidth: CGFloat) -> NSAttributedString {
+    static func bulletedAttributedString(_ source: String,
+                                         font: UIFont,
+                                         prefixWidth: CGFloat,
+                                         lineSpacing: CGFloat) -> NSAttributedString {
         let attributed: NSMutableAttributedString = NSMutableAttributedString(string: source)
-        let paragraphStyle = createParagraphAttribute(prefixWidth: prefixWidth)
+        let paragraphStyle = createParagraphAttribute(prefixWidth: prefixWidth, lineSpacing: lineSpacing)
         attributed.addAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key: paragraphStyle], range: NSMakeRange(0, attributed.length))
         attributed.addAttribute(kCTFontAttributeName as NSAttributedString.Key, value: font, range: NSMakeRange(0, attributed.length))
         return attributed
     }
     
-    static func createParagraphAttribute(prefixWidth: CGFloat) -> NSParagraphStyle {
+    static func createParagraphAttribute(prefixWidth: CGFloat, lineSpacing: CGFloat) -> NSParagraphStyle {
         var paragraphStyle: NSMutableParagraphStyle
         paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         
@@ -99,6 +107,7 @@ private extension NSMutableAttributedString {
         paragraphStyle.defaultTabInterval = prefixWidth
         paragraphStyle.firstLineHeadIndent = 0
         paragraphStyle.headIndent = prefixWidth
+        paragraphStyle.lineSpacing = lineSpacing
         
         return paragraphStyle
     }
