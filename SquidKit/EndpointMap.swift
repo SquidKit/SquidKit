@@ -134,13 +134,21 @@ open class HostMapManager {
         }
     }
 
-    open func setConfigurationForCanonicalHost(_ configurationKey:String, mappedHost:String?, canonicalHost:String, withCaching:Bool = true) {
+    open func setConfigurationForCanonicalHost(_ configurationKey: String,
+                                               mappedHost: String?,
+                                               canonicalHost: String,
+                                               withCaching: Bool = true) {
         for hostMap in self.hostMaps {
             if hostMap.canonicalProtocolHost.host == canonicalHost {
                 var runtimePair = hostMap.pairWithKey(configurationKey)
                 if runtimePair != nil {
                     if mappedHost != nil {
-                        runtimePair!.host = runtimePair!.host ?? mappedHost
+                        if hostMap.isEditable(configurationKey) {
+                            runtimePair!.host = mappedHost
+                        }
+                        else {
+                            runtimePair!.host = runtimePair!.host ?? mappedHost
+                        }
                         hostMap.mappedPairs[configurationKey] = runtimePair
                     }
                     let empty:Bool = (runtimePair!.host == nil || runtimePair!.host!.isEmpty)
