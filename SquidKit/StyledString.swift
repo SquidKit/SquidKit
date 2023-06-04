@@ -50,6 +50,37 @@ public class StyledString {
         return self
     }
     
+    @available(iOS 13, *)
+    @discardableResult
+    public func pushImage(_ image: UIImage?, color: UIColor? = nil) -> StyledString {
+        guard let image else {return self}
+        let imageAttachment = NSTextAttachment()
+        var _image = image
+        if let color {
+            _image = image.withTintColor(color)
+        }
+        else {
+            if let color = editingAttributes[NSAttributedString.Key.foregroundColor] as? UIColor {
+                _image = image.withTintColor(color)
+            }
+        }
+        imageAttachment.image = _image
+        editingString.append(NSAttributedString(attachment: imageAttachment))
+        return self
+    }
+    
+    @discardableResult
+    public func pushKern(_ kern: CGFloat) -> StyledString {
+        self.pushAttributes([NSAttributedString.Key.kern: kern])
+        return self
+    }
+    
+    @discardableResult
+    public func popKern(_ kern: CGFloat) -> StyledString {
+        self.popAttributes([NSAttributedString.Key.kern])
+        return self
+    }
+        
     @discardableResult
     public func pushAttributes(_ attributes:[NSAttributedString.Key : Any]) -> StyledString {
         editingAttributes.unionInPlace(attributes)
@@ -70,6 +101,18 @@ public class StyledString {
     
     @discardableResult
     public func pushFont(_ font:UIFont, baselineOffset: Double? = nil) -> StyledString {
+        if let baseline = baselineOffset {
+            self.pushAttributes([NSAttributedString.Key.font : font, NSAttributedString.Key.baselineOffset: NSNumber(value: baseline)])
+        }
+        else {
+            self.pushAttributes([NSAttributedString.Key.font : font])
+        }
+        return self
+    }
+    
+    @discardableResult
+    public func pushSystemFont(_ size: CGFloat, weight: UIFont.Weight = .regular, baselineOffset: Double? = nil) -> StyledString {
+        let font = UIFont.systemFont(ofSize: size, weight: weight)
         if let baseline = baselineOffset {
             self.pushAttributes([NSAttributedString.Key.font : font, NSAttributedString.Key.baselineOffset: NSNumber(value: baseline)])
         }

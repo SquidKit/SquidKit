@@ -39,6 +39,13 @@ class StyledStringViewController: UIViewController {
                     .pushParagraphAlignment(.center)
                     .pushString("\n\nCentered Alignment")
                     .pushDefaultParagraphStyle()
+                    if #available(iOS 13, *) {
+                        styled.pushSystemFont(8)
+                            .pushString(" ")
+                            .pushImage(UIImage(systemName: "trash.circle"))
+                    }
+                    styled.pushKern(12)
+                    .pushSystemFont(18, weight: .bold)
                     .pushString("\n\nGoodbye")
                 
                 return styled.attributedString
