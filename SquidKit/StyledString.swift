@@ -30,6 +30,82 @@ public class StyledString {
         editingAttributes = copyFrom.editingAttributes
     }
     
+    /**
+     Initialize a StyledString with format. Similar to Swift's String(format: String, arguments: CVarArg...)
+     initializer, with the addition of a variadic argument of style attributes. The currently supported  style format
+     specifiers and their associated style attributes are:
+        #F, #f - font, represented as a UIFont object
+            #C, #c - color, represented as a UIColor object
+            #I, #i - image, represented as a UIImage object
+            ## - # symbol
+     
+     Example:
+        StyledString(format: "#FHello, #Cworld", arguments: nil, styleArguments: UIFont.systemFont(ofSize: 15), UIColor.blue)
+     
+        which produces the string "Hello, world" rendered with a system font of size 15, with the word "world" rendered with the blue color
+     
+    Note: font and color specifiers remain in effect throught the run of the string, unless/until a new specifier for font or color is encountered
+    */
+    @available(iOS 13, *)
+    public convenience init(format: String, arguments: CVarArg..., styleArguments: AnyObject?...) {
+        self.init()
+        let workingString = String(format: format, arguments)
+        
+        
+        var formatObjects: [AnyObject?] = []
+        for arg in styleArguments {
+            formatObjects.append(arg)
+        }
+        
+        var isCandidate = false
+        for char in workingString {
+            if isCandidate {
+                isCandidate = false
+                switch char {
+                case "#":
+                    pushCharacter(char)
+                case "f", "F":
+                    guard let font = formatObjects.first as? UIFont else {
+                        continue
+                    }
+                    pushFont(font)
+                    formatObjects.removeFirst()
+                case "c", "C":
+                    guard let color = formatObjects.first as? UIColor else {
+                        continue
+                    }
+                    pushColor(color)
+                    formatObjects.removeFirst()
+                case "i", "I":
+                    guard let image = formatObjects.first as? UIImage else {
+                        continue
+                    }
+                    pushImage(image)
+                    formatObjects.removeFirst()
+                default:
+                    pushCharacter(char)
+                }
+                continue
+            }
+            if char == "#" {
+                isCandidate = true
+            } else {
+                pushCharacter(char)
+            }
+        }
+    }
+    
+    @discardableResult
+    public func pushCharacter(_ character: Character, seperator: String? = nil) -> StyledString {
+        let attString = NSMutableAttributedString(string: String(character), attributes: editingAttributes)
+        if count > 0, let seperator = seperator {
+            let attSeperator = NSMutableAttributedString(string: seperator, attributes: editingAttributes)
+            editingString.append(attSeperator)
+        }
+        editingString.append(attString)
+        return self
+    }
+    
     @discardableResult
     public func pushString(_ string:String, seperator: String? = nil) -> StyledString {
         let attString = NSMutableAttributedString(string: string, attributes: editingAttributes)

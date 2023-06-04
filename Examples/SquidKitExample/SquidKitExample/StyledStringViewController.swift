@@ -19,7 +19,13 @@ class StyledStringViewController: UIViewController {
         var text: NSAttributedString {
             switch self {
             case .misc:
-                let styled = StyledString().pushFont(UIFont.systemFont(ofSize: 16))
+                let formatted = StyledString(format: "#FThis is %i Styled ## #F#CString with format initializer and a trash can (#I). #fNeat.\n\n", arguments: 1, styleArguments: UIFont.systemFont(ofSize: 12),
+                                             UIFont.systemFont(ofSize: 20),
+                                             UIColor.brown,
+                                             UIImage(systemName: "trash.circle"),
+                                             UIFont.systemFont(ofSize: 13, weight: .thin))
+                
+                let styled = StyledString(copyFrom: formatted).pushFont(UIFont.systemFont(ofSize: 16))
                     .pushColor(.black)
                     .pushString("Hello\n\n")
                     .pushParagraphIndent(firstLineHeadIndent: 20, headIndent: 10)
