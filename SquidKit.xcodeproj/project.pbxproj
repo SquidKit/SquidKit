@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		1C15BB521CB19B1400B894F0 /* UIApplication+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C15BB511CB19B1400B894F0 /* UIApplication+Utility.swift */; };
 		1C1EFA602130777000C41B81 /* UIApplication+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1EFA5F2130777000C41B81 /* UIApplication+Update.swift */; };
 		1C2B1CBD1D0222D70044B56D /* Dispatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2B1CBC1D0222D70044B56D /* Dispatch.swift */; };
+		1C3025E62BB24EA8009D85D9 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1C3025E52BB24EA8009D85D9 /* PrivacyInfo.xcprivacy */; };
 		1C35E72C2A1D33E0007E0E6C /* ListString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C35E72B2A1D33E0007E0E6C /* ListString.swift */; };
 		1C3C66AE19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
 		1C3C66AF19B0FA7D00F221A1 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */; };
@@ -79,6 +80,7 @@
 		1C15BB511CB19B1400B894F0 /* UIApplication+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Utility.swift"; sourceTree = "<group>"; };
 		1C1EFA5F2130777000C41B81 /* UIApplication+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Update.swift"; sourceTree = "<group>"; };
 		1C2B1CBC1D0222D70044B56D /* Dispatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dispatch.swift; sourceTree = "<group>"; };
+		1C3025E52BB24EA8009D85D9 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		1C35E72B2A1D33E0007E0E6C /* ListString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListString.swift; sourceTree = "<group>"; };
 		1C3C66AD19B0FA7D00F221A1 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		1C4C27891FDCAD1B00ADF450 /* URLImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				1C8220D719A4F7E700A17B56 /* Info.plist */,
+				1C3025E52BB24EA8009D85D9 /* PrivacyInfo.xcprivacy */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C3025E62BB24EA8009D85D9 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
