@@ -241,6 +241,27 @@ public class StyledString {
     }
     
     @discardableResult
+    public func pushLineHeight(_ height: CGFloat) -> StyledString {
+        let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        
+        paragraphStyle.minimumLineHeight = height
+        paragraphStyle.maximumLineHeight = height
+        
+        pushAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key: paragraphStyle])
+        return self
+    }
+    
+    @discardableResult
+    public func pushLineSpacing(_ spacing: CGFloat) -> StyledString {
+        let paragraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        
+        paragraphStyle.lineSpacing = spacing
+        
+        pushAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key: paragraphStyle])
+        return self
+    }
+    
+    @discardableResult
     public func popParagraphStyle() -> StyledString {
         popAttributes([kCTParagraphStyleAttributeName as NSAttributedString.Key])
         return self
