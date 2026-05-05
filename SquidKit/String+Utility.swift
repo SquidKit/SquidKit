@@ -73,9 +73,17 @@ public extension String {
     }
 
     func validEmail() -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return predicate.evaluate(with: self)
+        let trimmed = self.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard trimmed.count <= 254 else { return false }
+        guard !trimmed.contains("..") else { return false }
+
+        let pattern = #"^[A-Z0-9._%+\-']+@[A-Z0-9.\-]+\.[A-Z]{2,}$"#
+
+        return trimmed.range(
+            of: pattern,
+            options: [.regularExpression, .caseInsensitive]
+        ) != nil
     }
     
     
